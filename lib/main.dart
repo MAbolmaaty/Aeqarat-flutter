@@ -1,5 +1,5 @@
 import 'package:aeqarat/route/route.dart';
-import 'package:aeqarat/scenes/splash/splash.dart';
+import 'package:aeqarat/screens/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {

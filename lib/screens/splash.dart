@@ -1,6 +1,6 @@
 
 import 'dart:async';
-import 'package:aeqarat/scenes/welcomePage/welcomePage.dart';
+import 'package:aeqarat/screens/welcomePage.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
