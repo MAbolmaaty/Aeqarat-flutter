@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class MainScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _MainScreen createState() => _MainScreen();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _MainScreen extends State<MainScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   GoogleMapController mapController;
   final LatLng _center = const LatLng(24.5538107, 46.0265294);
   String _mapStyle;
@@ -45,21 +46,22 @@ class _MainScreen extends State<MainScreen> {
           Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: EdgeInsets.only(bottom: 40.0, right: 16.0, left: 16.0),
+                  margin:
+                      EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
                   child: Row(
-                children: <Widget>[
-                  _markersSelect(),
-                  _markersSelect(),
-                  _markersSelect(),
-                ],
-              ))),
+                    children: <Widget>[
+                      _markersSelect(text: AppLocalizations.of(context).forRent),
+                      _markersSelect(text: 'Sell'),
+                      _markersSelect(text: 'Auction'),
+                    ],
+                  ))),
         ],
       ),
     );
   }
 
-  Widget _markersSelect() {
-    return Flexible(
+  Widget _markersSelect({String text}) {
+    return Expanded(
         flex: 1,
         child: Container(
           height: 35,
@@ -74,6 +76,19 @@ class _MainScreen extends State<MainScreen> {
                     spreadRadius: 1),
               ],
               color: Colors.grey.withOpacity(0.5)),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                    padding: EdgeInsets.only(right: 12.0, left: 12.0),
+                    child: Text(
+                      text,
+                      style: TextStyle(color: Colors.white),
+                    )),
+              )
+            ],
+          ),
         ));
   }
 }
