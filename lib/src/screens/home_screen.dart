@@ -51,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: <Widget>[
                       _markersSelect(text: AppLocalizations.of(context).forRent),
-                      _markersSelect(text: 'Sell'),
-                      _markersSelect(text: 'Auction'),
+                      _markersSelect(text: AppLocalizations.of(context).forSale),
+                      _markersSelect(text: AppLocalizations.of(context).auctions),
                     ],
                   ))),
         ],

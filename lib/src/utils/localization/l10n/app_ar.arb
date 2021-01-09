@@ -228,5 +228,13 @@
   "forRent": "للإيجار",
   "@forRent": {
     "description": ""
+  },
+  "forSale": "للبيع",
+  "@forSale": {
+    "description": ""
+  },
+  "auctions": "مزادات",
+  "@auctions": {
+    "description": ""
   }
 }

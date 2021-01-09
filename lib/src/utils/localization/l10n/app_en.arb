@@ -228,5 +228,13 @@
   "forRent": "For Rent",
   "@forRent": {
     "description": ""
+  },
+  "forSale": "For Sale",
+  "@forSale": {
+    "description": ""
+  },
+  "auctions": "Auctions",
+  "@auctions": {
+    "description": ""
   }
 }
