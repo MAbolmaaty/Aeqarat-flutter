@@ -41,7 +41,7 @@ class ScreenAppBar extends StatelessWidget {
         child: Text(
           _screenTitle,
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16, fontFamily: 'Cairo'),
+              color: Colors.black, fontSize: 18,),
         ),
       ),
       Align(alignment: locale.locale == Locale('en') ? Alignment.centerRight : Alignment.centerLeft, child: _thirdAction,)

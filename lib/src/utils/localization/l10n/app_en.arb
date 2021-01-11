@@ -236,5 +236,21 @@
   "auctions": "Auctions",
   "@auctions": {
     "description": ""
+  },
+  "documents": "Documents",
+  "@documents": {
+    "description": ""
+  },
+  "payment": "Payment",
+  "@payment": {
+    "description": ""
+  },
+  "advanced": "Advanced",
+  "@advanced": {
+    "description": ""
+  },
+  "loadingRealEstates": "loading real estates",
+  "@loadingRealEstates": {
+    "description": ""
   }
 }

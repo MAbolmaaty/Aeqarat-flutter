@@ -28,13 +28,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   indicatorColor: const Color(0xFFFFDB27),
                   tabs: [
                     Tab(
-                      text: 'Documents',
+                      text: AppLocalizations.of(context).documents,
                     ),
                     Tab(
-                      text: 'Payment',
+                      text: AppLocalizations.of(context).payment,
                     ),
                     Tab(
-                      text: 'Advanced',
+                      text: AppLocalizations.of(context).advanced,
                     ),
                   ],
                 ),

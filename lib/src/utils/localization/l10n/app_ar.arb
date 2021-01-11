@@ -236,5 +236,21 @@
   "auctions": "مزادات",
   "@auctions": {
     "description": ""
+  },
+  "documents": "الوثائق",
+  "@documents": {
+    "description": ""
+  },
+  "payment": "الدفع",
+  "@payment": {
+    "description": ""
+  },
+  "advanced": "متقدم",
+  "@advanced": {
+    "description": ""
+  },
+  "loadingRealEstates": "تحميل العقارات",
+  "@loadingRealEstates": {
+    "description": ""
   }
 }
