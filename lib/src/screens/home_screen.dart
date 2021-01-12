@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:aeqarat/src/models/real_estates_response_model.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/real_estates_api.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'dart:ui' as ui;
 
 enum MarkersVisibility {
   Visible,
@@ -58,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             zoomControlsEnabled: false,
             markers: _markersOnMap,
+            myLocationButtonEnabled: false,
+            myLocationEnabled: false,
           ),
           ///////////////////////////////// Loading
           Align(
@@ -359,13 +364,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
     mapController.setMapStyle(_mapStyle);
-    BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-            'assets/icons/marker.png')
-        .then((icon) async {
-      customMarker = icon;
+    final Uint8List markerIcon =  await getBytesFromAsset('assets/icons/marker.png', 100);
       setState(() {
         _loadingRealEstates = true;
       });
@@ -377,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
             markerId: MarkerId(realEstate.title),
             position: LatLng(double.parse(realEstate.latitude),
                 double.parse(realEstate.longitude)),
-            icon: customMarker,
+            icon: BitmapDescriptor.fromBytes(markerIcon),
           );
           _allMarkers[realEstate.sId] = marker;
           switch (realEstate.status) {
@@ -395,7 +397,47 @@ class _HomeScreenState extends State<HomeScreen> {
         _markersOnMap = _allMarkers.values.toSet();
         _loadingRealEstates = false;
       });
-    });
+    // BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(5,5)),
+    //         'assets/icons/marker.png')
+    //     .then((icon) async {
+    //   customMarker = icon;
+    //   setState(() {
+    //     _loadingRealEstates = true;
+    //   });
+    //   List<RealEstatesResponseModel> realEstates = await getRealEstates();
+    //   setState(() {
+    //     _allMarkers.clear();
+    //     for (final realEstate in realEstates) {
+    //       final marker = Marker(
+    //         markerId: MarkerId(realEstate.title),
+    //         position: LatLng(double.parse(realEstate.latitude),
+    //             double.parse(realEstate.longitude)),
+    //         icon: customMarker,
+    //       );
+    //       _allMarkers[realEstate.sId] = marker;
+    //       switch (realEstate.status) {
+    //         case 'rent':
+    //           _rentMarkers[realEstate.sId] = marker;
+    //           break;
+    //         case 'sale':
+    //           _saleMarkers[realEstate.sId] = marker;
+    //           break;
+    //         case 'auction':
+    //           _auctionMarkers[realEstate.sId] = marker;
+    //           break;
+    //       }
+    //     }
+    //     _markersOnMap = _allMarkers.values.toSet();
+    //     _loadingRealEstates = false;
+    //   });
+    // });
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
   }
 
   Future<List<RealEstatesResponseModel>> getRealEstates() async {
