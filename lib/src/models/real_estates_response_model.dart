@@ -9,18 +9,20 @@ class RealEstatesResponseModel {
   String updatedAt;
   int iV;
   String id;
+  String status;
 
   RealEstatesResponseModel(
       {this.sId,
-        this.title,
-        this.description,
-        this.latitude,
-        this.longitude,
-        this.publishedAt,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.id});
+      this.title,
+      this.description,
+      this.latitude,
+      this.longitude,
+      this.publishedAt,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.id,
+      this.status});
 
   RealEstatesResponseModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -33,6 +35,7 @@ class RealEstatesResponseModel {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     id = json['id'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class RealEstatesResponseModel {
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
     data['id'] = this.id;
+    data['status'] = this.status;
     return data;
   }
 }

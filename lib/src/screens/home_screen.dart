@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:aeqarat/src/models/real_estates_response_model.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/real_estates_api.dart';
@@ -30,7 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
   MarkersVisibility saleVisibility = MarkersVisibility.Visible;
   MarkersVisibility auctionsVisibility = MarkersVisibility.Visible;
 
-  final Map<String, Marker> _markers = {};
+  final Map<String, Marker> _allMarkers = {};
+  final Map<String, Marker> _rentMarkers = {};
+  final Map<String, Marker> _saleMarkers = {};
+  final Map<String, Marker> _auctionMarkers = {};
+
+  Set<Marker> _markersOnMap = {};
 
   @override
   void initState() {
@@ -54,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
               zoom: 3.0,
             ),
             zoomControlsEnabled: false,
-            markers: _markers.values.toSet(),
+            markers: _markersOnMap,
           ),
           ///////////////////////////////// Loading
           Align(
@@ -79,8 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 4.0,
                         ),
                         Text(
-                          AppLocalizations.of(context)
-                              .loadingRealEstates,
+                          AppLocalizations.of(context).loadingRealEstates,
                           style: TextStyle(fontSize: 12),
                         ),
                       ],
@@ -100,10 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 setState(() {
                                   rentVisibility == MarkersVisibility.Visible
-                                      ? rentVisibility =
-                                          MarkersVisibility.Invisible
-                                      : rentVisibility =
-                                          MarkersVisibility.Visible;
+                                      ? _rentMarkersVisibility(false)
+                                      : _rentMarkersVisibility(true);
                                 });
                               },
                               child: Container(
@@ -187,10 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 setState(() {
                                   saleVisibility == MarkersVisibility.Visible
-                                      ? saleVisibility =
-                                          MarkersVisibility.Invisible
-                                      : saleVisibility =
-                                          MarkersVisibility.Visible;
+                                      ? _saleMarkersVisibility(false)
+                                      : _saleMarkersVisibility(true);
                                 });
                               },
                               child: Container(
@@ -274,12 +272,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  auctionsVisibility ==
-                                          MarkersVisibility.Visible
-                                      ? auctionsVisibility =
-                                          MarkersVisibility.Invisible
-                                      : auctionsVisibility =
-                                          MarkersVisibility.Visible;
+                                  auctionsVisibility == MarkersVisibility.Visible
+                                      ? _auctionMarkersVisibility(false)
+                                      : _auctionMarkersVisibility(true);
                                 });
                               },
                               child: Container(
@@ -376,15 +371,28 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       List<RealEstatesResponseModel> realEstates = await getRealEstates();
       setState(() {
-        _markers.clear();
-        for(final realEstate in realEstates){
+        _allMarkers.clear();
+        for (final realEstate in realEstates) {
           final marker = Marker(
             markerId: MarkerId(realEstate.title),
-            position: LatLng(double.parse(realEstate.latitude), double.parse(realEstate.longitude)),
+            position: LatLng(double.parse(realEstate.latitude),
+                double.parse(realEstate.longitude)),
             icon: customMarker,
           );
-          _markers[realEstate.sId] = marker;
+          _allMarkers[realEstate.sId] = marker;
+          switch (realEstate.status) {
+            case 'rent':
+              _rentMarkers[realEstate.sId] = marker;
+              break;
+            case 'sale':
+              _saleMarkers[realEstate.sId] = marker;
+              break;
+            case 'auction':
+              _auctionMarkers[realEstate.sId] = marker;
+              break;
+          }
         }
+        _markersOnMap = _allMarkers.values.toSet();
         _loadingRealEstates = false;
       });
     });
@@ -394,5 +402,35 @@ class _HomeScreenState extends State<HomeScreen> {
     List<RealEstatesResponseModel> realEstates;
     realEstates = await RealEstatesApi().getRealEstates();
     return realEstates;
+  }
+
+  void _rentMarkersVisibility(bool visible) {
+    if(visible) {
+      _markersOnMap = _markersOnMap.union(_rentMarkers.values.toSet());
+      rentVisibility = MarkersVisibility.Visible;
+    } else{
+      _markersOnMap = _markersOnMap.difference(_rentMarkers.values.toSet());
+      rentVisibility = MarkersVisibility.Invisible;
+    }
+  }
+
+  void _saleMarkersVisibility(bool visible) {
+    if(visible) {
+      _markersOnMap = _markersOnMap.union(_saleMarkers.values.toSet());
+      saleVisibility = MarkersVisibility.Visible;
+    } else{
+      _markersOnMap = _markersOnMap.difference(_saleMarkers.values.toSet());
+      saleVisibility = MarkersVisibility.Invisible;
+    }
+  }
+
+  void _auctionMarkersVisibility(bool visible) {
+    if(visible) {
+      _markersOnMap = _markersOnMap.union(_auctionMarkers.values.toSet());
+      auctionsVisibility = MarkersVisibility.Visible;
+    } else{
+      _markersOnMap = _markersOnMap.difference(_auctionMarkers.values.toSet());
+      auctionsVisibility = MarkersVisibility.Invisible;
+    }
   }
 }
