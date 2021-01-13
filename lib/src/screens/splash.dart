@@ -1,11 +1,9 @@
 
 import 'dart:async';
-import 'package:aeqarat/screens/welcomePage.dart';
+import 'package:aeqarat/src/screens/welcomePage.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
-  // ignore: non_constant_identifier_names
-  static final ROUTE = "Splash";
 
   @override
   State<StatefulWidget> createState() {
@@ -36,7 +34,6 @@ class SplashState extends State<Splash> {
   }
 
   void nextScreen() {
-    print("hhhhh");
-    Navigator.of(context).pushReplacementNamed(WelcomePage.ROUTE);
+    Navigator.of(context).pushReplacement(WelcomePage.route(),);
   }
 }

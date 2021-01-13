@@ -1,5 +1,5 @@
-import 'package:aeqarat/route/route.dart';
-import 'package:aeqarat/screens/splash.dart';
+
+import 'package:aeqarat/src/screens/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,8 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Splash.ROUTE,
-      routes: routes,
+      theme: ThemeData(
+        primaryColor: const Color(0xFFF9FBFC),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Cairo',
+      ),
+      home: Splash(),
     );
   }
 }
