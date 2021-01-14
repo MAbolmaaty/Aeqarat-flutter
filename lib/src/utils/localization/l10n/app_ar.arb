@@ -252,5 +252,9 @@
   "loadingRealEstates": "تحميل العقارات",
   "@loadingRealEstates": {
     "description": ""
+  },
+  "searchBarHint": "مثال .. مدينة الرياض",
+  "@searchBarHint": {
+    "description": ""
   }
 }

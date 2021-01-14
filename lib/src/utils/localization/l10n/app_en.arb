@@ -252,5 +252,9 @@
   "loadingRealEstates": "loading real estates",
   "@loadingRealEstates": {
     "description": ""
+  },
+  "searchBarHint": "Ex .. Riyadh",
+  "@searchBarHint": {
+    "description": ""
   }
 }

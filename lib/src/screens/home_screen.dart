@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:aeqarat/src/models/real_estates_response_model.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'dart:ui' as ui;
 
 enum MarkersVisibility {
   Visible,
@@ -64,35 +64,85 @@ class _HomeScreenState extends State<HomeScreen> {
             myLocationButtonEnabled: false,
             myLocationEnabled: false,
           ),
+          ///////////////////////////////// Search Delegate
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: const Color(0x709e9e9e),
+                      offset: Offset(1, 2),
+                      blurRadius: 5,
+                      spreadRadius: 1),
+                  BoxShadow(
+                      color: const Color(0x709e9e9e),
+                      offset: Offset(1, 2),
+                      blurRadius: 5,
+                      spreadRadius: 1),
+                  BoxShadow(
+                      color: const Color(0x709e9e9e),
+                      offset: Offset(1, 2),
+                      blurRadius: 5,
+                      spreadRadius: 1),
+                ],
+              ),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    Icons.search,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.only(right: 4.0, left: 4.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 5),
+                            isDense: true,
+                            hintText: AppLocalizations.of(context).searchBarHint,
+                            hintStyle: TextStyle(fontSize: 13, color:  Colors.grey.withOpacity(0.6)),
+                            border: InputBorder.none,
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ),
           ///////////////////////////////// Loading
           Align(
-            alignment: locale.locale == Locale('en')
-                ? Alignment.topLeft
-                : Alignment.topRight,
-            child: Padding(
-                padding: EdgeInsets.only(top: 60, right: 8.0, left: 8.0),
-                child: Visibility(
-                    visible: _loadingRealEstates,
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(
-                          child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                              valueColor: new AlwaysStoppedAnimation<Color>(
-                                  Colors.black)),
-                          height: 11,
-                          width: 11,
-                        ),
-                        SizedBox(
-                          width: 4.0,
-                        ),
-                        Text(
-                          AppLocalizations.of(context).loadingRealEstates,
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ))),
-          ),
+              alignment: Alignment.bottomCenter,
+              child: Visibility(
+                  visible: _loadingRealEstates,
+                  child: Container(
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Colors.black)),
+                            height: 11,
+                            width: 11,
+                          ),
+                          SizedBox(
+                            width: 4.0,
+                          ),
+                          Text(
+                            AppLocalizations.of(context).loadingRealEstates,
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      )))),
           Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -277,7 +327,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  auctionsVisibility == MarkersVisibility.Visible
+                                  auctionsVisibility ==
+                                          MarkersVisibility.Visible
                                       ? _auctionMarkersVisibility(false)
                                       : _auctionMarkersVisibility(true);
                                 });
@@ -367,36 +418,37 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
     mapController.setMapStyle(_mapStyle);
-    final Uint8List markerIcon =  await getBytesFromAsset('assets/icons/marker.png', 100);
-      setState(() {
-        _loadingRealEstates = true;
-      });
-      List<RealEstatesResponseModel> realEstates = await getRealEstates();
-      setState(() {
-        _allMarkers.clear();
-        for (final realEstate in realEstates) {
-          final marker = Marker(
-            markerId: MarkerId(realEstate.title),
-            position: LatLng(double.parse(realEstate.latitude),
-                double.parse(realEstate.longitude)),
-            icon: BitmapDescriptor.fromBytes(markerIcon),
-          );
-          _allMarkers[realEstate.sId] = marker;
-          switch (realEstate.status) {
-            case 'rent':
-              _rentMarkers[realEstate.sId] = marker;
-              break;
-            case 'sale':
-              _saleMarkers[realEstate.sId] = marker;
-              break;
-            case 'auction':
-              _auctionMarkers[realEstate.sId] = marker;
-              break;
-          }
+    final Uint8List markerIcon =
+        await getBytesFromAsset('assets/icons/marker.png', 100);
+    setState(() {
+      _loadingRealEstates = true;
+    });
+    List<RealEstatesResponseModel> realEstates = await getRealEstates();
+    setState(() {
+      _allMarkers.clear();
+      for (final realEstate in realEstates) {
+        final marker = Marker(
+          markerId: MarkerId(realEstate.title),
+          position: LatLng(double.parse(realEstate.latitude),
+              double.parse(realEstate.longitude)),
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+        );
+        _allMarkers[realEstate.sId] = marker;
+        switch (realEstate.status) {
+          case 'rent':
+            _rentMarkers[realEstate.sId] = marker;
+            break;
+          case 'sale':
+            _saleMarkers[realEstate.sId] = marker;
+            break;
+          case 'auction':
+            _auctionMarkers[realEstate.sId] = marker;
+            break;
         }
-        _markersOnMap = _allMarkers.values.toSet();
-        _loadingRealEstates = false;
-      });
+      }
+      _markersOnMap = _allMarkers.values.toSet();
+      _loadingRealEstates = false;
+    });
     // BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(5,5)),
     //         'assets/icons/marker.png')
     //     .then((icon) async {
@@ -435,9 +487,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
   }
 
   Future<List<RealEstatesResponseModel>> getRealEstates() async {
@@ -447,30 +502,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _rentMarkersVisibility(bool visible) {
-    if(visible) {
+    if (visible) {
       _markersOnMap = _markersOnMap.union(_rentMarkers.values.toSet());
       rentVisibility = MarkersVisibility.Visible;
-    } else{
+    } else {
       _markersOnMap = _markersOnMap.difference(_rentMarkers.values.toSet());
       rentVisibility = MarkersVisibility.Invisible;
     }
   }
 
   void _saleMarkersVisibility(bool visible) {
-    if(visible) {
+    if (visible) {
       _markersOnMap = _markersOnMap.union(_saleMarkers.values.toSet());
       saleVisibility = MarkersVisibility.Visible;
-    } else{
+    } else {
       _markersOnMap = _markersOnMap.difference(_saleMarkers.values.toSet());
       saleVisibility = MarkersVisibility.Invisible;
     }
   }
 
   void _auctionMarkersVisibility(bool visible) {
-    if(visible) {
+    if (visible) {
       _markersOnMap = _markersOnMap.union(_auctionMarkers.values.toSet());
       auctionsVisibility = MarkersVisibility.Visible;
-    } else{
+    } else {
       _markersOnMap = _markersOnMap.difference(_auctionMarkers.values.toSet());
       auctionsVisibility = MarkersVisibility.Invisible;
     }
