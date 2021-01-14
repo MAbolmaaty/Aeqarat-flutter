@@ -3,6 +3,8 @@ import 'package:aeqarat/src/models/welcomModel.dart';
 import 'package:aeqarat/src/utils/constant.dart';
 import 'package:flutter/material.dart';
 
+import 'bottom_nav_screen.dart';
+
 List<WelcomeModel> sliderData = [
   WelcomeModel("assets/images/1.png", "Track your properties in one place" , "Keep track of all your properties owned by you and enjoy maintenance and leasing services in one place only"),
   WelcomeModel("assets/images/2.png", "Enjoy our various services", "Enjoy all the services provided by the application on your owned properties, such as maintenance and leasing"),
@@ -61,7 +63,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       //Create Skip  Text Button
                       actions: [
                         RaisedButton(onPressed: (){
-                          // Navigator.of(context).pushReplacementNamed(Tabs.ROUTE);
+                          Navigator.of(context).pushReplacement(BottomNavScreen.route());
                         },color: Colors.transparent,elevation: 0,child: isEnd ? Text("Go Home" , style: TextStyle(color: Colors.grey , fontSize: 18),):Text("Skip" , style: TextStyle(color: Colors.grey , fontSize: 18),))
                       ],
                     ),
