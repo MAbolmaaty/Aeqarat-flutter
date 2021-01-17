@@ -115,6 +115,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         )),
                   ),
+                  Container(
+                    width: 25,
+                    height: 25,
+                    margin: EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFFDB27), shape: BoxShape.circle),
+                    child: Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Image.asset('assets/images/filter.png'),
+                    ),
+                  ),
                 ],
               ),
             ),
