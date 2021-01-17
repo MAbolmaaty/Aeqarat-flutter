@@ -1,6 +1,5 @@
 {
   "@@locale": "ar",
-
   "main": "الرئيسية",
   "@main": {
     "description": ""
@@ -255,6 +254,10 @@
   },
   "searchBarHint": "مثال .. مدينة الرياض",
   "@searchBarHint": {
+    "description": ""
+  },
+  "firstStyleTitle": "السلام عليكم",
+  "@firstStyleTitle": {
     "description": ""
   }
 }

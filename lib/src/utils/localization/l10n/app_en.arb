@@ -1,6 +1,5 @@
 {
   "@@locale": "en",
-
   "main": "Main",
   "@main": {
     "description": ""
@@ -255,6 +254,10 @@
   },
   "searchBarHint": "Ex .. Riyadh",
   "@searchBarHint": {
+    "description": ""
+  },
+  "firstStyleTitle": "Track your properties in one place",
+  "@firstStyleTitle": {
     "description": ""
   }
 }

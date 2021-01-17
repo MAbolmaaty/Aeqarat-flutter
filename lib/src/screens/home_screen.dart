@@ -101,13 +101,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.only(right: 4.0, left: 4.0),
+                        margin: EdgeInsets.only(right: 4.0, left: 4.0),
                         child: TextField(
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                             isDense: true,
-                            hintText: AppLocalizations.of(context).searchBarHint,
-                            hintStyle: TextStyle(fontSize: 13, color:  Colors.grey.withOpacity(0.6)),
+                            hintText:
+                                AppLocalizations.of(context).searchBarHint,
+                            hintStyle: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey.withOpacity(0.6)),
                             border: InputBorder.none,
                           ),
                         )),
@@ -419,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
     mapController = controller;
     mapController.setMapStyle(_mapStyle);
     final Uint8List markerIcon =
-        await getBytesFromAsset('assets/icons/marker.png', 100);
+        await getBytesFromAsset('assets/images/marker.png', 100);
     setState(() {
       _loadingRealEstates = true;
     });
@@ -449,40 +452,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _markersOnMap = _allMarkers.values.toSet();
       _loadingRealEstates = false;
     });
-    // BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(5,5)),
-    //         'assets/icons/marker.png')
-    //     .then((icon) async {
-    //   customMarker = icon;
-    //   setState(() {
-    //     _loadingRealEstates = true;
-    //   });
-    //   List<RealEstatesResponseModel> realEstates = await getRealEstates();
-    //   setState(() {
-    //     _allMarkers.clear();
-    //     for (final realEstate in realEstates) {
-    //       final marker = Marker(
-    //         markerId: MarkerId(realEstate.title),
-    //         position: LatLng(double.parse(realEstate.latitude),
-    //             double.parse(realEstate.longitude)),
-    //         icon: customMarker,
-    //       );
-    //       _allMarkers[realEstate.sId] = marker;
-    //       switch (realEstate.status) {
-    //         case 'rent':
-    //           _rentMarkers[realEstate.sId] = marker;
-    //           break;
-    //         case 'sale':
-    //           _saleMarkers[realEstate.sId] = marker;
-    //           break;
-    //         case 'auction':
-    //           _auctionMarkers[realEstate.sId] = marker;
-    //           break;
-    //       }
-    //     }
-    //     _markersOnMap = _allMarkers.values.toSet();
-    //     _loadingRealEstates = false;
-    //   });
-    // });
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {

@@ -7,6 +7,9 @@ import 'package:aeqarat/src/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavScreen extends StatefulWidget{
+  static Route<dynamic> route() => MaterialPageRoute(
+    builder: (context) => BottomNavScreen(),
+  );
   @override
   _BottomNavScreenState createState() => _BottomNavScreenState();
 }
