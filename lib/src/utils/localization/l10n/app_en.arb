@@ -256,8 +256,8 @@
   "@searchBarHint": {
     "description": ""
   },
-  "firstStyleTitle": "Track your properties in one place",
-  "@firstStyleTitle": {
+  "advancedSearch": "Advanced Search",
+  "@advancedSearch": {
     "description": ""
   }
 }

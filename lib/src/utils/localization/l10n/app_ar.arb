@@ -256,8 +256,8 @@
   "@searchBarHint": {
     "description": ""
   },
-  "firstStyleTitle": "السلام عليكم",
-  "@firstStyleTitle": {
+  "advancedSearch": "بحث متقدم",
+  "@advancedSearch": {
     "description": ""
   }
 }

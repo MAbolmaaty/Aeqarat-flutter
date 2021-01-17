@@ -115,17 +115,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         )),
                   ),
-                  Container(
-                    width: 25,
-                    height: 25,
-                    margin: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFFFDB27), shape: BoxShape.circle),
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Image.asset('assets/images/filter.png'),
-                    ),
-                  ),
+                  GestureDetector(
+                      onTap: () {
+                        _showSearchFilter(context);
+                      },
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        margin: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFFFDB27),
+                            shape: BoxShape.circle),
+                        child: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Image.asset('assets/images/filter.png'),
+                        ),
+                      )),
                 ],
               ),
             ),
@@ -509,5 +514,102 @@ class _HomeScreenState extends State<HomeScreen> {
       _markersOnMap = _markersOnMap.difference(_auctionMarkers.values.toSet());
       auctionsVisibility = MarkersVisibility.Invisible;
     }
+  }
+
+  void _showSearchFilter(context) {
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext buildContext) {
+          return Container(
+            padding: EdgeInsets.only(top: 50.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                color: const Color(0xffF9FBFC)),
+            child: Column(
+              children: <Widget>[
+                Stack(
+                  children: <Widget>[
+                    Align(
+                        alignment: Alignment.center,
+                        child:
+                            Text(AppLocalizations.of(context).advancedSearch)),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                            margin: EdgeInsets.only(left: 20, right: 20),
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffF60B0B),
+                                shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 15.0,
+                            ))),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                const Divider(
+                  color: const Color(0x309e9e9e),
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  height: 55,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffE3E3E6))),
+                ),
+                Container(
+                  height: 55,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffE3E3E6))),
+                ),
+                Container(
+                  height: 55,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffE3E3E6))),
+                ),
+                Container(
+                  height: 55,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffE3E3E6))),
+                ),
+                Container(
+                  height: 55,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white,
+                      border: Border.all(color: const Color(0xffE3E3E6))),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
