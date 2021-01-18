@@ -252,9 +252,50 @@
   "loadingRealEstates": "تحميل العقارات",
   "@loadingRealEstates": {
     "description": ""
-  }
-   "firstStyleTitle": "السلام عليكم",
-      "@firstStyleTitle": {
+  },
+      "skip": "تخطي",
+       "@skip": {
+         "description": ""
+       },
+   "next": "متابعه",
+    "@next": {
+      "description": ""
+    },
+     "login": "تسجيل الدخول",
+      "@login": {
         "description": ""
-      }
+       },
+            "welcomeBack": "مرحبا بعودتك",
+               "@welcomeBack": {
+                 "description": ""
+               },
+                             "email": "البريد الالكتروني",
+                              "@email": {
+                                "description": ""
+                             },
+                                                         "password": "كلمه المرور",
+                                                          "@password": {
+                                                            "description": ""
+                                                         },
+                                                                                                                 "rememberMe": "تذكرني لاحقا",
+                                                                                                                  "@rememberMe": {
+                                                                                                                    "description": ""
+                                                                                                                 },
+                                                                                                                                                                                "forgetPassword": "نسيت كلمه المرور ؟",
+                                                                                                                                                                                 "@forgetPassword": {
+                                                                                                                                                                                   "description": ""
+                                                                                                                                                                                },
+                                                                                                                                                                                                                                                                                                              "or": "آو",
+                                                                                                                                                                                                                                                                                                               "@or": {
+                                                                                                                                                                                                                                                                                                                 "description": ""
+                                                                                                                                                                                                                                                                                                              },
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           "noAccount": " ليس لديك حساب ...",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "@noAccount": {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "description": ""
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           },
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "createAccount": "انشاء حساب",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           "@createAccount": {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "description": ""
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
+
 }

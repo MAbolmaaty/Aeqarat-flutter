@@ -252,9 +252,51 @@
   "loadingRealEstates": "loading real estates",
   "@loadingRealEstates": {
     "description": ""
-  }
-   "firstStyleTitle": "Track your properties in one place",
-    "@firstStyleTitle": {
+  },
+   "skip": "Skip",
+    "@skip": {
       "description": ""
-    }
+    },
+   "next": "Next",
+    "@next": {
+      "description": ""
+    },
+     "login": "Login",
+      "@login": {
+        "description": ""
+     },
+      "welcomeBack": "Welcome Back",
+       "@welcomeBack": {
+         "description": ""
+      },
+             "email": "Email",
+              "@email": {
+                "description": ""
+             },
+                           "password": "Password",
+                            "@password": {
+                              "description": ""
+                           },
+                                                       "rememberMe": "Remember Me",
+                                                        "@rememberMe": {
+                                                          "description": ""
+                                                       },
+                                                              "forgetPassword": "Forget Password ?",
+                                                               "@forgetPassword": {
+                                                                 "description": ""
+                                                              },
+                                                                                                                             "or": "OR",
+                                                                                                                              "@or": {
+                                                                                                                                "description": ""
+                                                                                                                             },
+                                                                                                                                                                                            "noAccount": " Don't Have Account ...",
+                                                                                                                                                                                             "@noAccount": {
+                                                                                                                                                                                               "description": ""
+                                                                                                                                                                                            },
+                                                                                                                                                                                                                                                           "createAccount": "Create Account",
+                                                                                                                                                                                                                                                            "@createAccount": {
+                                                                                                                                                                                                                                                              "description": ""
+                                                                                                                                                                                                                                                           }
+
+
 }

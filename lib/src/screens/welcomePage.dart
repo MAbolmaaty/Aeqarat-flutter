@@ -2,8 +2,9 @@
 import 'package:aeqarat/src/models/welcomModel.dart';
 import 'package:aeqarat/src/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'bottom_nav_screen.dart';
+import 'loginScreen.dart';
 
 List<WelcomeModel> sliderData = [
   WelcomeModel("assets/images/1.png", "Track your properties in one place" , "Keep track of all your properties owned by you and enjoy maintenance and leasing services in one place only"),
@@ -63,8 +64,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       //Create Skip  Text Button
                       actions: [
                         RaisedButton(onPressed: (){
-                          Navigator.of(context).pushReplacement(BottomNavScreen.route());
-                        },color: Colors.transparent,elevation: 0,child: isEnd ? Text("Go Home" , style: TextStyle(color: Colors.grey , fontSize: 18),):Text("Skip" , style: TextStyle(color: Colors.grey , fontSize: 18),))
+                          Navigator.of(context).pushReplacement(LoginScreen.route());
+                        },color: Colors.transparent,elevation: 0,child: Text(AppLocalizations.of(context).skip , style: TextStyle(color: Colors.grey , fontSize: 18),))
                       ],
                     ),
                     body: Column(
@@ -82,10 +83,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: _PageController(sliderData.length),
-                              ),
+
                               Row(
                                 children: [
                                   RaisedButton(onPressed: (){
@@ -97,10 +95,13 @@ class _WelcomePageState extends State<WelcomePage> {
                                         curve: Curves.easeIn,
                                       );
                                     }
-                                  } ,color: Colors.transparent,elevation: 0, child: Text("Next" , style: TextStyle(color: Colors.grey , fontSize: 18),),),
+                                  } ,color: Colors.transparent,elevation: 0, child: Text(AppLocalizations.of(context).next , style: TextStyle(color: Colors.grey , fontSize: 18),),),
                                 ],
-                              )
-
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: _PageController(sliderData.length),
+                              ),
                             ],
                           ),
                         ),
@@ -119,7 +120,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _slider(){
     return Container(
       width: 850,
-      height: 350,
+      height: MediaQuery.of(context).size.height * 0.43 ,
       decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,

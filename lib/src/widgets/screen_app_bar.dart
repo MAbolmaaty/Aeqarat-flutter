@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'file:///C:/MU/barq/lib/src/utils/localization/app_locale.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/localization/app_locale.dart';
