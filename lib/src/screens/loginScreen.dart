@@ -63,7 +63,7 @@ void _onRememberMeChanged(bool newValue) => setState(() {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.99,
-              height: MediaQuery.of(context).size.height * 0.40,
+              height: MediaQuery.of(context).size.height * 0.35,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -141,7 +141,7 @@ void _onRememberMeChanged(bool newValue) => setState(() {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right:20.0),
+              padding: const EdgeInsets.only(left:20.0 ,right: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -246,34 +246,32 @@ void _onRememberMeChanged(bool newValue) => setState(() {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right:20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
 
-                children: [
-                  Text(
-                    AppLocalizations.of(context).noAccount,
+              children: [
+                Text(
+                  AppLocalizations.of(context).noAccount,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal),
+                ),
+                InkWell(
+                  onTap: (){
+                    print("forget");
+                  },
+                  child: Text(
+                    AppLocalizations.of(context).createAccount,
                     style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal),
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
                   ),
-                  InkWell(
-                    onTap: (){
-                      print("forget");
-                    },
-                    child: Text(
-                      AppLocalizations.of(context).createAccount,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ) ,
+
 
           ],
         ),
