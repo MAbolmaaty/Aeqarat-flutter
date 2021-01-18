@@ -38,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Set<Marker> _markersOnMap = {};
 
+  String serviceType = "rent";
+
   @override
   void initState() {
     super.initState();
@@ -520,13 +522,16 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet<dynamic>(
         isScrollControlled: true,
         context: context,
+        backgroundColor: Colors.transparent,
         builder: (BuildContext buildContext) {
           return Container(
             padding: EdgeInsets.only(top: 50.0),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(20.0),
+                    topRight: const Radius.circular(20.0)),
                 color: const Color(0xffF9FBFC)),
-            child: Column(
+            child: Wrap(
               children: <Widget>[
                 Stack(
                   children: <Widget>[
@@ -563,13 +568,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 10.0,
                 ),
                 Container(
-                  height: 55,
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
                   margin:
                       EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       color: Colors.white,
                       border: Border.all(color: const Color(0xffE3E3E6))),
+                  child: DropdownButton<String>(
+                    value: serviceType,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        serviceType = newValue;
+                        Navigator.pop(context);
+                        _showSearchFilter(context);
+                      });
+                    },
+                    // hint: Text(
+                    //   'Select service',
+                    //   style: TextStyle(
+                    //       color: Colors.grey.withOpacity(0.7),
+                    //       fontSize: 13),
+                    // ),
+                    underline: SizedBox(),
+                    isExpanded: true,
+                    items: <String>['rent', 'sale', 'auction']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                          value: value, child: Text(value));
+                    }).toList(),
+                  ),
                 ),
                 Container(
                   height: 55,
