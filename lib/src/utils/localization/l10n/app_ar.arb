@@ -259,5 +259,29 @@
   "advancedSearch": "بحث متقدم",
   "@advancedSearch": {
     "description": ""
+  },
+  "skip": "تخطي",
+  "@skip": {
+    "description": ""
+  },
+  "next": "متابعه",
+  "@next": {
+    "description": ""
+  },
+  "welcomeBack": "مرحبا بعودتك",
+  "@welcomeBack": {
+    "description": ""
+  },
+  "or": "آو",
+  "@or": {
+    "description": ""
+  },
+  "noAccount": " ليس لديك حساب ...",
+  "@noAccount": {
+    "description": ""
+  },
+  "createAccount": "انشاء حساب",
+  "@createAccount": {
+    "description": ""
   }
 }

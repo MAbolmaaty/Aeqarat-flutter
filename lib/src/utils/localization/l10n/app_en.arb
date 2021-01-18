@@ -259,5 +259,29 @@
   "advancedSearch": "Advanced Search",
   "@advancedSearch": {
     "description": ""
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": ""
+  },
+  "next": "Next",
+  "@next": {
+    "description": ""
+  },
+  "welcomeBack": "Welcome Back",
+  "@welcomeBack": {
+    "description": ""
+  },
+  "or": "OR",
+  "@or": {
+    "description": ""
+  },
+  "noAccount": " Don't Have Account ...",
+  "@noAccount": {
+    "description": ""
+  },
+  "createAccount": "Create Account",
+  "@createAccount": {
+    "description": ""
   }
 }
