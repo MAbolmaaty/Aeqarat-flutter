@@ -287,5 +287,49 @@
   "loading": "جاري التحميل",
   "@loading": {
     "description": ""
+  },
+  "rent": "ايجار",
+  "@rent": {
+    "description": ""
+  },
+  "sale": "بيع",
+  "@sale": {
+    "description": ""
+  },
+  "auction": "مزاد",
+  "@auction": {
+    "description": ""
+  },
+  "apartment": "شقة",
+  "@apartment": {
+    "description": ""
+  },
+  "house": "منزل",
+  "@house": {
+    "description": ""
+  },
+  "garage": "محل",
+  "@garage": {
+    "description": ""
+  },
+  "riyadh": "الرياض",
+  "@riyadh": {
+    "description": ""
+  },
+  "price": "السعر",
+  "@price": {
+    "description": ""
+  },
+  "distance": "المسافة",
+  "@distance": {
+    "description": ""
+  },
+  "search": "بحث",
+  "@Search": {
+    "description": ""
+  },
+  "reset": "الافتراضي",
+  "@reset": {
+    "description": ""
   }
 }

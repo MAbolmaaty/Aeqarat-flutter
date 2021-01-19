@@ -287,5 +287,49 @@
   "loading": "Loading",
   "@loading": {
     "description": ""
+  },
+  "rent": "rent",
+  "@rent": {
+    "description": ""
+  },
+  "sale": "sale",
+  "@sale": {
+    "description": ""
+  },
+  "auction": "auction",
+  "@auction": {
+    "description": ""
+  },
+  "apartment": "apartment",
+  "@apartment": {
+    "description": ""
+  },
+  "house": "house",
+  "@house": {
+    "description": ""
+  },
+  "garage": "garage",
+  "@garage": {
+    "description": ""
+  },
+  "riyadh": "riyadh",
+  "@riyadh": {
+    "description": ""
+  },
+  "price": "Price",
+  "@price": {
+    "description": ""
+  },
+  "distance": "Distance",
+  "@distance": {
+    "description": ""
+  },
+  "search": "Search",
+  "@search": {
+    "description": ""
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": ""
   }
 }

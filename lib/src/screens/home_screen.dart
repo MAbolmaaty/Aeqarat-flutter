@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var locale;
   GoogleMapController mapController;
   final LatLng _center = const LatLng(24.5538107, 46.0265294);
   String _mapStyle;
@@ -38,10 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Set<Marker> _markersOnMap = {};
 
-  String serviceType = "rent";
-  String propertyType = "apartment";
-  String region = "riyadh";
-  String district = "riyadh";
+  String serviceType;
+  String propertyType;
+  String region;
+  String district;
   String propertyAge = "10";
   RangeValues priceRangeValues = const RangeValues(1000, 1000000);
   RangeLabels priceRangeLabels = RangeLabels('1000', '1000000');
@@ -58,7 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var locale = Provider.of<AppLocale>(context);
+    locale = Provider.of<AppLocale>(context);
+    serviceType = AppLocalizations.of(context).rent;
+    propertyType = AppLocalizations.of(context).apartment;
+    region = AppLocalizations.of(context).riyadh;
+    district = AppLocalizations.of(context).riyadh;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -602,8 +607,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       underline: SizedBox(),
                       isExpanded: true,
-                      items: <String>['rent', 'sale', 'auction']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        AppLocalizations.of(context).rent,
+                        AppLocalizations.of(context).sale,
+                        AppLocalizations.of(context).auction,
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                             value: value, child: Text(value));
                       }).toList(),
@@ -628,8 +636,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       underline: SizedBox(),
                       isExpanded: true,
-                      items: <String>['apartment', 'house', 'garage']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        AppLocalizations.of(context).apartment,
+                        AppLocalizations.of(context).house,
+                        AppLocalizations.of(context).garage,
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                             value: value, child: Text(value));
                       }).toList(),
@@ -654,8 +665,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       underline: SizedBox(),
                       isExpanded: true,
-                      items: <String>['riyadh']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        AppLocalizations.of(context).riyadh,
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                             value: value, child: Text(value));
                       }).toList(),
@@ -680,8 +692,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       underline: SizedBox(),
                       isExpanded: true,
-                      items: <String>['riyadh']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        AppLocalizations.of(context).riyadh,
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                             value: value, child: Text(value));
                       }).toList(),
@@ -724,10 +737,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: Border.all(color: const Color(0xffE3E3E6))),
                       child: Stack(children: <Widget>[
                         Align(
-                          alignment: Alignment.topLeft,
+                          alignment: locale.locale == Locale('en')
+                              ? Alignment.topLeft : Alignment.topRight,
                           child: Padding(
                               padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: Text('Price')),
+                              child: Text(AppLocalizations.of(context).price)),
                         ),
                         Align(
                             alignment: Alignment.center,
@@ -739,14 +753,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   inactiveColor: const Color(0xffE3E3E6),
                                   min: 1000,
                                   max: 1000000,
-                                  divisions: 100,
+                                  divisions: 1000,
                                   labels: priceRangeLabels,
                                   onChanged: (RangeValues values) {
                                     setState(() {
                                       priceRangeValues = values;
                                       priceRangeLabels = RangeLabels(
-                                          "${values.start.toInt().toString()}\$",
-                                          "${values.end.toInt().toString()}\$");
+                                          "${values.start.toInt().toString()}",
+                                          "${values.end.toInt().toString()}");
                                     });
                                   },
                                 ))),
@@ -762,10 +776,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: Border.all(color: const Color(0xffE3E3E6))),
                       child: Stack(children: <Widget>[
                         Align(
-                          alignment: Alignment.topLeft,
+                      alignment: locale.locale == Locale('en')
+                          ? Alignment.topLeft : Alignment.topRight,
                           child: Padding(
                               padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: Text('Distance')),
+                              child:
+                                  Text(AppLocalizations.of(context).distance)),
                         ),
                         Align(
                             alignment: Alignment.center,
@@ -777,14 +793,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   inactiveColor: const Color(0xffE3E3E6),
                                   min: 1000,
                                   max: 1000000,
-                                  divisions: 100,
+                                  divisions: 1000,
                                   labels: distanceRangeLabels,
                                   onChanged: (RangeValues values) {
                                     setState(() {
                                       distanceRangeValues = values;
                                       distanceRangeLabels = RangeLabels(
-                                          "${values.start.toInt().toString()}\$",
-                                          "${values.end.toInt().toString()}\$");
+                                          "${values.start.toInt().toString()}",
+                                          "${values.end.toInt().toString()}");
                                     });
                                   },
                                 ))),
@@ -808,10 +824,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       bottom: 20.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xffFFDB27),
-                                      borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                    ),
-                                    child: Center(child: Text('Search'))),
+                                        color: const Color(0xffFFDB27),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
+                                    child: Center(
+                                        child: Text(AppLocalizations.of(context)
+                                            .search))),
                               )),
                           SizedBox(
                             width: 20.0,
@@ -824,9 +842,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     margin: EdgeInsets.only(bottom: 20.0),
                                     decoration: BoxDecoration(
                                         color: const Color(0xffECECEC),
-                                        borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                    ),
-                                    child: Center(child: Text('Reset'))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
+                                    child: Center(child: Text(AppLocalizations.of(context).reset))),
                               )),
                         ],
                       )),
