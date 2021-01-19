@@ -283,5 +283,9 @@
   "createAccount": "Create Account",
   "@createAccount": {
     "description": ""
+  },
+  "loading": "Loading",
+  "@loading": {
+    "description": ""
   }
 }

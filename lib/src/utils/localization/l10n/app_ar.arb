@@ -283,5 +283,9 @@
   "createAccount": "انشاء حساب",
   "@createAccount": {
     "description": ""
+  },
+  "loading": "جاري التحميل",
+  "@loading": {
+    "description": ""
   }
 }

@@ -39,6 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<Marker> _markersOnMap = {};
 
   String serviceType = "rent";
+  String propertyType = "apartment";
+  String region = "riyadh";
+  String district = "riyadh";
+  String propertyAge = "10";
+  RangeValues priceRangeValues = const RangeValues(1000, 1000000);
+  RangeLabels priceRangeLabels = RangeLabels('1000', '1000000');
+  RangeValues distanceRangeValues = const RangeValues(1000, 1000000);
+  RangeLabels distanceRangeLabels = RangeLabels('1000', '1000000');
 
   @override
   void initState() {
@@ -139,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ///////////////////////////////// Loading
           Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: Visibility(
                   visible: _loadingRealEstates,
                   child: Container(
@@ -152,15 +160,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 strokeWidth: 1,
                                 valueColor: new AlwaysStoppedAnimation<Color>(
                                     Colors.black)),
-                            height: 11,
-                            width: 11,
+                            height: 13,
+                            width: 13,
                           ),
                           SizedBox(
                             width: 4.0,
                           ),
                           Text(
-                            AppLocalizations.of(context).loadingRealEstates,
-                            style: TextStyle(fontSize: 12),
+                            AppLocalizations.of(context).loading,
+                            style: TextStyle(fontSize: 13, color: Colors.black),
                           ),
                         ],
                       )))),
@@ -524,122 +532,308 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         backgroundColor: Colors.transparent,
         builder: (BuildContext buildContext) {
-          return Container(
-            padding: EdgeInsets.only(top: 50.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(20.0),
-                    topRight: const Radius.circular(20.0)),
-                color: const Color(0xffF9FBFC)),
-            child: Wrap(
-              children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Align(
-                        alignment: Alignment.center,
-                        child:
-                            Text(AppLocalizations.of(context).advancedSearch)),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                            margin: EdgeInsets.only(left: 20, right: 20),
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                                color: const Color(0xffF60B0B),
-                                shape: BoxShape.circle),
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 15.0,
-                            ))),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                const Divider(
-                  color: const Color(0x309e9e9e),
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width,
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffE3E3E6))),
-                  child: DropdownButton<String>(
-                    value: serviceType,
-                    onChanged: (String newValue) {
-                      setState(() {
-                        serviceType = newValue;
-                        Navigator.pop(context);
-                        _showSearchFilter(context);
-                      });
-                    },
-                    // hint: Text(
-                    //   'Select service',
-                    //   style: TextStyle(
-                    //       color: Colors.grey.withOpacity(0.7),
-                    //       fontSize: 13),
-                    // ),
-                    underline: SizedBox(),
-                    isExpanded: true,
-                    items: <String>['rent', 'sale', 'auction']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                          value: value, child: Text(value));
-                    }).toList(),
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+                child: Container(
+              padding: EdgeInsets.only(top: 50.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(20.0),
+                      topRight: const Radius.circular(20.0)),
+                  color: const Color(0xffF9FBFC)),
+              child: Wrap(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                              AppLocalizations.of(context).advancedSearch)),
+                      ////////////////////// Close Bottom Dialog
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.only(left: 20, right: 20),
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffF60B0B),
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                    size: 15.0,
+                                  )))),
+                    ],
                   ),
-                ),
-                Container(
-                  height: 55,
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffE3E3E6))),
-                ),
-                Container(
-                  height: 55,
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffE3E3E6))),
-                ),
-                Container(
-                  height: 55,
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffE3E3E6))),
-                ),
-                Container(
-                  height: 55,
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffE3E3E6))),
-                ),
-              ],
-            ),
-          );
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  const Divider(
+                    color: const Color(0x309e9e9e),
+                    thickness: 1,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  /////////////////// Service type list
+                  Container(
+                    height: 50,
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                        border: Border.all(color: const Color(0xffE3E3E6))),
+                    child: DropdownButton<String>(
+                      value: serviceType,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          serviceType = newValue;
+                        });
+                      },
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      items: <String>['rent', 'sale', 'auction']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                    ),
+                  ),
+                  /////////////////// Property type list
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                        border: Border.all(color: const Color(0xffE3E3E6))),
+                    child: DropdownButton<String>(
+                      value: propertyType,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          propertyType = newValue;
+                        });
+                      },
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      items: <String>['apartment', 'house', 'garage']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                    ),
+                  ),
+                  //////////////////// Region list
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                        border: Border.all(color: const Color(0xffE3E3E6))),
+                    child: DropdownButton<String>(
+                      value: region,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          region = newValue;
+                        });
+                      },
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      items: <String>['riyadh']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                    ),
+                  ),
+                  /////////////// District list
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                        border: Border.all(color: const Color(0xffE3E3E6))),
+                    child: DropdownButton<String>(
+                      value: district,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          district = newValue;
+                        });
+                      },
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      items: <String>['riyadh']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                    ),
+                  ),
+                  //////////// property age list
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Colors.white,
+                        border: Border.all(color: const Color(0xffE3E3E6))),
+                    child: DropdownButton<String>(
+                      value: propertyAge,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          propertyAge = newValue;
+                        });
+                      },
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      items: <String>['10']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                    ),
+                  ),
+                  /////////////// Price range slider
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      margin: EdgeInsets.only(
+                          left: 20, right: 20, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          color: Colors.white,
+                          border: Border.all(color: const Color(0xffE3E3E6))),
+                      child: Stack(children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: Text('Price')),
+                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                                padding: EdgeInsets.only(top: 20.0),
+                                child: RangeSlider(
+                                  values: priceRangeValues,
+                                  activeColor: const Color(0xffFFDB27),
+                                  inactiveColor: const Color(0xffE3E3E6),
+                                  min: 1000,
+                                  max: 1000000,
+                                  divisions: 100,
+                                  labels: priceRangeLabels,
+                                  onChanged: (RangeValues values) {
+                                    setState(() {
+                                      priceRangeValues = values;
+                                      priceRangeLabels = RangeLabels(
+                                          "${values.start.toInt().toString()}\$",
+                                          "${values.end.toInt().toString()}\$");
+                                    });
+                                  },
+                                ))),
+                      ])),
+                  /////////////////// Distance range slider
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      margin: EdgeInsets.only(
+                          left: 20, right: 20, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          color: Colors.white,
+                          border: Border.all(color: const Color(0xffE3E3E6))),
+                      child: Stack(children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: Text('Distance')),
+                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                                padding: EdgeInsets.only(top: 20.0),
+                                child: RangeSlider(
+                                  values: distanceRangeValues,
+                                  activeColor: const Color(0xffFFDB27),
+                                  inactiveColor: const Color(0xffE3E3E6),
+                                  min: 1000,
+                                  max: 1000000,
+                                  divisions: 100,
+                                  labels: distanceRangeLabels,
+                                  onChanged: (RangeValues values) {
+                                    setState(() {
+                                      distanceRangeValues = values;
+                                      distanceRangeLabels = RangeLabels(
+                                          "${values.start.toInt().toString()}\$",
+                                          "${values.end.toInt().toString()}\$");
+                                    });
+                                  },
+                                ))),
+                      ])),
+                  const Divider(
+                    color: const Color(0x309e9e9e),
+                    thickness: 1,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                child: Container(
+                                    height: 50,
+                                    margin: EdgeInsets.only(
+                                      bottom: 20.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffFFDB27),
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                    ),
+                                    child: Center(child: Text('Search'))),
+                              )),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: GestureDetector(
+                                child: Container(
+                                    height: 50,
+                                    margin: EdgeInsets.only(bottom: 20.0),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xffECECEC),
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                    ),
+                                    child: Center(child: Text('Reset'))),
+                              )),
+                        ],
+                      )),
+                ],
+              ),
+            ));
+          });
         });
   }
 }
