@@ -1,302 +1,340 @@
 {
-  "@@locale": "en",
+"@@locale": "en",
 
-  "main": "Main",
-  "@main": {
-    "description": ""
-  },
-  "all": "All",
-  "@all": {
-    "description": ""
-  },
-  "activated": "Activated",
-  "@activated": {
-    "description": ""
-  },
-  "deactivated": "Deactivated",
-  "@deactivated": {
-    "description": ""
-  },
-  "login": "Login",
-  "@login": {
-    "description": ""
-  },
-  "email": "E-mail",
-  "@email": {
-    "description": ""
-  },
-  "password": "Password",
-  "@password": {
-    "description": ""
-  },
-  "confirmPassword": "Confirm Password",
-  "@confirmPassword": {
-    "description": ""
-  },
-  "rememberMe": "Remember Me",
-  "@rememberMe": {
-    "description": ""
-  },
-  "forgetPassword": "Forget Password?",
-  "@forgetPassword": {
-    "description": ""
-  },
-  "dontHaveAccount": "Don't have an account ? .. ",
-  "@dontHaveAccount": {
-    "description": ""
-  },
-  "register": "Register",
-  "@register": {
-    "description": ""
-  },
-  "createNewAccount": "Create New Account",
-  "@createNewAccount": {
-    "description": ""
-  },
-  "newAccount": "New Account",
-  "@newAccount": {
-    "description": ""
-  },
-  "username": "Username",
-  "@username": {
-    "description": ""
-  },
-  "phoneNumber": "Phone Number",
-  "@phoneNumber": {
-    "description": ""
-  },
-  "alreadyHaveAccount": "Already have an account ? .. ",
-  "@alreadyHaveAccount": {
-    "description": ""
-  },
-  "accountSuccessfullyCreated": "Account Successfully Created.",
-  "@accountSuccessfullyCreated": {
-    "description": ""
-  },
-  "minutes": "Minutes",
-  "@minutes": {
-    "description": ""
-  },
-  "hours": "Hours",
-  "@hours": {
-    "description": ""
-  },
-  "add": "Add",
-  "@add": {
-    "description": ""
-  },
-  "notifications": "Notifications",
-  "@notifications": {
-    "description": ""
-  },
-  "profile": "Profile",
-  "@profile": {
-    "description": ""
-  },
-  "settings": "Settings",
-  "@settings": {
-    "description": ""
-  },
-  "language": "Language",
-  "@language": {
-    "description": ""
-  },
-  "arabic": "العربية",
-  "@arabic": {
-    "description": ""
-  },
-  "english": "English",
-  "@english": {
-    "description": ""
-  },
-  "aboutApp": "About App",
-  "@aboutApp": {
-    "description": ""
-  },
-  "termsAndConditions": "Terms And Conditions",
-  "@termsAndConditions": {
-    "description": ""
-  },
-  "contactUs": "Contact Us",
-  "@contactUs": {
-    "description": ""
-  },
-  "messageSubject": "Message Subject",
-  "@messageSubject": {
-    "description": ""
-  },
-  "send": "Send",
-  "@send": {
-    "description": ""
-  },
-  "resetPassword": "Reset Password",
-  "@resetPassword": {
-    "description": ""
-  },
-  "resetPasswordHint": "Code will be sent on your e-mail",
-  "@resetPasswordHint": {
-    "description": ""
-  },
-  "tryAgain": "Try Again .. ",
-  "@tryAgain": {
-    "description": ""
-  },
-  "codeSuccessfullySent": "Code successfully sent to your email",
-  "@codeSuccessfullySent": {
-    "description": ""
-  },
-  "resetContinue": "To continue, Enter new password",
-  "@resetContinue": {
-    "description": ""
-  },
-  "enterNewPassword": "Enter new password",
-  "@enterNewPassword": {
-    "description": ""
-  },
-  "reEnterNewPassword": "Re-enter new password",
-  "@reEnterNewPassword": {
-    "description": ""
-  },
-  "confirm": "Confirm",
-  "@confirm": {
-    "description": ""
-  },
-  "passwordChanged": "Password Successfully Changed",
-  "@passwordChanged": {
-    "description": ""
-  },
-  "lastNotifications": "Last Notifications",
-  "@lastNotifications": {
-    "description": ""
-  },
-  "showAll": "Show All",
-  "@showAll": {
-    "description": ""
-  },
-  "enterUsername": "Please enter username",
-  "@enterUsername": {
-    "description": ""
-  },
-  "enterEmail": "Please enter email",
-  "@enterEmail": {
-    "description": ""
-  },
-  "enterPassword": "Please enter password",
-  "@enterPassword": {
-    "description": ""
-  },
-  "pleaseConfirmPassword": "Please confirm password",
-  "@pleaseConfirmPassword": {
-    "description": ""
-  },
-  "enterPhoneNumber": "Please enter phone number",
-  "@enterPhoneNumber": {
-    "description": ""
-  },
-  "registering": "Registering ... Please wait",
-  "@registering": {
-    "description": ""
-  },
-  "registrationFailed": "Registration Failed",
-  "@registrationFailed": {
-    "description": ""
-  },
-  "passwordsDoNotMatch": "Passwords do not match",
-  "@passwordsDoNotMatch": {
-    "description": ""
-  },
-  "loadingFailed": "Loading Failed",
-  "@loadingFailed": {
-    "description": ""
-  },
-  "couldNotFetchData": "Couldn't get your data from server",
-  "@couldNotFetchData": {
-    "description": ""
-  },
-  "usernameOrEmail": "Username or E-mail",
-  "@usernameOrEmail": {
-    "description": ""
-  },
-  "invalidData": "Invalid Data",
-  "@invalidData": {
-    "description": ""
-  },
-  "enterMessageSubject": "Please enter message subject",
-  "@enterMessageSubject": {
-    "description": ""
-  },
-  "forRent": "For Rent",
-  "@forRent": {
-    "description": ""
-  },
-  "forSale": "For Sale",
-  "@forSale": {
-    "description": ""
-  },
-  "auctions": "Auctions",
-  "@auctions": {
-    "description": ""
-  },
-  "documents": "Documents",
-  "@documents": {
-    "description": ""
-  },
-  "payment": "Payment",
-  "@payment": {
-    "description": ""
-  },
-  "advanced": "Advanced",
-  "@advanced": {
-    "description": ""
-  },
-  "loadingRealEstates": "loading real estates",
-  "@loadingRealEstates": {
-    "description": ""
-  },
-   "skip": "Skip",
-    "@skip": {
-      "description": ""
-    },
-   "next": "Next",
-    "@next": {
-      "description": ""
-    },
-     "login": "Login",
-      "@login": {
-        "description": ""
-     },
-      "welcomeBack": "Welcome Back",
-       "@welcomeBack": {
-         "description": ""
-      },
-             "email": "Email",
-              "@email": {
-                "description": ""
-             },
-                           "password": "Password",
-                            "@password": {
-                              "description": ""
-                           },
-                                                       "rememberMe": "Remember Me",
-                                                        "@rememberMe": {
-                                                          "description": ""
-                                                       },
-                                                              "forgetPassword": "Forget Password ?",
-                                                               "@forgetPassword": {
-                                                                 "description": ""
-                                                              },
-                                                                                                                             "or": "OR",
-                                                                                                                              "@or": {
-                                                                                                                                "description": ""
-                                                                                                                             },
-                                                                                                                                                                                            "noAccount": " Don't Have Account ...",
-                                                                                                                                                                                             "@noAccount": {
-                                                                                                                                                                                               "description": ""
-                                                                                                                                                                                            },
-                                                                                                                                                                                                                                                           "createAccount": "Create Account",
-                                                                                                                                                                                                                                                            "@createAccount": {
-                                                                                                                                                                                                                                                              "description": ""
-                                                                                                                                                                                                                                                           }
+"main": "Main",
+"@main": {
+"description": ""
+},
+"all": "All",
+"@all": {
+"description": ""
+},
+"activated": "Activated",
+"@activated": {
+"description": ""
+},
+"deactivated": "Deactivated",
+"@deactivated": {
+"description": ""
+},
+"login": "Login",
+"@login": {
+"description": ""
+},
+"email": "E-mail",
+"@email": {
+"description": ""
+},
+"password": "Password",
+"@password": {
+"description": ""
+},
+"confirmPassword": "Confirm Password",
+"@confirmPassword": {
+"description": ""
+},
+"rememberMe": "Remember Me",
+"@rememberMe": {
+"description": ""
+},
+"forgetPassword": "Forget Password?",
+"@forgetPassword": {
+"description": ""
+},
+"dontHaveAccount": "Don't have an account ? .. ",
+"@dontHaveAccount": {
+"description": ""
+},
+"register": "Register",
+"@register": {
+"description": ""
+},
+"createNewAccount": "Create New Account",
+"@createNewAccount": {
+"description": ""
+},
+"newAccount": "New Account",
+"@newAccount": {
+"description": ""
+},
+"username": "Username",
+"@username": {
+"description": ""
+},
+"phoneNumber": "Phone Number",
+"@phoneNumber": {
+"description": ""
+},
+"alreadyHaveAccount": "Already have an account ? .. ",
+"@alreadyHaveAccount": {
+"description": ""
+},
+"accountSuccessfullyCreated": "Account Successfully Created.",
+"@accountSuccessfullyCreated": {
+"description": ""
+},
+"minutes": "Minutes",
+"@minutes": {
+"description": ""
+},
+"hours": "Hours",
+"@hours": {
+"description": ""
+},
+"add": "Add",
+"@add": {
+"description": ""
+},
+"notifications": "Notifications",
+"@notifications": {
+"description": ""
+},
+"profile": "Profile",
+"@profile": {
+"description": ""
+},
+"settings": "Settings",
+"@settings": {
+"description": ""
+},
+"language": "Language",
+"@language": {
+"description": ""
+},
+"arabic": "العربية",
+"@arabic": {
+"description": ""
+},
+"english": "English",
+"@english": {
+"description": ""
+},
+"aboutApp": "About App",
+"@aboutApp": {
+"description": ""
+},
+"termsAndConditions": "Terms And Conditions",
+"@termsAndConditions": {
+"description": ""
+},
+"contactUs": "Contact Us",
+"@contactUs": {
+"description": ""
+},
+"messageSubject": "Message Subject",
+"@messageSubject": {
+"description": ""
+},
+"send": "Send",
+"@send": {
+"description": ""
+},
+"resetPassword": "Reset Password",
+"@resetPassword": {
+"description": ""
+},
+"resetPasswordHint": "Code will be sent on your e-mail",
+"@resetPasswordHint": {
+"description": ""
+},
+"tryAgain": "Try Again .. ",
+"@tryAgain": {
+"description": ""
+},
+"codeSuccessfullySent": "Code successfully sent to your email",
+"@codeSuccessfullySent": {
+"description": ""
+},
+"resetContinue": "To continue, Enter new password",
+"@resetContinue": {
+"description": ""
+},
+"enterNewPassword": "Enter new password",
+"@enterNewPassword": {
+"description": ""
+},
+"reEnterNewPassword": "Re-enter new password",
+"@reEnterNewPassword": {
+"description": ""
+},
+"confirm": "Confirm",
+"@confirm": {
+"description": ""
+},
+"passwordChanged": "Password Successfully Changed",
+"@passwordChanged": {
+"description": ""
+},
+"lastNotifications": "Last Notifications",
+"@lastNotifications": {
+"description": ""
+},
+"showAll": "Show All",
+"@showAll": {
+"description": ""
+},
+"enterUsername": "Please enter username",
+"@enterUsername": {
+"description": ""
+},
+"enterEmail": "Please enter email",
+"@enterEmail": {
+"description": ""
+},
+"enterPassword": "Please enter password",
+"@enterPassword": {
+"description": ""
+},
+"pleaseConfirmPassword": "Please confirm password",
+"@pleaseConfirmPassword": {
+"description": ""
+},
+"enterPhoneNumber": "Please enter phone number",
+"@enterPhoneNumber": {
+"description": ""
+},
+"registering": "Registering ... Please wait",
+"@registering": {
+"description": ""
+},
+"registrationFailed": "Registration Failed",
+"@registrationFailed": {
+"description": ""
+},
+"passwordsDoNotMatch": "Passwords do not match",
+"@passwordsDoNotMatch": {
+"description": ""
+},
+"loadingFailed": "Loading Failed",
+"@loadingFailed": {
+"description": ""
+},
+"couldNotFetchData": "Couldn't get your data from server",
+"@couldNotFetchData": {
+"description": ""
+},
+"usernameOrEmail": "Username or E-mail",
+"@usernameOrEmail": {
+"description": ""
+},
+"invalidData": "Invalid Data",
+"@invalidData": {
+"description": ""
+},
+"enterMessageSubject": "Please enter message subject",
+"@enterMessageSubject": {
+"description": ""
+},
+"forRent": "For Rent",
+"@forRent": {
+"description": ""
+},
+"forSale": "For Sale",
+"@forSale": {
+"description": ""
+},
+"auctions": "Auctions",
+"@auctions": {
+"description": ""
+},
+"documents": "Documents",
+"@documents": {
+"description": ""
+},
+"payment": "Payment",
+"@payment": {
+"description": ""
+},
+"advanced": "Advanced",
+"@advanced": {
+"description": ""
+},
+"loadingRealEstates": "loading real estates",
+"@loadingRealEstates": {
+"description": ""
+},
+"skip": "Skip",
+"@skip": {
+"description": ""
+},
+"next": "Next",
+"@next": {
+"description": ""
+},
+"login": "Login",
+"@login": {
+"description": ""
+},
+"welcomeBack": "Welcome Back",
+"@welcomeBack": {
+"description": ""
+},
+"email": "Email",
+"@email": {
+"description": ""
+},
+"password": "Password",
+"@password": {
+"description": ""
+},
+"rememberMe": "Remember Me",
+"@rememberMe": {
+"description": ""
+},
+"forgetPassword": "Forget Password ?",
+"@forgetPassword": {
+"description": ""
+},
+"or": "OR",
+"@or": {
+"description": ""
+},
+"noAccount": " Don't Have Account ...",
+"@noAccount": {
+"description": ""
+},
+"createAccount": "Create Account",
+"@createAccount": {
+"description": ""
+},
+"createNewAccount": "Create New Account",
+"@createNewAccount": {
+"description": ""
+},
+"workknowledge": "We are working on your knowledge",
+"@workknowledge": {
+"description": ""
+},
+"name": "Name",
+"@name": {
+"description": ""
+},
+"confirmPassword": "Confirm Password",
+"@confirmPassword": {
+"description": ""
+},
+"phone": "Phone",
+"@phone": {
+"description": ""
+},
+"terms": "I agree to the stipulated terms and conditions ..",
+"@terms": {
+"description": ""
+},
+"toView": "To view",
+"@toView": {
+"description": ""
+},
+"newAccount": "Register",
+"@newAccount": {
+"description": ""
+},
+"haveAccount": "Have Account...",
+"@haveAccount": {
+"description": ""
+}
+
+
 
 
 }
