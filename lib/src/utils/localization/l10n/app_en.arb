@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+
   "main": "Main",
   "@main": {
     "description": ""
@@ -330,6 +331,30 @@
   },
   "reset": "Reset",
   "@reset": {
+    "description": ""
+  },
+  "workknowledge": "We are working on your knowledge",
+  "@workknowledge": {
+    "description": ""
+  },
+  "name": "Name",
+  "@name": {
+    "description": ""
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": ""
+  },
+  "terms": "I agree to the stipulated terms and conditions ..",
+  "@terms": {
+    "description": ""
+  },
+  "toView": "To view",
+  "@toView": {
+    "description": ""
+  },
+  "haveAccount": "Have Account...",
+  "@haveAccount": {
     "description": ""
   }
 }

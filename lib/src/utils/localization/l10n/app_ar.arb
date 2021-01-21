@@ -1,5 +1,6 @@
 {
   "@@locale": "ar",
+
   "main": "الرئيسية",
   "@main": {
     "description": ""
@@ -330,6 +331,30 @@
   },
   "reset": "الافتراضي",
   "@reset": {
+    "description": ""
+  },
+  "workknowledge": "نعمل علي معرفتك",
+  "@workknowledge": {
+    "description": ""
+  },
+  "name": "الاسم",
+  "@name": {
+    "description": ""
+  },
+  "phone": "رقم الجوال",
+  "@phone": {
+    "description": ""
+  },
+  "terms": "أوافق على الشروط و الأحكام المنصوص عليها ..",
+  "@terms": {
+    "description": ""
+  },
+  "toView": "للأطلاع",
+  "@toView": {
+    "description": ""
+  },
+  "haveAccount": "لديك حساب بالفعل...",
+  "@haveAccount": {
     "description": ""
   }
 }
