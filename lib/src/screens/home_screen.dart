@@ -40,10 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<Marker> _markersOnMap = {};
 
   String serviceType;
-  String propertyType;
+  String realEstateType;
   String region;
   String district;
-  String propertyAge = "10";
+  String realEstateAge = "10";
   RangeValues priceRangeValues = const RangeValues(1000, 1000000);
   RangeLabels priceRangeLabels = RangeLabels('1000', '1000000');
   RangeValues distanceRangeValues = const RangeValues(1000, 1000000);
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     locale = Provider.of<AppLocale>(context);
     serviceType = AppLocalizations.of(context).rent;
-    propertyType = AppLocalizations.of(context).apartment;
+    realEstateType = AppLocalizations.of(context).apartment;
     region = AppLocalizations.of(context).riyadh;
     district = AppLocalizations.of(context).riyadh;
     return Scaffold(
@@ -466,6 +466,9 @@ class _HomeScreenState extends State<HomeScreen> {
           position: LatLng(double.parse(realEstate.latitude),
               double.parse(realEstate.longitude)),
           icon: BitmapDescriptor.fromBytes(markerIcon),
+          onTap: (){
+
+          }
         );
         _allMarkers[realEstate.sId] = marker;
         switch (realEstate.status) {
@@ -628,10 +631,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         border: Border.all(color: const Color(0xffE3E3E6))),
                     child: DropdownButton<String>(
-                      value: propertyType,
+                      value: realEstateType,
                       onChanged: (String newValue) {
                         setState(() {
-                          propertyType = newValue;
+                          realEstateType = newValue;
                         });
                       },
                       underline: SizedBox(),
@@ -711,10 +714,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         border: Border.all(color: const Color(0xffE3E3E6))),
                     child: DropdownButton<String>(
-                      value: propertyAge,
+                      value: realEstateAge,
                       onChanged: (String newValue) {
                         setState(() {
-                          propertyAge = newValue;
+                          realEstateAge = newValue;
                         });
                       },
                       underline: SizedBox(),
