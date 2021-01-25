@@ -356,5 +356,17 @@
   "haveAccount": "Have Account...",
   "@haveAccount": {
     "description": ""
+  },
+  "description": "Description",
+  "@description": {
+    "description": ""
+  },
+  "details": "Details",
+  "@details": {
+    "description": ""
+  },
+  "reviews": "Reviews",
+  "@reviews": {
+    "description": ""
   }
 }

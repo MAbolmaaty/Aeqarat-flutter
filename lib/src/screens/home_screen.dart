@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:aeqarat/src/models/real_estates_response_model.dart';
+import 'package:aeqarat/src/screens/real_estate_screen.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/real_estates_api.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             markers: _markersOnMap,
             myLocationButtonEnabled: false,
             myLocationEnabled: false,
+            mapToolbarEnabled: false,
           ),
           ///////////////////////////////// Search Delegate
           Align(
@@ -462,14 +464,13 @@ class _HomeScreenState extends State<HomeScreen> {
       _allMarkers.clear();
       for (final realEstate in realEstates) {
         final marker = Marker(
-          markerId: MarkerId(realEstate.title),
-          position: LatLng(double.parse(realEstate.latitude),
-              double.parse(realEstate.longitude)),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          onTap: (){
-
-          }
-        );
+            markerId: MarkerId(realEstate.title),
+            position: LatLng(double.parse(realEstate.latitude),
+                double.parse(realEstate.longitude)),
+            icon: BitmapDescriptor.fromBytes(markerIcon),
+            onTap: () {
+              Navigator.of(context).push(RealEstateScreen.route());
+            },);
         _allMarkers[realEstate.sId] = marker;
         switch (realEstate.status) {
           case 'rent':
@@ -741,7 +742,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Stack(children: <Widget>[
                         Align(
                           alignment: locale.locale == Locale('en')
-                              ? Alignment.topLeft : Alignment.topRight,
+                              ? Alignment.topLeft
+                              : Alignment.topRight,
                           child: Padding(
                               padding: EdgeInsets.only(left: 10.0, right: 10.0),
                               child: Text(AppLocalizations.of(context).price)),
@@ -779,8 +781,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: Border.all(color: const Color(0xffE3E3E6))),
                       child: Stack(children: <Widget>[
                         Align(
-                      alignment: locale.locale == Locale('en')
-                          ? Alignment.topLeft : Alignment.topRight,
+                          alignment: locale.locale == Locale('en')
+                              ? Alignment.topLeft
+                              : Alignment.topRight,
                           child: Padding(
                               padding: EdgeInsets.only(left: 10.0, right: 10.0),
                               child:
@@ -847,7 +850,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: const Color(0xffECECEC),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10.0))),
-                                    child: Center(child: Text(AppLocalizations.of(context).reset))),
+                                    child: Center(
+                                        child: Text(AppLocalizations.of(context)
+                                            .reset))),
                               )),
                         ],
                       )),

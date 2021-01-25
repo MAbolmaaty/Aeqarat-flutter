@@ -2,7 +2,7 @@
 import 'package:aeqarat/src/screens/home_screen.dart';
 import 'package:aeqarat/src/screens/notifications_screen.dart';
 import 'package:aeqarat/src/screens/profile_screen.dart';
-import 'package:aeqarat/src/screens/realestates_screen.dart';
+import 'package:aeqarat/src/screens/real_estates_screen.dart';
 import 'package:aeqarat/src/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -356,5 +356,17 @@
   "haveAccount": "لديك حساب بالفعل...",
   "@haveAccount": {
     "description": ""
+  },
+  "description": "الوصف",
+  "@description": {
+    "description": ""
+  },
+  "details": "التفاصيل",
+  "@details": {
+    "description": ""
+  },
+  "reviews": "الاراء",
+  "@reviews": {
+    "description": ""
   }
 }
