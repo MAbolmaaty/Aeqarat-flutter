@@ -10,6 +10,8 @@ class RealEstatesScreen extends StatefulWidget{
 class _RealEstatesScreenState extends State<RealEstatesScreen>{
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(),
+    );
   }
 }
