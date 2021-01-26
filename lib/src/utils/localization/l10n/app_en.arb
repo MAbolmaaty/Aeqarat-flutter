@@ -332,7 +332,20 @@
 "haveAccount": "Have Account...",
 "@haveAccount": {
 "description": ""
-}
+},
+ "rentRealStates": "Rent Real States",
+ "@rentRealStates": {
+ "description": ""
+ },
+"myproperties": "My properties",
+"@myproperties": {
+"description": ""
+},
+ "realStates": "Real States",
+ "@realStates": {
+ "description": ""
+ }
+
 
 
 

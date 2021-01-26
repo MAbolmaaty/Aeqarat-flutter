@@ -24,9 +24,9 @@ class _BottomNavScreenState extends State<BottomNavScreen>{
         index: _currentIndex,
         children: [
           NotificationsScreen(),
-          RealEstatesScreen(),
-          HomeScreen(),
           ProfileScreen(),
+          HomeScreen(),
+          RealEstatesScreen(),
           SettingsScreen(),
         ],
       ),

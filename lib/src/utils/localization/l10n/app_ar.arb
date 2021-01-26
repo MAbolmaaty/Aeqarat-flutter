@@ -321,18 +321,33 @@
 "@terms": {
 "description": ""
 },
-  "toView": "للأطلاع",
-  "@toView": {
+"toView": "للأطلاع",
+"@toView": {
+"description": ""
+},
+"newAccount": "حساب جديد",
+"@newAccount": {
+"description": ""
+},
+"haveAccount": "لديك حساب بالفعل...",
+"@haveAccount": {
+"description": ""
+},
+  "rentRealStates": "العقارات المستأجرة",
+  "@rentRealStates": {
   "description": ""
   },
-      "newAccount": "حساب جديد",
-      "@newAccount": {
-      "description": ""
-      },
-       "haveAccount": "لديك حساب بالفعل...",
-       "@haveAccount": {
-       "description": ""
-       }
+ "myproperties": "عقاراتي",
+ "@myproperties": {
+ "description": ""
+ },
+   "realStates": "العقارات",
+   "@realStates": {
+   "description": ""
+   }
+
+
+
 
 
 
