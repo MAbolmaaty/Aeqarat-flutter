@@ -368,5 +368,61 @@
   "reviews": "الاراء",
   "@reviews": {
     "description": ""
+  },
+  "adNumber": "رقم الاعلان",
+  "@adNumber": {
+    "description": ""
+  },
+  "age": "عمر البناء",
+  "@age": {
+    "description": ""
+  },
+  "area": "المساحة",
+  "@area": {
+    "description": ""
+  },
+  "rooms": "عدد الغرف",
+  "@rooms": {
+    "description": ""
+  },
+  "insurance": "مبلغ التأمين",
+  "@insurance": {
+    "description": ""
+  },
+  "apartments": "عدد الشقق",
+  "@apartments": {
+    "description": ""
+  },
+  "electricity": "رقم حساب الكهرباء",
+  "@electricity": {
+    "description": ""
+  },
+  "water": "رقم حساب المياة",
+  "@water": {
+    "description": ""
+  },
+  "bathrooms": "عدد الحمامات",
+  "@bathrooms": {
+    "description": ""
+  },
+  "floors": "عدد الادوار",
+  "@floors": {
+    "description": ""
+  },
+  "offices": "عدد المكاتب",
+  "@offices": {
+    "description": ""
+  },
+  "shops": "عدد المحلات",
+  "@shops": {
+    "description": ""
+  },
+  "lounges": "عدد الصالات",
+  "@lounges": {
+    "description": ""
+  },
+  "streetWidth": "عرض الشارع",
+  "@streetWidth": {
+    "description": ""
   }
 }

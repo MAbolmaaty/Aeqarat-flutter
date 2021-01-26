@@ -368,5 +368,61 @@
   "reviews": "Reviews",
   "@reviews": {
     "description": ""
+  },
+  "adNumber": "Ad Number",
+  "@adNumber": {
+    "description": ""
+  },
+  "age": "Age",
+  "@age": {
+    "description": ""
+  },
+  "area": "Area",
+  "@area": {
+    "description": ""
+  },
+  "rooms": "Rooms",
+  "@rooms": {
+    "description": ""
+  },
+  "insurance": "Insurance",
+  "@insurance": {
+    "description": ""
+  },
+  "apartments": "Apartments",
+  "@apartments": {
+    "description": ""
+  },
+  "electricity": "Electricity",
+  "@electricity": {
+    "description": ""
+  },
+  "water": "Water",
+  "@water": {
+    "description": ""
+  },
+  "bathrooms": "Bathrooms",
+  "@bathrooms": {
+    "description": ""
+  },
+  "floors": "Floors",
+  "@floors": {
+    "description": ""
+  },
+  "offices": "Offices",
+  "@offices": {
+    "description": ""
+  },
+  "shops": "Shops",
+  "@shops": {
+    "description": ""
+  },
+  "lounges": "Lounges",
+  "@lounges": {
+    "description": ""
+  },
+  "streetWidth": "Street Width",
+  "@streetWidth": {
+    "description": ""
   }
 }

@@ -25,6 +25,8 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
               size: 35,
               color: Colors.white,
             ),
+            pinned: true,
+            floating: false,
             expandedHeight: MediaQuery.of(context).size.height / 2,
             flexibleSpace: Stack(
               children: <Widget>[
@@ -32,7 +34,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                     child: Image.asset(
                   'assets/images/apartment.jpg',
                   fit: BoxFit.cover,
-                ))
+                )),
               ],
             ),
           ),
@@ -119,46 +121,87 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text('Real Estate name'),
               ),
-              DefaultTabController(
-                length: 3,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 150.0),
-                      child: Material(
-                        color: Colors.white,
-                        child: TabBar(
-                          unselectedLabelColor: Colors.grey,
-                          labelColor: const Color(0xFFFFDB27),
-                          indicatorColor: const Color(0xFFFFDB27),
-                          tabs: [
-                            Tab(
-                              text: AppLocalizations.of(context).description,
-                            ),
-                            Tab(
-                              text: AppLocalizations.of(context).details,
-                            ),
-                            Tab(
-                              text: AppLocalizations.of(context).reviews,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.50,
-                      child: TabBarView(
-                        children: <Widget>[
-                          RealEstateDescriptionScreen(),
-                          RealEstateDetailsScreen(),
-                          RealEstateReviewsScreen(),
+              // DefaultTabController(
+              //   length: 3,
+              //   child: Column(
+              //     children: <Widget>[
+              //       Container(
+              //         constraints: BoxConstraints(maxHeight: 150.0),
+              //         child: Material(
+              //           color: Colors.white,
+              //           child: TabBar(
+              //             unselectedLabelColor: Colors.grey,
+              //             labelColor: const Color(0xFFFFDB27),
+              //             indicatorColor: const Color(0xFFFFDB27),
+              //             tabs: [
+              //               Tab(
+              //                 text: AppLocalizations.of(context).description,
+              //               ),
+              //               Tab(
+              //                 text: AppLocalizations.of(context).details,
+              //               ),
+              //               Tab(
+              //                 text: AppLocalizations.of(context).reviews,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         height: MediaQuery.of(context).size.height * 0.50,
+              //         child: TabBarView(
+              //           children: <Widget>[
+              //             RealEstateDescriptionScreen(),
+              //             RealEstateDetailsScreen(),
+              //             RealEstateReviewsScreen(),
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // )
+            ]),
+          ),
+          SliverFillRemaining(
+            child: DefaultTabController(
+              length: 3,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints(maxHeight: 150.0),
+                    child: Material(
+                      color: Colors.white,
+                      child: TabBar(
+                        unselectedLabelColor: Colors.grey,
+                        labelColor: const Color(0xFFFFDB27),
+                        indicatorColor: const Color(0xFFFFDB27),
+                        tabs: [
+                          Tab(
+                            text: AppLocalizations.of(context).description,
+                          ),
+                          Tab(
+                            text: AppLocalizations.of(context).details,
+                          ),
+                          Tab(
+                            text: AppLocalizations.of(context).reviews,
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              )
-            ]),
+                  ),
+                  Expanded(
+                    //height: MediaQuery.of(context).size.height * 0.50,
+                    child: TabBarView(
+                      children: <Widget>[
+                        RealEstateDescriptionScreen(),
+                        RealEstateDetailsScreen(),
+                        RealEstateReviewsScreen(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
