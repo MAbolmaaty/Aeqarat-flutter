@@ -76,7 +76,7 @@ void _onRememberMeChanged(bool newValue) => setState(() {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.99,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.27,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -275,7 +275,7 @@ void _onRememberMeChanged(bool newValue) => setState(() {
                   ),
                   InkWell(
                     onTap: (){
-                      print("forget");
+                      print("Go Register");
 
                       Navigator.of(context).push(RegisterScreen.route());
 

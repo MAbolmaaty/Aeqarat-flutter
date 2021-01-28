@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'accountDetails.dart';
 import 'bottom_nav_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -326,8 +327,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-
-
             Padding(
               padding: const EdgeInsets.only(right:8.0 ,left: 8.0 ),
               child: Row(
@@ -392,8 +391,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 colorBrightness: Brightness.dark,
                 onPressed: () {
-                  print("Save");
-                  Navigator.of(context).pushReplacement(BottomNavScreen.route());
+                  print("Register");
+                  Navigator.of(context).push(AccountDetails.route());
 
                 },
                 color: Colors.yellow,
@@ -462,12 +461,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ],
-            ) ,
+            ),
           ],
         ),
       ),
     );
   }
-
-
 }
