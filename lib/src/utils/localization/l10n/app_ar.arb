@@ -356,5 +356,74 @@
   "haveAccount": "لديك حساب بالفعل...",
   "@haveAccount": {
     "description": ""
+  },
+  "rentRealStates": "العقارات المستأجرة",
+  "@rentRealStates": {
+  "description": ""
+  },
+  "myproperties": "عقاراتي",
+  "@myproperties": {
+  "description": ""
+  },
+  "realStates": "العقارات",
+  "@realStates": {
+  "description": ""
+  },
+  "rent": "ايجار",
+  "@rent": {
+  "description": ""
+  },
+  "sale": "بيع",
+  "@sale": {
+  "description": ""
+  },
+  "auction": "مزاد",
+  "@auction": {
+  "description": ""
+  },
+  "apartment": "شقة",
+  "@apartment": {
+  "description": ""
+  },
+  "house": "منزل",
+  "@house": {
+  "description": ""
+  },
+  "garage": "محل",
+  "@garage": {
+  "description": ""
+  },
+  "riyadh": "الرياض",
+  "@riyadh": {
+  "description": ""
+  },
+  "price": "السعر",
+  "@price": {
+  "description": ""
+  },
+  "distance": "المسافة",
+  "@distance": {
+  "description": ""
+  },
+  "search": "بحث",
+  "@Search": {
+  "description": ""
+  },
+  "reset": "الافتراضي",
+  "@reset": {
+  "description": ""
+  },
+  "searchBarHint": "مثال .. مدينة الرياض",
+  "@searchBarHint": {
+  "description": ""
+  },
+  "advancedSearch": "بحث متقدم",
+  "@advancedSearch": {
+  "description": ""
+  },
+  "loading": "جاري التحميل",
+  "@loading": {
+  "description": ""
   }
+
 }

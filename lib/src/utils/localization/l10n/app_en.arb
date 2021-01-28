@@ -356,5 +356,75 @@
   "haveAccount": "Have Account...",
   "@haveAccount": {
     "description": ""
+  },
+  ,
+  "rentRealStates": "Rent RealStates",
+  "@rentRealStates": {
+  "description": ""
+  },
+  "myproperties": "My properties",
+  "@myproperties": {
+  "description": ""
+  },
+  "realStates": "Real States",
+  "@realStates": {
+  "description": ""
+  },
+  "rent": "rent",
+  "@rent": {
+  "description": ""
+  },
+  "sale": "sale",
+  "@sale": {
+  "description": ""
+  },
+  "auction": "auction",
+  "@auction": {
+  "description": ""
+  },
+  "apartment": "apartment",
+  "@apartment": {
+  "description": ""
+  },
+  "house": "house",
+  "@house": {
+  "description": ""
+  },
+  "garage": "garage",
+  "@garage": {
+  "description": ""
+  },
+  "riyadh": "riyadh",
+  "@riyadh": {
+  "description": ""
+  },
+  "price": "Price",
+  "@price": {
+  "description": ""
+  },
+  "distance": "Distance",
+  "@distance": {
+  "description": ""
+  },
+  "search": "Search",
+  "@search": {
+  "description": ""
+  },
+  "reset": "Reset",
+  "@reset": {
+  "description": ""
+  },
+  "searchBarHint": "Ex .. Riyadh",
+  "@searchBarHint": {
+  "description": ""
+  },
+  "advancedSearch": "Advanced Search",
+  "@advancedSearch": {
+  "description": ""
+  },
+  "loading": "Loading",
+  "@loading": {
+  "description": ""
   }
+
 }
