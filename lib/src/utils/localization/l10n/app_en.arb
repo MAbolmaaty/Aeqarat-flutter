@@ -253,14 +253,6 @@
   "@loadingRealEstates": {
     "description": ""
   },
-  "searchBarHint": "Ex .. Riyadh",
-  "@searchBarHint": {
-    "description": ""
-  },
-  "advancedSearch": "Advanced Search",
-  "@advancedSearch": {
-    "description": ""
-  },
   "skip": "Skip",
   "@skip": {
     "description": ""
@@ -283,54 +275,6 @@
   },
   "createAccount": "Create Account",
   "@createAccount": {
-    "description": ""
-  },
-  "loading": "Loading",
-  "@loading": {
-    "description": ""
-  },
-  "rent": "rent",
-  "@rent": {
-    "description": ""
-  },
-  "sale": "sale",
-  "@sale": {
-    "description": ""
-  },
-  "auction": "auction",
-  "@auction": {
-    "description": ""
-  },
-  "apartment": "apartment",
-  "@apartment": {
-    "description": ""
-  },
-  "house": "house",
-  "@house": {
-    "description": ""
-  },
-  "garage": "garage",
-  "@garage": {
-    "description": ""
-  },
-  "riyadh": "riyadh",
-  "@riyadh": {
-    "description": ""
-  },
-  "price": "Price",
-  "@price": {
-    "description": ""
-  },
-  "distance": "Distance",
-  "@distance": {
-    "description": ""
-  },
-  "search": "Search",
-  "@search": {
-    "description": ""
-  },
-  "reset": "Reset",
-  "@reset": {
     "description": ""
   },
   "workknowledge": "We are working on your knowledge",
@@ -357,7 +301,6 @@
   "@haveAccount": {
     "description": ""
   },
-  ,
   "rentRealStates": "Rent RealStates",
   "@rentRealStates": {
   "description": ""
@@ -425,6 +368,77 @@
   "loading": "Loading",
   "@loading": {
   "description": ""
+  },
+  "description": "Description",
+  "@description": {
+    "description": ""
+  },
+  "details": "Details",
+  "@details": {
+    "description": ""
+  },
+  "reviews": "Reviews",
+  "@reviews": {
+    "description": ""
+  },
+  "adNumber": "Ad Number",
+  "@adNumber": {
+    "description": ""
+  },
+  "age": "Age",
+  "@age": {
+    "description": ""
+  },
+  "area": "Area",
+  "@area": {
+    "description": ""
+  },
+  "rooms": "Rooms",
+  "@rooms": {
+    "description": ""
+  },
+  "insurance": "Insurance",
+  "@insurance": {
+    "description": ""
+  },
+  "apartments": "Apartments",
+  "@apartments": {
+    "description": ""
+  },
+  "electricity": "Electricity",
+  "@electricity": {
+    "description": ""
+  },
+  "water": "Water",
+  "@water": {
+    "description": ""
+  },
+  "bathrooms": "Bathrooms",
+  "@bathrooms": {
+    "description": ""
+  },
+  "floors": "Floors",
+  "@floors": {
+    "description": ""
+  },
+  "offices": "Offices",
+  "@offices": {
+    "description": ""
+  },
+  "shops": "Shops",
+  "@shops": {
+    "description": ""
+  },
+  "lounges": "Lounges",
+  "@lounges": {
+    "description": ""
+  },
+  "streetWidth": "Street Width",
+  "@streetWidth": {
+    "description": ""
+  },
+  "byAeqarat": "By Aeqarat",
+  "@byAeqarat": {
+    "description": ""
   }
-
 }

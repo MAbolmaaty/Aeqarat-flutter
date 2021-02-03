@@ -369,61 +369,76 @@
   "@realStates": {
   "description": ""
   },
-  "rent": "ايجار",
-  "@rent": {
-  "description": ""
+  "description": "الوصف",
+  "@description": {
+    "description": ""
   },
-  "sale": "بيع",
-  "@sale": {
-  "description": ""
+  "details": "التفاصيل",
+  "@details": {
+    "description": ""
   },
-  "auction": "مزاد",
-  "@auction": {
-  "description": ""
+  "reviews": "الاراء",
+  "@reviews": {
+    "description": ""
   },
-  "apartment": "شقة",
-  "@apartment": {
-  "description": ""
+  "adNumber": "رقم الاعلان",
+  "@adNumber": {
+    "description": ""
   },
-  "house": "منزل",
-  "@house": {
-  "description": ""
+  "age": "عمر البناء",
+  "@age": {
+    "description": ""
   },
-  "garage": "محل",
-  "@garage": {
-  "description": ""
+  "area": "المساحة",
+  "@area": {
+    "description": ""
   },
-  "riyadh": "الرياض",
-  "@riyadh": {
-  "description": ""
+  "rooms": "عدد الغرف",
+  "@rooms": {
+    "description": ""
   },
-  "price": "السعر",
-  "@price": {
-  "description": ""
+  "insurance": "مبلغ التأمين",
+  "@insurance": {
+    "description": ""
   },
-  "distance": "المسافة",
-  "@distance": {
-  "description": ""
+  "apartments": "عدد الشقق",
+  "@apartments": {
+    "description": ""
   },
-  "search": "بحث",
-  "@Search": {
-  "description": ""
+  "electricity": "رقم حساب الكهرباء",
+  "@electricity": {
+    "description": ""
   },
-  "reset": "الافتراضي",
-  "@reset": {
-  "description": ""
+  "water": "رقم حساب المياة",
+  "@water": {
+    "description": ""
   },
-  "searchBarHint": "مثال .. مدينة الرياض",
-  "@searchBarHint": {
-  "description": ""
+  "bathrooms": "عدد الحمامات",
+  "@bathrooms": {
+    "description": ""
   },
-  "advancedSearch": "بحث متقدم",
-  "@advancedSearch": {
-  "description": ""
+  "floors": "عدد الادوار",
+  "@floors": {
+    "description": ""
   },
-  "loading": "جاري التحميل",
-  "@loading": {
-  "description": ""
+  "offices": "عدد المكاتب",
+  "@offices": {
+    "description": ""
+  },
+  "shops": "عدد المحلات",
+  "@shops": {
+    "description": ""
+  },
+  "lounges": "عدد الصالات",
+  "@lounges": {
+    "description": ""
+  },
+  "streetWidth": "عرض الشارع",
+  "@streetWidth": {
+    "description": ""
+  },
+  "byAeqarat": "بواسطة عقارات",
+  "@byAeqarat": {
+    "description": ""
   }
-
 }
