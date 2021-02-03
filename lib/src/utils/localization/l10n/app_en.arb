@@ -424,5 +424,9 @@
   "streetWidth": "Street Width",
   "@streetWidth": {
     "description": ""
+  },
+  "byAeqarat": "By Aeqarat",
+  "@byAeqarat": {
+    "description": ""
   }
 }

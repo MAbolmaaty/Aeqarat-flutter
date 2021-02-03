@@ -424,5 +424,9 @@
   "streetWidth": "عرض الشارع",
   "@streetWidth": {
     "description": ""
+  },
+  "byAeqarat": "بواسطة عقارات",
+  "@byAeqarat": {
+    "description": ""
   }
 }

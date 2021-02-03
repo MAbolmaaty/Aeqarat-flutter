@@ -10,11 +10,6 @@ class _RealEstateDescriptionScreenState
     extends State<RealEstateDescriptionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(8.0),
-        child: Text('Real Estate in the main district'),
-      ),
-    );
+    return Scaffold(body: Text('fifa 21'));
   }
 }

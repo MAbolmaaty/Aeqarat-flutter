@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 class RealEstateDetailItemModel{
-  IconData iconData;
+  String assetImage;
   String detail;
   String hint;
   String value;
 
-  RealEstateDetailItemModel({this.iconData, this.detail, this.hint, this.value});
+  RealEstateDetailItemModel({this.assetImage, this.detail, this.hint, this.value});
 
 }
