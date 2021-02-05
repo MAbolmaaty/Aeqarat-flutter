@@ -15,22 +15,6 @@ class RealEstateScreen extends StatefulWidget {
 
 class _RealEstateScreenState extends State<RealEstateScreen>
     with SingleTickerProviderStateMixin {
-  //TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    // _tabController = TabController(
-    //   length: 3,
-    //   vsync: this,
-    // );
-  }
-
-  @override
-  void dispose() {
-    //_tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
