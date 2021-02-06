@@ -440,5 +440,9 @@
   "byAeqarat": "بواسطة عقارات",
   "@byAeqarat": {
     "description": ""
+  },
+  "emailOrPhoneNumber": "البريد الالكتروني او رقم الجوال",
+  "@emailOrPhoneNumber": {
+    "description": ""
   }
 }

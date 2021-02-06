@@ -464,13 +464,14 @@ class _HomeScreenState extends State<HomeScreen> {
       _allMarkers.clear();
       for (final realEstate in realEstates) {
         final marker = Marker(
-            markerId: MarkerId(realEstate.title),
-            position: LatLng(double.parse(realEstate.latitude),
-                double.parse(realEstate.longitude)),
-            icon: BitmapDescriptor.fromBytes(markerIcon),
-            onTap: () {
-              Navigator.of(context).push(RealEstateScreen.route());
-            },);
+          markerId: MarkerId(realEstate.title),
+          position: LatLng(double.parse(realEstate.latitude),
+              double.parse(realEstate.longitude)),
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          onTap: () {
+            Navigator.of(context).push(RealEstateScreen.route());
+          },
+        );
         _allMarkers[realEstate.sId] = marker;
         switch (realEstate.status) {
           case 'rent':

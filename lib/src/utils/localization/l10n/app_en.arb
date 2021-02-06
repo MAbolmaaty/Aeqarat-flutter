@@ -440,5 +440,9 @@
   "byAeqarat": "By Aeqarat",
   "@byAeqarat": {
     "description": ""
+  },
+  "emailOrPhoneNumber": "Email or Phone Number",
+  "@emailOrPhoneNumber": {
+    "description": ""
   }
 }

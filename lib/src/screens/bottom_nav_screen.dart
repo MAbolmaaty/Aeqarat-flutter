@@ -1,4 +1,3 @@
-
 import 'package:aeqarat/src/screens/home_screen.dart';
 import 'package:aeqarat/src/screens/notifications_screen.dart';
 import 'package:aeqarat/src/screens/profile_screen.dart';
@@ -6,15 +5,16 @@ import 'package:aeqarat/src/screens/real_estates_screen.dart';
 import 'package:aeqarat/src/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavScreen extends StatefulWidget{
+class BottomNavScreen extends StatefulWidget {
   static Route<dynamic> route() => MaterialPageRoute(
-    builder: (context) => BottomNavScreen(),
-  );
+        builder: (context) => BottomNavScreen(),
+      );
+
   @override
   _BottomNavScreenState createState() => _BottomNavScreenState();
 }
 
-class _BottomNavScreenState extends State<BottomNavScreen>{
+class _BottomNavScreenState extends State<BottomNavScreen> {
   int _currentIndex = 2;
 
   @override
@@ -34,20 +34,24 @@ class _BottomNavScreenState extends State<BottomNavScreen>{
         currentIndex: _currentIndex,
         selectedItemColor: const Color(0xFFFFDB27),
         unselectedItemColor: const Color(0xFFCCCCCC),
-        onTap: (int index){
+        onTap: (int index) {
           setState(() {
             _currentIndex = index;
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.home_work_outlined), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ""),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.notifications_none), label: "Notifications"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: "Profile"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_work_outlined), label: "Real Estates"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );
   }
-
 }

@@ -1,0 +1,308 @@
+import 'package:aeqarat/src/screens/registerScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class LoginScreen extends StatefulWidget {
+  static Route<dynamic> route() => MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+      );
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool rememberMe = false;
+  bool _passwordVisible = false;
+
+  void _onRememberMeChanged(bool newValue) => setState(() {
+        rememberMe = newValue;
+
+        if (rememberMe) {
+          // TODO: Here goes your functionality that remembers the user.
+        } else {
+          // TODO: Forget the user
+        }
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xffF9FBFC),
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewPortConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints(minHeight: viewPortConstraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          AppLocalizations.of(context).login,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.99,
+                    height: MediaQuery.of(context).size.height * 0.27,
+                    margin: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: ExactAssetImage("assets/images/4.png"),
+                            fit: BoxFit.scaleDown)),
+                  ),
+                  ///////////////////////////////// Email or Phone Number
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25.0)),
+                    child: TextFormField(
+                      maxLines: 1,
+                      validator: (value) => value.isEmpty
+                          ? AppLocalizations.of(context).enterEmail
+                          : null,
+                      //onSaved: (value) => _email = value,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(
+                              top: 11, bottom: 11, left: 16, right: 16),
+                          labelText:
+                              AppLocalizations.of(context).emailOrPhoneNumber,
+                          labelStyle: TextStyle(
+                            color: const Color(0xFF9e9e9e),
+                            fontSize: 13,
+                          ),
+                          alignLabelWithHint: true,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          isDense: true),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  ///////////////////////////// Password
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25.0)),
+                    child: TextFormField(
+                      maxLines: 1,
+                      // validator: (value) => value.isEmpty
+                      //     ? AppLocalizations.of(context).enterEmail
+                      //     : null,
+                      //onSaved: (value) => _email = value,
+                      obscureText: !_passwordVisible,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(
+                              top: 11, bottom: 11, left: 16, right: 16),
+                          labelText: AppLocalizations.of(context).password,
+                          labelStyle: TextStyle(
+                            color: const Color(0xFF9e9e9e),
+                            fontSize: 13,
+                          ),
+                          suffixIcon: GestureDetector(
+                            child: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: const Color(0xffE3E3E6),
+                              size: 25,
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
+                          alignLabelWithHint: true,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              borderSide:
+                                  BorderSide(color: const Color(0xffE3E3E6))),
+                          isDense: true),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            ///////////////// Remember Me
+                            Checkbox(
+                              value: rememberMe,
+                              onChanged: _onRememberMeChanged,
+                              activeColor: Colors.grey.withOpacity(0.6),
+                              checkColor: const Color(0xffFFDB27),
+                            ),
+                            Text(
+                              AppLocalizations.of(context).rememberMe,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                        ///////////////// Forget Password
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            AppLocalizations.of(context).forgetPassword,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /////////////////////////// Login
+                  GestureDetector(
+                      onTap: () {
+                        // final form = formKey.currentState;
+                        // if (form.validate()) {
+                        //   form.save();
+                        //   authenticationApi
+                        //       .login(_email, _password)
+                        //       .then((response) {
+                        //     if (response['status']) {
+                        //       AuthenticationResponseModel
+                        //       authenticationResponseModel =
+                        //       response['data'];
+                        //       print(authenticationResponseModel
+                        //           .user.username);
+                        //       Navigator.of(context).pushReplacement(
+                        //           MaterialPageRoute(
+                        //               builder: (BuildContext context) =>
+                        //                   BottomNavScreen()));
+                        //     }
+                        //   });
+                        //}
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 55,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            color: const Color(0xffFFDB27)),
+                        child:
+                            // authenticationApi.loggedInStatus ==
+                            //     Status.Authenticating
+                            //     ? _loading()
+                            //     :
+                            Text(
+                          AppLocalizations.of(context).login,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )),
+                  //////////////////////////// OR
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 70.0, right: 70.0, top: 8.0, bottom: 8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 40,
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            AppLocalizations.of(context).or,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            width: 40,
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  /////////////////////////// Create new account
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).dontHaveAccount,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(RegisterScreen.route());
+                          },
+                          child: Text(
+                            AppLocalizations.of(context).createAccount,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
