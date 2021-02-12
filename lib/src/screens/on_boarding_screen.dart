@@ -133,37 +133,39 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget _pageViewItem(PageViewItem pageViewItem) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Center(
-              child: Image(
-                image: AssetImage(pageViewItem.image),
-                height: 200,
-                width: 200,
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: Image(
+                  image: AssetImage(pageViewItem.image),
+                  height: 200,
+                  width: 200,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-                child: Text(
-              pageViewItem.title,
-              textAlign: TextAlign.center,
-            )),
-            SizedBox(
-              height: 15.0,
-            ),
-            Center(
-                child: Text(
-              pageViewItem.subTitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: const Color(0xffCCCCCC)),
-            )),
-          ],
+              SizedBox(
+                height: 30,
+              ),
+              Center(
+                  child: Text(
+                pageViewItem.title,
+                textAlign: TextAlign.center,
+              )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Center(
+                  child: Text(
+                pageViewItem.subTitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: const Color(0xffCCCCCC)),
+              )),
+            ],
+          ),
         ),
       ),
     );
