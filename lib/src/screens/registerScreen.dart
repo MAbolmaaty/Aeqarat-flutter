@@ -92,14 +92,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(40.0),
+                        padding: const EdgeInsets.only(top: 56.0, right: 16.0, left: 16.0),
                         child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               AppLocalizations.of(context).createNewAccount,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 20,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             )),
                       ),
@@ -124,15 +124,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           backgroundColor:
                                               const Color(0x109e9e9e),
                                           backgroundImage:
-                                              _selectedImage != null
-                                                  ? FileImage(_selectedImage)
+                                              imageFile != null
+                                                  ? FileImage(imageFile)
                                                   : AssetImage(
                                                       'assets/images/profile.png',
                                                     )),
                                     )),
                                 Visibility(
                                     visible:
-                                        _selectedImage != null ? false : true,
+                                        imageFile != null ? false : true,
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
                                       child: Container(
