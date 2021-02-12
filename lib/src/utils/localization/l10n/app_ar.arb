@@ -41,8 +41,8 @@
   "@forgetPassword": {
     "description": ""
   },
-  "dontHaveAccount": "ليس لدي حساب .. ",
-  "@dontHaveAccount": {
+  "doNotHaveAccount": "ليس لدي حساب .. ",
+  "@doNotHaveAccount": {
     "description": ""
   },
   "register": "إنشاء حساب جديد",
@@ -333,10 +333,6 @@
   "@reset": {
     "description": ""
   },
-  "workknowledge": "نعمل علي معرفتك",
-  "@workknowledge": {
-    "description": ""
-  },
   "name": "الاسم",
   "@name": {
     "description": ""
@@ -443,6 +439,34 @@
   },
   "emailOrPhoneNumber": "البريد الالكتروني او رقم الجوال",
   "@emailOrPhoneNumber": {
+    "description": ""
+  },
+  "enterEmailOrPhoneNumber": "من فضلك ادخل البريد الالكتروني او رقم الجوال",
+  "@enterEmailOrPhoneNumber": {
+    "description": ""
+  },
+  "onBoardingSlide1_title": "تابع عقاراتك في مكان واحد",
+  "@onBoardingSlide1_title": {
+    "description": ""
+  },
+  "onBoardingSlide1_subTitle": "تابع جميع عقاراتك المملوكة بواسطتك والتمتع بخدمات الصيانة والتأجير في مكان واحد فقط",
+  "@onBoardingSlide1_subTitle": {
+    "description": ""
+  },
+  "onBoardingSlide2_title": "تمتع بخدماتنا المتنوعة",
+  "@onBoardingSlide2_title": {
+    "description": ""
+  },
+  "onBoardingSlide2_subTitle": "تمتع بكافة الخدمات المقدمة بواسطة التطبيق على عقاراتك المملوكة كالصيانة والتأجير",
+  "@onBoardingSlide2_subTitle": {
+    "description": ""
+  },
+  "onBoardingSlide3_title": "متابعة العمليات المالية",
+  "@onBoardingSlide3_title": {
+    "description": ""
+  },
+  "onBoardingSlide3_subTitle": "تابع جميع العمليات المالية التي تخص عقاراتك والفواتير الخاصة بها ,ايضا سحب الارباح",
+  "@onBoardingSlide3_subTitle": {
     "description": ""
   }
 }

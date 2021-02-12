@@ -9,24 +9,25 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
+  List<PageViewItem> pages;
 
   @override
   Widget build(BuildContext context) {
+    getPages(context);
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Container(
           color: Colors.white,
-          margin: EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.only(top: 56.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(20.0),
                 alignment: Alignment.centerRight,
+                margin: EdgeInsets.all(16.0),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context)
@@ -36,14 +37,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     AppLocalizations.of(context).skip,
                     style: TextStyle(
                       color: const Color(0xffCCCCCC),
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                 ),
               ),
-              Container(
-                height: 500,
-                child: PageView(
+              Expanded(
+                child: PageView.builder(
                   physics: ClampingScrollPhysics(),
                   controller: _pageController,
                   onPageChanged: (int page) {
@@ -51,153 +51,59 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       _currentPage = page;
                     });
                   },
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(40.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Center(
-                            child: Image(
-                              image: AssetImage('assets/images/slide_1.png'),
-                              height: 200,
-                              width: 200,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Center(
-                              child: Text(
-                            'Manage Your Real Estates From One Place',
-                            textAlign: TextAlign.center,
-                          )),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Center(
-                              child: Text(
-                            'Aeqarat App enables you from managing your valuable real estate and having services for maintenance and leasehold from one app',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: const Color(0xffCCCCCC)),
-                          )),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(40.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Center(
-                            child: Image(
-                              image: AssetImage('assets/images/slide_2.png'),
-                              height: 200,
-                              width: 200,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Center(
-                              child: Text(
-                            'Explore more provided services',
-                            textAlign: TextAlign.center,
-                          )),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Center(
-                              child: Text(
-                            'Aeqarat app provides you with more services like maintenance and leasehold',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: const Color(0xffCCCCCC)),
-                          )),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(40.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Center(
-                            child: Image(
-                              image: AssetImage('assets/images/slide_3.png'),
-                              height: 200,
-                              width: 200,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Center(
-                              child: Text(
-                            'Manage financial procedures',
-                            textAlign: TextAlign.center,
-                          )),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Center(
-                              child: Text(
-                            'Manage your real estate financial procedures, bills and profit',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: const Color(0xffCCCCCC)),
-                          )),
-                        ],
-                      ),
-                    )
-                  ],
+                  itemCount: pages.length,
+                  itemBuilder: (context, position) {
+                    return _pageViewItem(pages[position]);
+                  },
                 ),
               ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: _buildPageIndicator()),
-              Expanded(
-                  child: Padding(
+              Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Stack(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: GestureDetector(
-                          onTap: () {
-                            if (_currentPage != _numPages - 1) {
-                              _pageController.nextPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                            } else {
-                              Navigator.of(context).pushReplacement(BottomNavScreen.route());
-                            }
-                          },
-                          child: _currentPage != _numPages - 1
-                              ? Text('Next')
-                              : Container(
-                            padding: EdgeInsets.all(8.0),
-                                  child: Text('Get Started'),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFFFDB27),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
-                                )),
+                    GestureDetector(
+                        onTap: () {
+                          if (_currentPage > 0) {
+                            _pageController.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          }
+                        },
+                        child: _currentPage > 0 ? Text('Previous') : Text('')),
+                    GestureDetector(
+                      onTap: () {
+                        if (_currentPage != pages.length - 1) {
+                          _pageController.nextPage(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        } else {
+                          Navigator.of(context)
+                              .pushReplacement(BottomNavScreen.route());
+                        }
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 200),
+                        padding: _currentPage != pages.length - 1
+                            ? EdgeInsets.all(0.0)
+                            : EdgeInsets.all(8.0),
+                        decoration: _currentPage != pages.length - 1
+                            ? null
+                            : BoxDecoration(
+                                color: const Color(0xffFFDB27),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4.0))),
+                        child: _currentPage != pages.length - 1
+                            ? Text('Next')
+                            : Text('Get Started'),
+                      ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: GestureDetector(
-                          onTap: () {
-                            if (_currentPage > 0) {
-                              _pageController.previousPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                            }
-                          },
-                          child:
-                              _currentPage > 0 ? Text('Previous') : Text('')),
-                    )
                   ],
                 ),
-              )),
+              ),
             ],
           ),
         ),
@@ -207,7 +113,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
-    for (int i = 0; i < _numPages; i++) {
+    for (int i = 0; i < pages.length; i++) {
       list.add(i == _currentPage ? _indicator(true) : _indicator(false));
     }
     return list;
@@ -215,14 +121,76 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 400),
       margin: EdgeInsets.symmetric(horizontal: 8.0),
-      height: isActive ? 12.0 : 8.0,
-      width: isActive ? 12.0 : 8.0,
+      height: 8.0,
+      width: 8.0,
       decoration: BoxDecoration(
         color: isActive ? const Color(0xFFFFDB27) : Colors.grey,
         shape: BoxShape.circle,
       ),
     );
   }
+
+  Widget _pageViewItem(PageViewItem pageViewItem) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Center(
+              child: Image(
+                image: AssetImage(pageViewItem.image),
+                height: 200,
+                width: 200,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Center(
+                child: Text(
+              pageViewItem.title,
+              textAlign: TextAlign.center,
+            )),
+            SizedBox(
+              height: 15.0,
+            ),
+            Center(
+                child: Text(
+              pageViewItem.subTitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: const Color(0xffCCCCCC)),
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<PageViewItem> getPages(BuildContext context) {
+    return pages = <PageViewItem>[
+      PageViewItem(
+          'assets/images/slide_1.png',
+          AppLocalizations.of(context).onBoardingSlide1_title,
+          AppLocalizations.of(context).onBoardingSlide1_subTitle),
+      PageViewItem(
+          'assets/images/slide_2.png',
+          AppLocalizations.of(context).onBoardingSlide2_title,
+          AppLocalizations.of(context).onBoardingSlide2_subTitle),
+      PageViewItem(
+          'assets/images/slide_3.png',
+          AppLocalizations.of(context).onBoardingSlide3_title,
+          AppLocalizations.of(context).onBoardingSlide3_subTitle),
+    ];
+  }
+}
+
+class PageViewItem {
+  String image;
+  String title;
+  String subTitle;
+
+  PageViewItem(this.image, this.title, this.subTitle);
 }

@@ -12,7 +12,7 @@ class _ProfileScreenState extends State{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.grey,
+        color: Colors.white,
         child: Center(
           child: GestureDetector(
             onTap: (){

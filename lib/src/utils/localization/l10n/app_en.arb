@@ -41,8 +41,8 @@
   "@forgetPassword": {
     "description": ""
   },
-  "dontHaveAccount": "Don't have an account ? .. ",
-  "@dontHaveAccount": {
+  "doNotHaveAccount": "Don't have an account ? .. ",
+  "@doNotHaveAccount": {
     "description": ""
   },
   "register": "Register",
@@ -181,7 +181,7 @@
   "@enterEmail": {
     "description": ""
   },
-  "enterPassword": "Please enter password",
+  "enterPassword": "Please enter Password",
   "@enterPassword": {
     "description": ""
   },
@@ -275,10 +275,6 @@
   },
   "createAccount": "Create Account",
   "@createAccount": {
-    "description": ""
-  },
-  "workknowledge": "We are working on your knowledge",
-  "@workknowledge": {
     "description": ""
   },
   "name": "Name",
@@ -443,6 +439,34 @@
   },
   "emailOrPhoneNumber": "Email or Phone Number",
   "@emailOrPhoneNumber": {
+    "description": ""
+  },
+  "enterEmailOrPhoneNumber": "Please enter Email or Phone Number",
+  "@enterEmailOrPhoneNumber": {
+    "description": ""
+  },
+  "onBoardingSlide1_title": "Manage Your Real Estates From One Place",
+  "@onBoardingSlide1_title": {
+    "description": ""
+  },
+  "onBoardingSlide1_subTitle": "Aeqarat App enables you from managing your valuable real estate and having services for maintenance and leasehold from one app",
+  "@onBoardingSlide1_subTitle": {
+    "description": ""
+  },
+  "onBoardingSlide2_title": "Explore more provided services",
+  "@onBoardingSlide2_title": {
+    "description": ""
+  },
+  "onBoardingSlide2_subTitle": "Aeqarat app provides you with more services like maintenance and leasehold",
+  "@onBoardingSlide2_subTitle": {
+    "description": ""
+  },
+  "onBoardingSlide3_title": "Manage financial procedures",
+  "@onBoardingSlide3_title": {
+    "description": ""
+  },
+  "onBoardingSlide3_subTitle": "Manage your real estate financial procedures, bills and profit",
+  "@onBoardingSlide3_subTitle": {
     "description": ""
   }
 }
