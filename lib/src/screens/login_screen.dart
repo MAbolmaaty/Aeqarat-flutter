@@ -36,15 +36,16 @@ class LoginScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(40.0),
+                        padding: const EdgeInsets.only(top: 56.0, right: 16, left: 16),
                         child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              AppLocalizations.of(context).login,
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            )),
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            AppLocalizations.of(context).login,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.99,
