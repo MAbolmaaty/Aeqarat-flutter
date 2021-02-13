@@ -16,6 +16,7 @@ class BottomNavScreen extends StatefulWidget {
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
   int _currentIndex = 2;
+  bool loggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.notifications_none), label: "Notifications"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: "Profile"),
+              icon: loggedIn ? Icon(Icons.person_outline) : Icon(Icons.login), label: loggedIn ? "Profile" : "Login"),
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined), label: "Home"),
           BottomNavigationBarItem(

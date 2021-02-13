@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
   List<PageViewItem> pages;
+  bool skip = false;
+  bool getStarted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +34,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 margin: EdgeInsets.all(16.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .pushReplacement(BottomNavScreen.route());
+                    if (!getStarted) {
+                      setState(() {
+                        skip = true;
+                      });
+                      Timer(
+                          Duration(seconds: 2),
+                          () => Navigator.of(context)
+                              .pushReplacement(BottomNavScreen.route()));
+                    }
                   },
-                  child: Text(
-                    AppLocalizations.of(context).skip,
-                    style: TextStyle(
-                      color: const Color(0xffCCCCCC),
-                      fontSize: 15,
-                    ),
-                  ),
+                  child: skip && !getStarted
+                      ? Align(alignment: Alignment.topRight, child: _loading())
+                      : Text(
+                          AppLocalizations.of(context).skip,
+                          style: TextStyle(
+                            color: const Color(0xffCCCCCC),
+                            fontSize: 15,
+                          ),
+                        ),
                 ),
               ),
               Expanded(
@@ -81,8 +94,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         } else {
-                          Navigator.of(context)
-                              .pushReplacement(BottomNavScreen.route());
+                          if (!skip) {
+                            setState(() {
+                              getStarted = true;
+                            });
+                            Timer(
+                                Duration(seconds: 2),
+                                () => Navigator.of(context)
+                                    .pushReplacement(BottomNavScreen.route()));
+                          }
                         }
                       },
                       child: AnimatedContainer(
@@ -92,13 +112,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             : EdgeInsets.all(8.0),
                         decoration: _currentPage != pages.length - 1
                             ? null
-                            : BoxDecoration(
-                                color: const Color(0xffFFDB27),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0))),
+                            : getStarted && !skip
+                                ? null
+                                : BoxDecoration(
+                                    color: const Color(0xffFFDB27),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4.0))),
                         child: _currentPage != pages.length - 1
                             ? Text('Next')
-                            : Text('Get Started'),
+                            : getStarted && !skip
+                                ? _loading()
+                                : Text('Get Started'),
                       ),
                     ),
                   ],
@@ -186,6 +210,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           AppLocalizations.of(context).onBoardingSlide3_title,
           AppLocalizations.of(context).onBoardingSlide3_subTitle),
     ];
+  }
+
+  Widget _loading() {
+    return SizedBox(
+      child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+          strokeWidth: 2,
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.black)),
+      height: 15,
+      width: 15,
+    );
   }
 }
 
