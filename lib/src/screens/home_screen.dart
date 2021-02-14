@@ -12,26 +12,26 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-enum MarkersVisibility {
-  Visible,
-  Invisible,
-}
+// enum MarkersVisibility {
+//   Visible,
+//   Invisible,
+// }
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   var locale;
   GoogleMapController mapController;
   final LatLng _center = const LatLng(24.5538107, 46.0265294);
   String _mapStyle;
   BitmapDescriptor customMarker;
   bool _loadingRealEstates = false;
-  MarkersVisibility rentVisibility = MarkersVisibility.Visible;
-  MarkersVisibility saleVisibility = MarkersVisibility.Visible;
-  MarkersVisibility auctionsVisibility = MarkersVisibility.Visible;
+  // MarkersVisibility rentVisibility = MarkersVisibility.Visible;
+  // MarkersVisibility saleVisibility = MarkersVisibility.Visible;
+  // MarkersVisibility auctionsVisibility = MarkersVisibility.Visible;
 
   final Map<String, Marker> _allMarkers = {};
   final Map<String, Marker> _rentMarkers = {};
@@ -50,6 +50,20 @@ class _HomeScreenState extends State<HomeScreen> {
   RangeValues distanceRangeValues = const RangeValues(1000, 1000000);
   RangeLabels distanceRangeLabels = RangeLabels('1000', '1000000');
 
+  final RestorableBool isSelectedForRent = RestorableBool(true);
+  final RestorableBool isSelectedForSale = RestorableBool(true);
+  final RestorableBool isSelectedAuctions = RestorableBool(true);
+
+  @override
+  String get restorationId => 'filter_chip_demo';
+
+  @override
+  void restoreState(RestorationBucket oldBucket, bool initialRestore) {
+    registerForRestoration(isSelectedForRent, 'selected_for_rent');
+    registerForRestoration(isSelectedForSale, 'selected_for_sale');
+    registerForRestoration(isSelectedAuctions, 'selected_auctions');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +79,92 @@ class _HomeScreenState extends State<HomeScreen> {
     realEstateType = AppLocalizations.of(context).apartment;
     region = AppLocalizations.of(context).riyadh;
     district = AppLocalizations.of(context).riyadh;
+    final chips = [
+      FilterChip(
+        avatar: isSelectedForRent.value ? Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+              color: const Color(0xFFFFDB27),
+              shape: BoxShape.circle),
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Icon(Icons.check,
+                size: 15,
+                color: Colors.black),
+          ),
+        ) : null,
+        showCheckmark: false,
+        elevation: 0.0,
+        labelStyle: TextStyle(color: isSelectedForRent.value ? Colors.white : Colors.grey, fontSize: 13, fontFamily: 'Cairo'),
+        backgroundColor: Colors.grey.withOpacity(0.6),
+        selectedColor: const Color(0xff707070),
+        label: Text(AppLocalizations.of(context).forRent),
+        selected: isSelectedForRent.value,
+        onSelected: (value) {
+          setState(() {
+            isSelectedForRent.value = !isSelectedForRent.value;
+            _rentMarkersVisibility(isSelectedForRent.value);
+          });
+        },
+      ),
+      FilterChip(
+        avatar: isSelectedForSale.value ? Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+              color: const Color(0xFFFFDB27),
+              shape: BoxShape.circle),
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Icon(Icons.check,
+                size: 15,
+                color: Colors.black),
+          ),
+        ) : null,
+        showCheckmark: false,
+        elevation: 0.0,
+        labelStyle: TextStyle(color: isSelectedForSale.value ? Colors.white : Colors.grey, fontSize: 13, fontFamily: 'Cairo'),
+        backgroundColor: Colors.grey.withOpacity(0.6),
+        selectedColor: const Color(0xff707070),
+        label: Text(AppLocalizations.of(context).forSale),
+        selected: isSelectedForSale.value,
+        onSelected: (value) {
+          setState(() {
+            isSelectedForSale.value = !isSelectedForSale.value;
+            _saleMarkersVisibility(isSelectedForSale.value);
+          });
+        },
+      ),
+      FilterChip(
+        avatar: isSelectedAuctions.value ? Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+              color: const Color(0xFFFFDB27),
+              shape: BoxShape.circle),
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Icon(Icons.check,
+                size: 15,
+                color: Colors.black),
+          ),
+        ) : null,
+        showCheckmark: false,
+        elevation: 0.0,
+        labelStyle: TextStyle(color: isSelectedAuctions.value ? Colors.white : Colors.grey, fontSize: 13 , fontFamily: 'Cairo'),
+        backgroundColor: Colors.grey.withOpacity(0.6),
+        selectedColor: const Color(0xff707070),
+        label: Text(AppLocalizations.of(context).auctions),
+        selected: isSelectedAuctions.value,
+        onSelected: (value) {
+          setState(() {
+            isSelectedAuctions.value = !isSelectedAuctions.value;
+            _auctionMarkersVisibility(isSelectedAuctions.value);
+          });
+        },
+      )
+    ];
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -179,273 +279,259 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       )))),
+          /////////////////////////// Filter Chip
           Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                  margin:
-                      EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
-                  child: Row(
-                    children: <Widget>[
-                      //////////////////////////////////// Rent Select
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  rentVisibility == MarkersVisibility.Visible
-                                      ? _rentMarkersVisibility(false)
-                                      : _rentMarkersVisibility(true);
-                                });
-                              },
-                              child: Container(
-                                height: 35,
-                                margin: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20.0)),
-                                    boxShadow: rentVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? <BoxShadow>[
-                                            BoxShadow(
-                                                color: const Color(0x709e9e9e),
-                                                offset: Offset(1, 2),
-                                                blurRadius: 5,
-                                                spreadRadius: 1),
-                                          ]
-                                        : null,
-                                    color: rentVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? Colors.grey.withOpacity(0.6)
-                                        : Colors.grey.withOpacity(0.1)),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerLeft
-                                          : Alignment.centerRight,
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 8.0, left: 8.0),
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                .forRent,
-                                            style: TextStyle(
-                                              color: rentVisibility ==
-                                                      MarkersVisibility.Visible
-                                                  ? Colors.white
-                                                      .withOpacity(1.0)
-                                                  : Colors.white
-                                                      .withOpacity(0.3),
-                                              fontSize: 13,
-                                            ),
-                                          )),
-                                    ),
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                      child: Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                            color: rentVisibility ==
-                                                    MarkersVisibility.Visible
-                                                ? (const Color(0xFFFFDB27))
-                                                    .withOpacity(1.0)
-                                                : (const Color(0xFFFFDB27))
-                                                    .withOpacity(0.3),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.0),
-                                          child: Icon(Icons.check,
-                                              size: 15,
-                                              color: rentVisibility ==
-                                                      MarkersVisibility.Visible
-                                                  ? Colors.black
-                                                  : Colors.grey
-                                                      .withOpacity(0.3)),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))),
-                      /////////////////////////////////////// Sale Select
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  saleVisibility == MarkersVisibility.Visible
-                                      ? _saleMarkersVisibility(false)
-                                      : _saleMarkersVisibility(true);
-                                });
-                              },
-                              child: Container(
-                                height: 35,
-                                margin: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20.0)),
-                                    boxShadow: saleVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? <BoxShadow>[
-                                            BoxShadow(
-                                                color: const Color(0x709e9e9e),
-                                                offset: Offset(1, 2),
-                                                blurRadius: 5,
-                                                spreadRadius: 1),
-                                          ]
-                                        : null,
-                                    color: saleVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? Colors.grey.withOpacity(0.6)
-                                        : Colors.grey.withOpacity(0.1)),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerLeft
-                                          : Alignment.centerRight,
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 8.0, left: 8.0),
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                .forSale,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              color: saleVisibility ==
-                                                      MarkersVisibility.Visible
-                                                  ? Colors.white
-                                                      .withOpacity(1.0)
-                                                  : Colors.white
-                                                      .withOpacity(0.3),
-                                            ),
-                                          )),
-                                    ),
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                      child: Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                            color: saleVisibility ==
-                                                    MarkersVisibility.Visible
-                                                ? (const Color(0xFFFFDB27))
-                                                    .withOpacity(1.0)
-                                                : (const Color(0xFFFFDB27))
-                                                    .withOpacity(0.3),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.0),
-                                          child: Icon(
-                                            Icons.check,
-                                            size: 15,
-                                            color: saleVisibility ==
-                                                    MarkersVisibility.Visible
-                                                ? Colors.black
-                                                : Colors.grey.withOpacity(0.3),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))),
-                      ///////////////////////////////////// Auctions Select
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  auctionsVisibility ==
-                                          MarkersVisibility.Visible
-                                      ? _auctionMarkersVisibility(false)
-                                      : _auctionMarkersVisibility(true);
-                                });
-                              },
-                              child: Container(
-                                height: 35,
-                                margin: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20.0)),
-                                    boxShadow: auctionsVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? <BoxShadow>[
-                                            BoxShadow(
-                                                color: const Color(0x709e9e9e),
-                                                offset: Offset(1, 2),
-                                                blurRadius: 5,
-                                                spreadRadius: 1),
-                                          ]
-                                        : null,
-                                    color: auctionsVisibility ==
-                                            MarkersVisibility.Visible
-                                        ? Colors.grey.withOpacity(0.6)
-                                        : Colors.grey.withOpacity(0.1)),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerLeft
-                                          : Alignment.centerRight,
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 8.0, left: 8.0),
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                .auctions,
-                                            style: TextStyle(
-                                                color: auctionsVisibility ==
-                                                        MarkersVisibility
-                                                            .Visible
-                                                    ? Colors.white
-                                                        .withOpacity(1.0)
-                                                    : Colors.white
-                                                        .withOpacity(0.3),
-                                                fontSize: 13),
-                                          )),
-                                    ),
-                                    Align(
-                                      alignment: locale.locale == Locale('en')
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                      child: Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                            color: auctionsVisibility ==
-                                                    MarkersVisibility.Visible
-                                                ? (const Color(0xFFFFDB27))
-                                                    .withOpacity(1.0)
-                                                : (const Color(0xFFFFDB27))
-                                                    .withOpacity(0.3),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.0),
-                                          child: Icon(
-                                            Icons.check,
-                                            size: 15,
-                                            color: auctionsVisibility ==
-                                                    MarkersVisibility.Visible
-                                                ? Colors.black
-                                                : Colors.grey.withOpacity(0.3),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))),
-                    ],
-                  ))),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
+              child: Wrap(
+                children: <Widget>[
+                  for (final chip in chips)
+                    Padding(padding: const EdgeInsets.all(4), child: chip)
+                ],
+              ),
+            ),
+          ),
+          // Align(
+          //     alignment: Alignment.bottomCenter,
+          //     child: Container(
+          //         margin:
+          //             EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
+          //         child: Row(
+          //           children: <Widget>[
+          //             //////////////////////////////////// Rent Select
+          //             Expanded(
+          //                 flex: 1,
+          //                 child: GestureDetector(
+          //                     onTap: () {
+          //                       setState(() {
+          //                         isSelectedForRent.value = !isSelectedForRent.value;
+          //                         _rentMarkersVisibility(isSelectedForRent.value);
+          //                       });
+          //                     },
+          //                     child: Container(
+          //                       height: 35,
+          //                       margin: EdgeInsets.all(8.0),
+          //                       decoration: BoxDecoration(
+          //                           borderRadius:
+          //                               BorderRadius.all(Radius.circular(20.0)),
+          //                           boxShadow: isSelectedForRent.value
+          //                               ? <BoxShadow>[
+          //                                   BoxShadow(
+          //                                       color: const Color(0x709e9e9e),
+          //                                       offset: Offset(1, 2),
+          //                                       blurRadius: 5,
+          //                                       spreadRadius: 1),
+          //                                 ]
+          //                               : null,
+          //                           color: isSelectedForRent.value
+          //                               ? Colors.grey.withOpacity(0.6)
+          //                               : Colors.grey.withOpacity(0.4)),
+          //                       child: Center(
+          //                         child: Wrap(
+          //                           children: <Widget>[
+          //                             Padding(
+          //                                 padding: EdgeInsets.only(
+          //                                     right: 8.0, left: 8.0),
+          //                                 child: Text(
+          //                                   AppLocalizations.of(context)
+          //                                       .forRent,
+          //                                   style: TextStyle(
+          //                                     color: isSelectedForRent.value
+          //                                         ? Colors.white
+          //                                             .withOpacity(1.0)
+          //                                         : Colors.white
+          //                                             .withOpacity(0.6),
+          //                                     fontSize: 13,
+          //                                   ),
+          //                                 )),
+          //                             isSelectedForRent.value ? Container(
+          //                               width: 20,
+          //                               height: 20,
+          //                               decoration: BoxDecoration(
+          //                                   color: isSelectedForRent.value
+          //                                       ? (const Color(0xFFFFDB27))
+          //                                           .withOpacity(1.0)
+          //                                       : (const Color(0xFFFFDB27))
+          //                                           .withOpacity(0.3),
+          //                                   shape: BoxShape.circle),
+          //                               child: Padding(
+          //                                 padding: EdgeInsets.all(2.0),
+          //                                 child: Icon(Icons.check,
+          //                                     size: 15,
+          //                                     color: isSelectedForRent.value
+          //                                         ? Colors.black
+          //                                         : Colors.grey
+          //                                             .withOpacity(0.3)),
+          //                               ),
+          //                             ) : Container(width: 0, height: 0,)
+          //                           ],
+          //                         ),
+          //                       ),
+          //                     ))),
+          //             /////////////////////////////////////// Sale Select
+          //             Expanded(
+          //                 flex: 1,
+          //                 child: GestureDetector(
+          //                     onTap: () {
+          //                       setState(() {
+          //                         isSelectedForSale.value
+          //                             ? _saleMarkersVisibility(false)
+          //                             : _saleMarkersVisibility(true);
+          //                       });
+          //                     },
+          //                     child: Container(
+          //                       height: 35,
+          //                       margin: EdgeInsets.all(8.0),
+          //                       decoration: BoxDecoration(
+          //                           borderRadius:
+          //                               BorderRadius.all(Radius.circular(20.0)),
+          //                           boxShadow: isSelectedForSale.value
+          //                               ? <BoxShadow>[
+          //                                   BoxShadow(
+          //                                       color: const Color(0x709e9e9e),
+          //                                       offset: Offset(1, 2),
+          //                                       blurRadius: 5,
+          //                                       spreadRadius: 1),
+          //                                 ]
+          //                               : null,
+          //                           color: isSelectedForSale.value
+          //                               ? Colors.grey.withOpacity(0.6)
+          //                               : Colors.grey.withOpacity(0.1)),
+          //                       child: Stack(
+          //                         children: <Widget>[
+          //                           Align(
+          //                             alignment: locale.locale == Locale('en')
+          //                                 ? Alignment.centerLeft
+          //                                 : Alignment.centerRight,
+          //                             child: Padding(
+          //                                 padding: EdgeInsets.only(
+          //                                     right: 8.0, left: 8.0),
+          //                                 child: Text(
+          //                                   AppLocalizations.of(context)
+          //                                       .forSale,
+          //                                   style: TextStyle(
+          //                                     fontSize: 13,
+          //                                     color: isSelectedForSale.value
+          //                                         ? Colors.white
+          //                                             .withOpacity(1.0)
+          //                                         : Colors.white
+          //                                             .withOpacity(0.3),
+          //                                   ),
+          //                                 )),
+          //                           ),
+          //                           Align(
+          //                             alignment: locale.locale == Locale('en')
+          //                                 ? Alignment.centerRight
+          //                                 : Alignment.centerLeft,
+          //                             child: Container(
+          //                               margin: EdgeInsets.all(8.0),
+          //                               width: 20,
+          //                               height: 20,
+          //                               decoration: BoxDecoration(
+          //                                   color: isSelectedForSale.value
+          //                                       ? (const Color(0xFFFFDB27))
+          //                                           .withOpacity(1.0)
+          //                                       : (const Color(0xFFFFDB27))
+          //                                           .withOpacity(0.3),
+          //                                   shape: BoxShape.circle),
+          //                               child: Padding(
+          //                                 padding: EdgeInsets.all(2.0),
+          //                                 child: Icon(
+          //                                   Icons.check,
+          //                                   size: 15,
+          //                                   color: isSelectedForSale.value
+          //                                       ? Colors.black
+          //                                       : Colors.grey.withOpacity(0.3),
+          //                                 ),
+          //                               ),
+          //                             ),
+          //                           )
+          //                         ],
+          //                       ),
+          //                     ))),
+          //             ///////////////////////////////////// Auctions Select
+          //             Expanded(
+          //                 flex: 1,
+          //                 child: GestureDetector(
+          //                     onTap: () {
+          //                       setState(() {
+          //                         isSelectedAuctions.value
+          //                             ? _auctionMarkersVisibility(false)
+          //                             : _auctionMarkersVisibility(true);
+          //                       });
+          //                     },
+          //                     child: Container(
+          //                       height: 35,
+          //                       margin: EdgeInsets.all(8.0),
+          //                       decoration: BoxDecoration(
+          //                           borderRadius:
+          //                               BorderRadius.all(Radius.circular(20.0)),
+          //                           boxShadow: isSelectedAuctions.value
+          //                               ? <BoxShadow>[
+          //                                   BoxShadow(
+          //                                       color: const Color(0x709e9e9e),
+          //                                       offset: Offset(1, 2),
+          //                                       blurRadius: 5,
+          //                                       spreadRadius: 1),
+          //                                 ]
+          //                               : null,
+          //                           color: isSelectedAuctions.value
+          //                               ? Colors.grey.withOpacity(0.6)
+          //                               : Colors.grey.withOpacity(0.1)),
+          //                       child: Stack(
+          //                         children: <Widget>[
+          //                           Align(
+          //                             alignment: locale.locale == Locale('en')
+          //                                 ? Alignment.centerLeft
+          //                                 : Alignment.centerRight,
+          //                             child: Padding(
+          //                                 padding: EdgeInsets.only(
+          //                                     right: 8.0, left: 8.0),
+          //                                 child: Text(
+          //                                   AppLocalizations.of(context)
+          //                                       .auctions,
+          //                                   style: TextStyle(
+          //                                       color: isSelectedAuctions.value
+          //                                           ? Colors.white
+          //                                               .withOpacity(1.0)
+          //                                           : Colors.white
+          //                                               .withOpacity(0.3),
+          //                                       fontSize: 13),
+          //                                 )),
+          //                           ),
+          //                           Align(
+          //                             alignment: locale.locale == Locale('en')
+          //                                 ? Alignment.centerRight
+          //                                 : Alignment.centerLeft,
+          //                             child: Container(
+          //                               margin: EdgeInsets.all(8.0),
+          //                               width: 20,
+          //                               height: 20,
+          //                               decoration: BoxDecoration(
+          //                                   color: isSelectedAuctions.value
+          //                                       ? (const Color(0xFFFFDB27))
+          //                                           .withOpacity(1.0)
+          //                                       : (const Color(0xFFFFDB27))
+          //                                           .withOpacity(0.3),
+          //                                   shape: BoxShape.circle),
+          //                               child: Padding(
+          //                                 padding: EdgeInsets.all(2.0),
+          //                                 child: Icon(
+          //                                   Icons.check,
+          //                                   size: 15,
+          //                                   color: isSelectedAuctions.value
+          //                                       ? Colors.black
+          //                                       : Colors.grey.withOpacity(0.3),
+          //                                 ),
+          //                               ),
+          //                             ),
+          //                           )
+          //                         ],
+          //                       ),
+          //                     ))),
+          //           ],
+          //         ))),
         ],
       ),
     );
@@ -509,30 +595,30 @@ class _HomeScreenState extends State<HomeScreen> {
   void _rentMarkersVisibility(bool visible) {
     if (visible) {
       _markersOnMap = _markersOnMap.union(_rentMarkers.values.toSet());
-      rentVisibility = MarkersVisibility.Visible;
+      //isSelectedForRent.value = true;
     } else {
       _markersOnMap = _markersOnMap.difference(_rentMarkers.values.toSet());
-      rentVisibility = MarkersVisibility.Invisible;
+      //isSelectedForRent.value = false;
     }
   }
 
   void _saleMarkersVisibility(bool visible) {
     if (visible) {
       _markersOnMap = _markersOnMap.union(_saleMarkers.values.toSet());
-      saleVisibility = MarkersVisibility.Visible;
+      //isSelectedForSale.value = true;
     } else {
       _markersOnMap = _markersOnMap.difference(_saleMarkers.values.toSet());
-      saleVisibility = MarkersVisibility.Invisible;
+      //isSelectedForSale.value = false;
     }
   }
 
   void _auctionMarkersVisibility(bool visible) {
     if (visible) {
       _markersOnMap = _markersOnMap.union(_auctionMarkers.values.toSet());
-      auctionsVisibility = MarkersVisibility.Visible;
+      //isSelectedAuctions.value = true;
     } else {
       _markersOnMap = _markersOnMap.difference(_auctionMarkers.values.toSet());
-      auctionsVisibility = MarkersVisibility.Invisible;
+      //isSelectedAuctions.value = false;
     }
   }
 

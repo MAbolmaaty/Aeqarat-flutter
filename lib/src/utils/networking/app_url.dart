@@ -3,4 +3,5 @@ class AppUrl{
 
   static const String real_estates_url = _base_url + 'real-estates/';
   static const String login_url = _base_url + "auth/local/";
+  static const String register_url = _base_url + "auth/local/register/";
 }
