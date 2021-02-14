@@ -32,26 +32,24 @@ class AuthenticationApi with ChangeNotifier {
   PasswordVisibility get passwordVisibility => _passwordVisibility;
 
   Future<Map<String, dynamic>> register(String username, String email,
-      String password, String phoneNumber, File profilePicture) async {
+      String password, String passwordConfirmation, String phoneNumber, File profilePicture) async {
     var result;
 
     final Map<String, String> headers = {'Content-type': "multipart/form-data"};
 
     final Map<String, String> requestBody = {
       "data": json.encode({
-        'username': 'em7',
-        'email': 'em7@email.com',
-        'password': '123456',
-        'passwordConfirmation': '123456',
-        'phoneNumber': '123456'
+        'username': username,
+        'email': email,
+        'password': password,
+        'passwordConfirmation': passwordConfirmation,
+        'phoneNumber': phoneNumber,
       }).toString()
     };
 
     _registeredStatus = Status.Registering;
     notifyListeners();
 
-    // Response response = await post(AppUrl.register_url,
-    //     body: json.encode(requestBody), headers: headers);
     var request;
     try {
       request = MultipartRequest('POST', Uri.parse(AppUrl.register_url))
@@ -61,35 +59,31 @@ class AuthenticationApi with ChangeNotifier {
       e.toString();
     }
 
-    var response = await request.send();
+    var streamedResponse = await request.send();
+    var response = await Response.fromStream(streamedResponse);
 
-    //final Map<String, dynamic> responseData = json.decode(response.toString());
+    final Map<String, dynamic> responseData = json.decode(response.body);
 
-    print('////////////////////////////// Start');
     if (response.statusCode == 200) {
-      print('////////////////////////////// 200');
-      // AuthenticationResponseModel authenticationResponseModel =
-      //     AuthenticationResponseModel.fromJson(responseData);
-      //
-      // _registeredStatus = Status.Registered;
-      // notifyListeners();
-      //
-      // result = {
-      //   'status' : true,
-      //   'message' : 'Successfully Registered',
-      //   'data' : authenticationResponseModel
-      // };
+      AuthenticationResponseModel authenticationResponseModel =
+          AuthenticationResponseModel.fromJson(responseData);
+
+      _registeredStatus = Status.Registered;
+      notifyListeners();
+
+      result = {
+        'status' : true,
+        'message' : 'Successfully Registered',
+        'data' : authenticationResponseModel
+      };
     } else {
-      print('////////////////////////////// Error');
-      final respStr = await response.stream.bytesToString();
-      print(respStr);
       _registeredStatus = Status.NotRegistered;
       notifyListeners();
-      // result = {
-      //   'status': false,
-      //   'message': 'Register Failed',
-      //   'data': responseData
-      // };
+      result = {
+        'status': false,
+        'message': 'Register Failed',
+        'data': responseData
+      };
     }
     return result;
   }

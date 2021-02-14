@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:aeqarat/src/models/authentication_response_model.dart';
+
+
 
 class RegisterScreen extends StatefulWidget {
   static Route<dynamic> route() => MaterialPageRoute(
@@ -386,9 +389,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 form.save();
                                 if (_password == _confirmPassword) {
                                   authenticationApi
-                                      .register(_username, _email, _password,
+                                      .register(_username, _email, _password, _confirmPassword,
                                           _phoneNumber, imageFile)
                                       .then((result) {
+                                    AuthenticationResponseModel
+                                    authenticationResponseModel =
+                                    result['data'];
+
+                                    print(authenticationResponseModel.user.username);
+
                                   });
                                 } else {
                                   Flushbar(
