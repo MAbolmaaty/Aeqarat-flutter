@@ -5,6 +5,7 @@ import 'package:aeqarat/src/models/authentication_response_model.dart';
 import 'package:aeqarat/src/utils/networking/app_url.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
 
 enum Status {
   NotLoggedIn,
@@ -31,8 +32,13 @@ class AuthenticationApi with ChangeNotifier {
 
   PasswordVisibility get passwordVisibility => _passwordVisibility;
 
-  Future<Map<String, dynamic>> register(String username, String email,
-      String password, String passwordConfirmation, String phoneNumber, File profilePicture) async {
+  Future<Map<String, dynamic>> register(
+      String username,
+      String email,
+      String password,
+      String passwordConfirmation,
+      String phoneNumber,
+      File profilePicture) async {
     var result;
 
     final Map<String, String> headers = {'Content-type': "multipart/form-data"};
@@ -54,7 +60,13 @@ class AuthenticationApi with ChangeNotifier {
     try {
       request = MultipartRequest('POST', Uri.parse(AppUrl.register_url))
         ..headers.addAll(headers)
-        ..fields.addAll(requestBody);
+        ..fields.addAll(requestBody)
+        ..files.add(MultipartFile(
+            'files.profilePicture',
+            profilePicture.readAsBytes().asStream(),
+            profilePicture.lengthSync(),
+            filename: username,
+            contentType: MediaType('image', 'jpeg')));
     } on Exception catch (e) {
       e.toString();
     }
@@ -72,9 +84,9 @@ class AuthenticationApi with ChangeNotifier {
       notifyListeners();
 
       result = {
-        'status' : true,
-        'message' : 'Successfully Registered',
-        'data' : authenticationResponseModel
+        'status': true,
+        'message': 'Successfully Registered',
+        'data': authenticationResponseModel
       };
     } else {
       _registeredStatus = Status.NotRegistered;
