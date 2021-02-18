@@ -19,11 +19,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   var locale;
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
   GoogleMapController mapController;
+  Uint8List markerIcon;
+  List<RealEstatesResponseModel> _realEstatesList;
   final LatLng _center = const LatLng(24.5538107, 46.0265294);
   String _mapStyle;
   BitmapDescriptor customMarker;
-  bool _loadingRealEstates = false;
+
+  //bool _loadingRealEstates = false;
 
   final Map<String, Marker> _allMarkers = {};
   final Map<String, Marker> _rentMarkers = {};
@@ -59,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
     rootBundle.loadString('assets/map_style.txt').then((jsonStyle) => {
           _mapStyle = jsonStyle,
         });
@@ -164,133 +171,138 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
       )
     ];
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          ///////////////////////////// Map
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 3.0,
-            ),
-            zoomControlsEnabled: false,
-            markers: _markersOnMap,
-            myLocationButtonEnabled: false,
-            myLocationEnabled: false,
-            mapToolbarEnabled: false,
-          ),
-          ///////////////////////////////// Search Delegate
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Colors.white,
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: const Color(0x709e9e9e),
-                      offset: Offset(1, 2),
-                      blurRadius: 5,
-                      spreadRadius: 1),
-                  BoxShadow(
-                      color: const Color(0x709e9e9e),
-                      offset: Offset(1, 2),
-                      blurRadius: 5,
-                      spreadRadius: 1),
-                  BoxShadow(
-                      color: const Color(0x709e9e9e),
-                      offset: Offset(1, 2),
-                      blurRadius: 5,
-                      spreadRadius: 1),
-                ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _realEstates,
+        child: Stack(
+          children: <Widget>[
+            ///////////////////////////// Map
+            GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: _center,
+                zoom: 3.0,
               ),
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.search,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                        margin: EdgeInsets.only(right: 4.0, left: 4.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 5),
-                            isDense: true,
-                            hintText:
-                                AppLocalizations.of(context).searchBarHint,
-                            hintStyle: TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey.withOpacity(0.6)),
-                            border: InputBorder.none,
+              zoomControlsEnabled: false,
+              markers: _markersOnMap,
+              myLocationButtonEnabled: false,
+              myLocationEnabled: false,
+              mapToolbarEnabled: false,
+            ),
+            ///////////////////////////////// Search Delegate
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                margin: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  color: Colors.white,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: const Color(0x709e9e9e),
+                        offset: Offset(1, 2),
+                        blurRadius: 5,
+                        spreadRadius: 1),
+                    BoxShadow(
+                        color: const Color(0x709e9e9e),
+                        offset: Offset(1, 2),
+                        blurRadius: 5,
+                        spreadRadius: 1),
+                    BoxShadow(
+                        color: const Color(0x709e9e9e),
+                        offset: Offset(1, 2),
+                        blurRadius: 5,
+                        spreadRadius: 1),
+                  ],
+                ),
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.search,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                          margin: EdgeInsets.only(right: 4.0, left: 4.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                              isDense: true,
+                              hintText:
+                                  AppLocalizations.of(context).searchBarHint,
+                              hintStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey.withOpacity(0.6)),
+                              border: InputBorder.none,
+                            ),
+                          )),
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          _showSearchFilter(context);
+                        },
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          margin: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              color: const Color(0xFFFFDB27),
+                              shape: BoxShape.circle),
+                          child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Image.asset('assets/images/filter.png'),
                           ),
                         )),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        _showSearchFilter(context);
-                      },
-                      child: Container(
-                        width: 25,
-                        height: 25,
-                        margin: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFFFDB27),
-                            shape: BoxShape.circle),
-                        child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Image.asset('assets/images/filter.png'),
-                        ),
-                      )),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          ///////////////////////////////// Loading
-          Align(
-              alignment: Alignment.center,
-              child: Visibility(
-                  visible: _loadingRealEstates,
-                  child: Container(
-                      margin: EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            child: CircularProgressIndicator(
-                                strokeWidth: 1,
-                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                    Colors.black)),
-                            height: 13,
-                            width: 13,
-                          ),
-                          SizedBox(
-                            width: 4.0,
-                          ),
-                          Text(
-                            AppLocalizations.of(context).loading,
-                            style: TextStyle(fontSize: 13, color: Colors.black),
-                          ),
-                        ],
-                      )))),
-          /////////////////////////// Filter Chip
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
-              child: Wrap(
-                children: <Widget>[
-                  for (final chip in chips)
-                    Padding(padding: const EdgeInsets.all(4), child: chip)
-                ],
+            ///////////////////////////////// Loading
+            // Align(
+            //     alignment: Alignment.center,
+            //     child: Visibility(
+            //         visible: _loadingRealEstates,
+            //         child: Container(
+            //             margin: EdgeInsets.only(bottom: 8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: <Widget>[
+            //                 SizedBox(
+            //                   child: CircularProgressIndicator(
+            //                       strokeWidth: 1,
+            //                       valueColor: new AlwaysStoppedAnimation<Color>(
+            //                           Colors.black)),
+            //                   height: 13,
+            //                   width: 13,
+            //                 ),
+            //                 SizedBox(
+            //                   width: 4.0,
+            //                 ),
+            //                 Text(
+            //                   AppLocalizations.of(context).loading,
+            //                   style:
+            //                       TextStyle(fontSize: 13, color: Colors.black),
+            //                 ),
+            //               ],
+            //             )))),
+            /////////////////////////// Filter Chip
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
+                child: Wrap(
+                  children: <Widget>[
+                    for (final chip in chips)
+                      Padding(padding: const EdgeInsets.all(4), child: chip)
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -298,40 +310,8 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
     mapController.setMapStyle(_mapStyle);
-    final Uint8List markerIcon =
+    markerIcon =
         await getBytesFromAsset('assets/images/marker.png', 100);
-    setState(() {
-      _loadingRealEstates = true;
-    });
-    List<RealEstatesResponseModel> realEstates = await getRealEstates();
-    setState(() {
-      _allMarkers.clear();
-      for (final realEstate in realEstates) {
-        final marker = Marker(
-          markerId: MarkerId(realEstate.title),
-          position: LatLng(double.parse(realEstate.latitude),
-              double.parse(realEstate.longitude)),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-          onTap: () {
-            Navigator.of(context).push(RealEstateScreen.route());
-          },
-        );
-        _allMarkers[realEstate.sId] = marker;
-        switch (realEstate.status) {
-          case 'rent':
-            _rentMarkers[realEstate.sId] = marker;
-            break;
-          case 'sale':
-            _saleMarkers[realEstate.sId] = marker;
-            break;
-          case 'auction':
-            _auctionMarkers[realEstate.sId] = marker;
-            break;
-        }
-      }
-      _markersOnMap = _allMarkers.values.toSet();
-      _loadingRealEstates = false;
-    });
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -344,10 +324,37 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
         .asUint8List();
   }
 
-  Future<List<RealEstatesResponseModel>> getRealEstates() async {
-    List<RealEstatesResponseModel> realEstates;
-    realEstates = await RealEstatesApi().getRealEstates();
-    return realEstates;
+  Future<Null> _realEstates() async {
+    return RealEstatesApi().getRealEstates().then((realEstatesList) {
+      setState(() {
+        _realEstatesList = realEstatesList;
+        _allMarkers.clear();
+        for (final realEstate in _realEstatesList) {
+          final marker = Marker(
+            markerId: MarkerId(realEstate.title),
+            position: LatLng(double.parse(realEstate.latitude),
+                double.parse(realEstate.longitude)),
+            icon: BitmapDescriptor.fromBytes(markerIcon),
+            onTap: () {
+              Navigator.of(context).push(RealEstateScreen.route(realEstate.sId));
+            },
+          );
+          _allMarkers[realEstate.sId] = marker;
+          switch (realEstate.status) {
+            case 'rent':
+              _rentMarkers[realEstate.sId] = marker;
+              break;
+            case 'sale':
+              _saleMarkers[realEstate.sId] = marker;
+              break;
+            case 'auction':
+              _auctionMarkers[realEstate.sId] = marker;
+              break;
+          }
+        }
+        _markersOnMap = _allMarkers.values.toSet();
+      });
+    });
   }
 
   void _rentMarkersVisibility(bool visible) {
