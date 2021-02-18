@@ -1,84 +1,31 @@
 import 'dart:io';
 
+import 'package:aeqarat/src/models/authentication_response_model.dart';
+import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:aeqarat/src/utils/networking/authentication_api.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:aeqarat/src/models/authentication_response_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-
-
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   static Route<dynamic> route() => MaterialPageRoute(
         builder: (context) => RegisterScreen(),
       );
 
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
+  final sKey = GlobalKey<ScaffoldState>();
   String _username, _email, _password, _confirmPassword, _phoneNumber;
-
-  //bool rememberMe = false;
-  bool _passwordVisible;
-
   File imageFile;
-
-  _openGallery(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
-    this.setState(() {
-      imageFile = picture;
-    });
-    Navigator.of(context).pop();
-  }
-
-  _openCamera(BuildContext context) async {
-    var camera = await ImagePicker.pickImage(source: ImageSource.camera);
-    this.setState(() {
-      imageFile = camera;
-    });
-    Navigator.of(context).pop();
-  }
-
-  Future<void> _showChoiceDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Make a Choice"),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: [
-                  GestureDetector(
-                    child: Text("Gallary"),
-                    onTap: () {
-                      _openGallery(context);
-                    },
-                  ),
-                  Padding(padding: EdgeInsets.all(8.0)),
-                  GestureDetector(
-                    child: Text("Camera"),
-                    onTap: () {
-                      _openCamera(context);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => AuthenticationApi(),
       child: Scaffold(
+        key: sKey,
         backgroundColor: const Color(0xffF9FBFC),
         body: LayoutBuilder(builder:
             (BuildContext context, BoxConstraints viewPortConstraints) {
@@ -106,48 +53,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             )),
                       ),
                       ///////////////////////// Profile Picture
-                      GestureDetector(
-                          onTap: () {
-                            //getImage();
-                            _showChoiceDialog(context);
-                          },
-                          child: Container(
-                              alignment: Alignment.center,
-                              height: 150,
-                              width: 150,
-                              child: Stack(children: <Widget>[
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: CircleAvatar(
-                                      radius: 60,
-                                      backgroundColor: const Color(0x109e9e9e),
+                      Consumer<AuthenticationApi>(
+                          builder: (context, authenticationApi, child) {
+                        return GestureDetector(
+                            onTap: () {
+                              _showChoiceDialog(context).then((value) =>
+                                  authenticationApi
+                                      .profilePictureUploaded(true));
+                            },
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: 150,
+                                width: 150,
+                                child: Stack(children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.center,
                                       child: CircleAvatar(
-                                          radius: 62,
-                                          backgroundColor:
-                                              const Color(0x109e9e9e),
-                                          backgroundImage: imageFile != null
-                                              ? FileImage(imageFile)
-                                              : AssetImage(
-                                                  'assets/images/profile.png',
-                                                )),
-                                    )),
-                                Visibility(
-                                    visible: imageFile != null ? false : true,
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle),
-                                          child: Padding(
-                                              padding: EdgeInsets.all(6),
-                                              child: Image.asset(
-                                                'assets/images/camera.png',
-                                              ))),
-                                    )),
-                              ]))),
+                                        radius: 60,
+                                        backgroundColor:
+                                            const Color(0x109e9e9e),
+                                        child: CircleAvatar(
+                                            radius: 62,
+                                            backgroundColor:
+                                                const Color(0x109e9e9e),
+                                            backgroundImage: imageFile != null
+                                                ? FileImage(imageFile)
+                                                : AssetImage(
+                                                    'assets/images/profile.png',
+                                                  )),
+                                      )),
+                                  Visibility(
+                                      visible: imageFile != null ? false : true,
+                                      child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle),
+                                            child: Padding(
+                                                padding: EdgeInsets.all(6),
+                                                child: Image.asset(
+                                                  'assets/images/camera.png',
+                                                ))),
+                                      )),
+                                ])));
+                      }),
                       ///////////////////////////////// Username
                       Container(
                         margin:
@@ -235,8 +187,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ? AppLocalizations.of(context).enterPassword
                                 : null,
                             onSaved: (value) => _password = value,
-                            obscureText: authenticationApi.passwordVisibility ==
-                                PasswordVisibility.PasswordHidden,
+                            obscureText:
+                                authenticationApi.registerPasswordVisibility ==
+                                    PasswordVisibility.PasswordHidden,
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
                                     top: 11, bottom: 11, left: 16, right: 16),
@@ -248,7 +201,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 suffixIcon: GestureDetector(
                                   child: Icon(
-                                    authenticationApi.passwordVisibility ==
+                                    authenticationApi
+                                                .registerPasswordVisibility ==
                                             PasswordVisibility.PasswordHidden
                                         ? Icons.visibility_off
                                         : Icons.visibility,
@@ -257,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   onTap: () {
                                     authenticationApi
-                                        .changePasswordVisibility();
+                                        .changeRegisterPasswordVisibility();
                                   },
                                 ),
                                 alignLabelWithHint: true,
@@ -292,7 +246,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     .pleaseConfirmPassword
                                 : null,
                             onSaved: (value) => _confirmPassword = value,
-                            obscureText: authenticationApi.passwordVisibility ==
+                            obscureText: authenticationApi
+                                    .registerConfirmPasswordVisibility ==
                                 PasswordVisibility.PasswordHidden,
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
@@ -305,7 +260,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 suffixIcon: GestureDetector(
                                   child: Icon(
-                                    authenticationApi.passwordVisibility ==
+                                    authenticationApi
+                                                .registerConfirmPasswordVisibility ==
                                             PasswordVisibility.PasswordHidden
                                         ? Icons.visibility_off
                                         : Icons.visibility,
@@ -314,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   onTap: () {
                                     authenticationApi
-                                        .changePasswordVisibility();
+                                        .changeRegisterConfirmPasswordVisibility();
                                   },
                                 ),
                                 alignLabelWithHint: true,
@@ -388,32 +344,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (form.validate()) {
                                 form.save();
                                 if (_password == _confirmPassword) {
+                                  //// Hide keyboard
+                                  FocusScope.of(context)
+                                      .unfocus();
                                   authenticationApi
-                                      .register(_username, _email, _password, _confirmPassword,
-                                          _phoneNumber, imageFile)
+                                      .register(
+                                          _username,
+                                          _email,
+                                          _password,
+                                          _confirmPassword,
+                                          _phoneNumber,
+                                          imageFile)
                                       .then((result) {
-                                    AuthenticationResponseModel
-                                    authenticationResponseModel =
-                                    result['data'];
-
-                                    print(authenticationResponseModel.user.username);
-
+                                    if (result['status']) {
+                                      AuthenticationResponseModel
+                                      authenticationResponseModel =
+                                      result['data'];
+                                      saveApiToken(
+                                              authenticationResponseModel.jwt)
+                                          .then((value) => {
+                                                if (value)
+                                                  Navigator.of(context)
+                                                      .pushAndRemoveUntil(
+                                                          BottomNavScreen
+                                                              .route(),
+                                                          (route) => false)
+                                              });
+                                    }
                                   });
                                 } else {
-                                  Flushbar(
-                                    backgroundColor: Colors.white,
-                                    titleText: Text(
-                                      AppLocalizations.of(context)
-                                          .registrationFailed,
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                    messageText: Text(
+                                  sKey.currentState.showSnackBar(SnackBar(
+                                    content: Text(
                                       AppLocalizations.of(context)
                                           .passwordsDoNotMatch,
-                                      style: TextStyle(color: Colors.black),
                                     ),
-                                    duration: Duration(milliseconds: 1500),
-                                  ).show(context);
+                                  ));
                                 }
                               }
                             },
@@ -515,6 +480,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  _openGallery(BuildContext context) async {
+    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    imageFile = picture;
+    Navigator.of(context).pop();
+  }
+
+  _openCamera(BuildContext context) async {
+    var camera = await ImagePicker.pickImage(source: ImageSource.camera);
+    imageFile = camera;
+    Navigator.of(context).pop();
+  }
+
+  Future<void> _showChoiceDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Make a Choice"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  GestureDetector(
+                    child: Text("Gallary"),
+                    onTap: () {
+                      _openGallery(context);
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.all(8.0)),
+                  GestureDetector(
+                    child: Text("Camera"),
+                    onTap: () {
+                      _openCamera(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   Widget _loading() {
     return Center(
       child: SizedBox(
@@ -526,5 +532,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         width: 20,
       ),
     );
+  }
+
+  Future<bool> saveApiToken(String token) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.setString('api_token', token);
   }
 }

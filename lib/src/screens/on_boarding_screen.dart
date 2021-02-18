@@ -4,6 +4,8 @@ import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     getPages(context);
+    autoSkipping();
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -230,4 +233,9 @@ class PageViewItem {
   String subTitle;
 
   PageViewItem(this.image, this.title, this.subTitle);
+}
+
+void autoSkipping() async{
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  sharedPreferences.setBool('auto_skipping', true);
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:aeqarat/src/utils/networking/authentication_api.dart';
 
 class NotificationsScreen extends StatefulWidget{
   @override
@@ -9,7 +11,11 @@ class NotificationsScreen extends StatefulWidget{
 class _NotificationsScreenState extends State<NotificationsScreen>{
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Consumer<AuthenticationApi>(
+      builder: (context, authenticationApi, child) {
+        return Scaffold();
+      }
+    );
   }
 
 }

@@ -468,5 +468,13 @@
   "onBoardingSlide3_subTitle": "Manage your real estate financial procedures, bills and profit",
   "@onBoardingSlide3_subTitle": {
     "description": ""
+  },
+  "home": "Home",
+  "@home": {
+    "description": ""
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": ""
   }
 }

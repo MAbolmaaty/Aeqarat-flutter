@@ -1,4 +1,5 @@
 import 'package:aeqarat/src/screens/on_boarding_screen.dart';
+import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,16 +9,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((instance) {
-    String lang = instance.getString('Locale');
-    if (lang == null) lang = 'en';
-    runApp(App(lang));
+    String lang = instance.getString('Locale') ?? 'en';
+    bool autoSkipping = instance.getBool('auto_skipping') ?? false;
+    runApp(App(lang, autoSkipping));
   });
 }
 
 class App extends StatelessWidget {
   final String locale;
+  final bool autoSkipping;
 
-  App(this.locale);
+  App(this.locale, this.autoSkipping);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class App extends StatelessWidget {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Cairo',
             ),
-            home: OnBoardingScreen(),
+            home: autoSkipping ? BottomNavScreen() : OnBoardingScreen(),
           );
         },
       ),

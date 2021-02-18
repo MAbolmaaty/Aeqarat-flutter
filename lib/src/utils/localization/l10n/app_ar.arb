@@ -468,5 +468,13 @@
   "onBoardingSlide3_subTitle": "تابع جميع العمليات المالية التي تخص عقاراتك والفواتير الخاصة بها ,ايضا سحب الارباح",
   "@onBoardingSlide3_subTitle": {
     "description": ""
+  },
+  "home": "الرئيسية",
+  "@home": {
+    "description": ""
+  },
+  "logout": "تسجيل الخروج",
+  "@logout": {
+    "description": ""
   }
 }
