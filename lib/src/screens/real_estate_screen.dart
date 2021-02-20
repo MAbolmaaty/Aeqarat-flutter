@@ -6,7 +6,6 @@ import 'package:aeqarat/src/utils/networking/real_estate_api.dart';
 import 'package:aeqarat/src/widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:pinch_zoom_image_updated/pinch_zoom_image_updated.dart';
 
 class RealEstateScreen extends StatefulWidget {
   final String realEstateId;
@@ -231,17 +230,14 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                           children: <Widget>[
                             _realEstateImages.length > 0 ?
                             Positioned.fill(
-                                child: PinchZoomImage(
-                                  image: Container(
+                                child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     height: MediaQuery.of(context).size.height,
                                     child: Image.network(
                                       _realEstateImages[mainImage],
                                       fit: BoxFit.cover,
                                     ),
-                                  ),
-                                  zoomedBackgroundColor: Colors.grey,
-                                ))
+                                  ))
                             : Positioned.fill(
                                 child: Image.asset(
                               'assets/images/apartment.jpg',
