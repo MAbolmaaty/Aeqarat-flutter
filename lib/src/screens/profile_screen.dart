@@ -14,6 +14,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final formKey = new GlobalKey<FormState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
   File imageFile;
   String profilePicture, _username, _email, _phoneNumber;
   TextEditingController _controllerUsername;
@@ -24,6 +26,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     UserPreferences().getUser().then((user) {
+      setState(() {
+        profilePicture = user.profilePicture.url;
+        _username = user.username;
+        _controllerUsername = TextEditingController(text: _username);
+        _email = user.email;
+        _controllerEmail = TextEditingController(text: _email);
+        _phoneNumber = user.phoneNumber;
+        _controllerPhoneNumber = TextEditingController(text: _phoneNumber);
+      });
+    });
+  }
+
+  Future<Null> profile(){
+    return UserPreferences().getUser().then((user) {
       setState(() {
         profilePicture = user.profilePicture.url;
         _username = user.username;

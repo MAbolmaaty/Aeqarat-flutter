@@ -260,34 +260,6 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
                 ),
               ),
             ),
-            ///////////////////////////////// Loading
-            // Align(
-            //     alignment: Alignment.center,
-            //     child: Visibility(
-            //         visible: _loadingRealEstates,
-            //         child: Container(
-            //             margin: EdgeInsets.only(bottom: 8.0),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: <Widget>[
-            //                 SizedBox(
-            //                   child: CircularProgressIndicator(
-            //                       strokeWidth: 1,
-            //                       valueColor: new AlwaysStoppedAnimation<Color>(
-            //                           Colors.black)),
-            //                   height: 13,
-            //                   width: 13,
-            //                 ),
-            //                 SizedBox(
-            //                   width: 4.0,
-            //                 ),
-            //                 Text(
-            //                   AppLocalizations.of(context).loading,
-            //                   style:
-            //                       TextStyle(fontSize: 13, color: Colors.black),
-            //                 ),
-            //               ],
-            //             )))),
             /////////////////////////// Filter Chip
             Align(
               alignment: Alignment.bottomCenter,
@@ -331,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
         _allMarkers.clear();
         for (final realEstate in _realEstatesList) {
           final marker = Marker(
-            markerId: MarkerId(realEstate.title),
+            markerId: MarkerId(realEstate.sId),
             position: LatLng(double.parse(realEstate.latitude),
                 double.parse(realEstate.longitude)),
             icon: BitmapDescriptor.fromBytes(markerIcon),

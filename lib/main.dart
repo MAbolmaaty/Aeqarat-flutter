@@ -34,7 +34,7 @@ class App extends StatelessWidget {
             locale: locale.locale,
             theme: ThemeData(
               primaryColor: const Color(0xFFF9FBFC),
-              accentColor: const Color(0xFFFFDB27),
+              accentColor: Colors.black,
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Cairo',
             ),

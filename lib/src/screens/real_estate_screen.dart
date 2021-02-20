@@ -6,6 +6,7 @@ import 'package:aeqarat/src/utils/networking/real_estate_api.dart';
 import 'package:aeqarat/src/widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pinch_zoom_image_updated/pinch_zoom_image_updated.dart';
 
 class RealEstateScreen extends StatefulWidget {
   final String realEstateId;
@@ -25,8 +26,13 @@ class _RealEstateScreenState extends State<RealEstateScreen>
       GlobalKey<RefreshIndicatorState>();
   TabController _tabController;
   String realEstateId;
-  String _realEstateTitle = "";
-  String _realEstateDescription;
+  String _realEstateTitle = "" ;
+  String _realEstateDescription = "";
+  String _realEstateStatus = "";
+  String _realEstatePrice = "";
+  String _realEstateAddress = "";
+  List<String> _realEstateImages = [];
+  int mainImage = 0;
 
   _RealEstateScreenState(this.realEstateId);
 
@@ -37,6 +43,12 @@ class _RealEstateScreenState extends State<RealEstateScreen>
         setState(() {
           _realEstateTitle = realEstateResponseModel.title;
           _realEstateDescription = realEstateResponseModel.description;
+          _realEstateStatus = realEstateResponseModel.status;
+          _realEstatePrice = realEstateResponseModel.price;
+          _realEstateAddress = realEstateResponseModel.address;
+          for(var image in realEstateResponseModel.images){
+            _realEstateImages.add(image.url);
+          }
         });
       }
     });
@@ -77,12 +89,18 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                     sliver: SliverPadding(
                       padding: EdgeInsets.all(0.0),
                       sliver: SliverAppBar(
-                        leading: Icon(
-                          Icons.chevron_left,
-                          size: 35,
-                          color: Colors.white,
+                        leading: GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.chevron_left,
+                            size: 35,
+                            color: Colors.white,
+                          ),
                         ),
                         forceElevated: innerBoxIsScrolled,
+                        ////////////////////////////////////// App Bar Labels
                         actions: <Widget>[
                           Row(
                             children: [
@@ -127,7 +145,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(20.0))),
                                   child: Text(
-                                    AppLocalizations.of(context).sale,
+                                    _realEstateStatus,
                                     style: TextStyle(color: Colors.white),
                                   )),
                             ],
@@ -208,11 +226,23 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                         ),
                         pinned: true,
                         floating: true,
-                        //toolbarHeight: MediaQuery.of(context).size.height / 7,
                         expandedHeight: MediaQuery.of(context).size.height / 2,
                         flexibleSpace: Stack(
                           children: <Widget>[
+                            _realEstateImages.length > 0 ?
                             Positioned.fill(
+                                child: PinchZoomImage(
+                                  image: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height,
+                                    child: Image.network(
+                                      _realEstateImages[mainImage],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  zoomedBackgroundColor: Colors.grey,
+                                ))
+                            : Positioned.fill(
                                 child: Image.asset(
                               'assets/images/apartment.jpg',
                               fit: BoxFit.cover,
@@ -249,6 +279,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                       ),
                     ),
                   ),
+                  /////////////////////////////////////////// More Images List
                   SliverList(
                     delegate: SliverChildListDelegate(<Widget>[
                       Container(
@@ -256,10 +287,15 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                         margin: EdgeInsets.only(top: 16.0),
                         child: ListView.builder(
                             padding: const EdgeInsets.all(8.0),
-                            itemCount: 10,
+                            itemCount: _realEstateImages.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    mainImage = index;
+                                  });
+                                },
                                 child: Container(
                                   height: 100,
                                   width: 100,
@@ -267,8 +303,8 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/apartment.jpg'),
+                                          image: NetworkImage(
+                                              _realEstateImages[index]),
                                           fit: BoxFit.cover),
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(8.0))),
@@ -292,7 +328,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: [
                                     Text(
-                                      '230,456',
+                                      _realEstatePrice,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 20,
@@ -318,7 +354,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.35,
                                 child: Text(
-                                  'Address Details',
+                                  _realEstateAddress,
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 13,

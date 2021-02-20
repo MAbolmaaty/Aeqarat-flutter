@@ -2,6 +2,8 @@ class RealEstateResponseModel {
   List<Images> images;
   String sId;
   String title;
+  String price;
+  String address;
   String description;
   String latitude;
   String longitude;
@@ -16,6 +18,8 @@ class RealEstateResponseModel {
       {this.images,
         this.sId,
         this.title,
+        this.price,
+        this.address,
         this.description,
         this.latitude,
         this.longitude,
@@ -35,6 +39,8 @@ class RealEstateResponseModel {
     }
     sId = json['_id'];
     title = json['title'];
+    price = json['price'];
+    address = json['address'];
     description = json['description'];
     latitude = json['latitude'];
     longitude = json['longitude'];
@@ -53,6 +59,8 @@ class RealEstateResponseModel {
     }
     data['_id'] = this.sId;
     data['title'] = this.title;
+    data['price'] = this.price;
+    data['address'] = this.address;
     data['description'] = this.description;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
@@ -226,7 +234,7 @@ class Thumbnail {
   String mime;
   int width;
   int height;
-  double size;
+  var size;
   Null path;
   String url;
   ProviderMetadata providerMetadata;

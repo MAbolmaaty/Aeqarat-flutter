@@ -19,10 +19,10 @@ class _RealEstateReviewsScreenState extends State<RealEstateReviewsScreen> {
         itemBuilder: (BuildContext context, int index) {
           return Stack(
             children: <Widget>[
-              CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage("assets/images/apartment.jpg"),
-              )
+              // CircleAvatar(
+              //   radius: 40,
+              //   backgroundImage: AssetImage("assets/images/apartment.jpg"),
+              // )
             ],
           );
         });
