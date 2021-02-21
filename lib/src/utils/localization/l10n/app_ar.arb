@@ -476,5 +476,9 @@
   "logout": "تسجيل الخروج",
   "@logout": {
     "description": ""
+  },
+  "saudiCurrency": "ريال سعودي",
+  "@saudiCurrency": {
+    "description": ""
   }
 }

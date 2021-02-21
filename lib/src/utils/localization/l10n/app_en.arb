@@ -476,5 +476,9 @@
   "logout": "Logout",
   "@logout": {
     "description": ""
+  },
+  "saudiCurrency": "SAR",
+  "@saudiCurrency": {
+    "description": ""
   }
 }
