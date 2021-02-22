@@ -89,71 +89,112 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                     sliver: SliverPadding(
                       padding: EdgeInsets.all(0.0),
                       sliver: SliverAppBar(
-                        leading: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.chevron_left,
-                            size: 35,
-                            color: Colors.white,
-                          ),
-                        ),
+                        toolbarHeight: MediaQuery.of(context).size.width /2,
+                        leadingWidth: 0,
+                        leading: Container(),
                         forceElevated: innerBoxIsScrolled,
                         ////////////////////////////////////// App Bar Labels
                         actions: <Widget>[
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                    right: 12.0, left: 12.0, top: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.2),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0))),
-                                child: Wrap(
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFFFFDB27),
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.0),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(top: 16),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
                                           child: Icon(
-                                            Icons.check,
-                                            size: 15,
-                                            color: Colors.black,
+                                            Icons.chevron_left,
+                                            size: 40,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 8.0,
-                                      ),
-                                      Text(
-                                        AppLocalizations.of(context).byAeqarat,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ]),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                  right: 12.0, left: 12.0, top: 4, bottom: 4),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(20.0))),
+                                              child: Wrap(
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: const Color(0xFFFFDB27),
+                                                          shape: BoxShape.circle),
+                                                      child: Padding(
+                                                        padding: EdgeInsets.all(2.0),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 15,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8.0,
+                                                    ),
+                                                    Text(
+                                                      AppLocalizations.of(context).byAeqarat,
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  ]),
+                                            ),
+                                            Container(
+                                                margin:
+                                                EdgeInsets.only(left: 8.0, right: 8.0),
+                                                padding: EdgeInsets.only(
+                                                    right: 30.0,
+                                                    left: 30.0,
+                                                    top: 4,
+                                                    bottom: 4),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.black.withOpacity(0.2),
+                                                    borderRadius: BorderRadius.all(
+                                                        Radius.circular(20.0))),
+                                                child: Text(
+                                                  _realEstateStatus,
+                                                  style: TextStyle(color: Colors.white),
+                                                )),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/exclamation.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        SizedBox(width: 8.0,),
+                                        Image.asset(
+                                          'assets/images/share.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        SizedBox(width: 8.0,),
+                                        Image.asset(
+                                          'assets/images/bookmark.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Container(
-                                  margin:
-                                      EdgeInsets.only(left: 8.0, right: 8.0),
-                                  padding: EdgeInsets.only(
-                                      right: 30.0,
-                                      left: 30.0,
-                                      top: 4,
-                                      bottom: 4),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.2),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0))),
-                                  child: Text(
-                                    _realEstateStatus,
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                            ],
+                            ),
                           ),
                         ],
                         ////////////////////////////////////////////// Bottom 360 and nav
@@ -255,36 +296,6 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                 : Container(
                                     color: Colors.grey,
                                   ),
-                            ////////////////////////////// Additional Icons
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: kToolbarHeight + 16.0, right: 16.0, left: 16.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/exclamation.png',
-                                      height: 40,
-                                      width: 40,
-                                    ),
-                                    SizedBox(width: 8.0,),
-                                    Image.asset(
-                                      'assets/images/share.png',
-                                      height: 40,
-                                      width: 40,
-                                    ),
-                                    SizedBox(width: 8.0,),
-                                    Image.asset(
-                                      'assets/images/bookmark.png',
-                                      height: 40,
-                                      width: 40,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
