@@ -38,7 +38,7 @@ class App extends StatelessWidget {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Cairo',
             ),
-            home: autoSkipping ? BottomNavScreen() : OnBoardingScreen(),
+            home: autoSkipping ? BottomNavScreen(2, true) : OnBoardingScreen(),
           );
         },
       ),

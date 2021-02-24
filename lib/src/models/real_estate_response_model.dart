@@ -7,6 +7,7 @@ class RealEstateResponseModel {
   String description;
   String latitude;
   String longitude;
+  String insuranceAmount;
   String publishedAt;
   String createdAt;
   String updatedAt;
@@ -23,6 +24,7 @@ class RealEstateResponseModel {
         this.description,
         this.latitude,
         this.longitude,
+        this.insuranceAmount,
         this.publishedAt,
         this.createdAt,
         this.updatedAt,
@@ -44,6 +46,7 @@ class RealEstateResponseModel {
     description = json['description'];
     latitude = json['latitude'];
     longitude = json['longitude'];
+    insuranceAmount = json['insuranceAmount'];
     publishedAt = json['published_at'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -64,6 +67,7 @@ class RealEstateResponseModel {
     data['description'] = this.description;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
+    data['insuranceAmount'] = this.insuranceAmount;
     data['published_at'] = this.publishedAt;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

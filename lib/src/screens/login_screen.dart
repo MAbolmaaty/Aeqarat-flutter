@@ -208,7 +208,7 @@ class LoginScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
+                                    BorderRadius.all(Radius.circular(16.0)),
                                 color: const Color(0xffFFDB27)),
                             child: authenticationApi.loggedInStatus ==
                                     Status.LoggingIn

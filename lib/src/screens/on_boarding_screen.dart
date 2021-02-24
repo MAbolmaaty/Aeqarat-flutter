@@ -44,7 +44,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       Timer(
                           Duration(seconds: 2),
                           () => Navigator.of(context)
-                              .pushReplacement(BottomNavScreen.route()));
+                              .pushReplacement(BottomNavScreen.route(2, true)));
                     }
                   },
                   child: skip && !getStarted
@@ -104,7 +104,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             Timer(
                                 Duration(seconds: 2),
                                 () => Navigator.of(context)
-                                    .pushReplacement(BottomNavScreen.route()));
+                                    .pushReplacement(BottomNavScreen.route(2, true)));
                           }
                         }
                       },

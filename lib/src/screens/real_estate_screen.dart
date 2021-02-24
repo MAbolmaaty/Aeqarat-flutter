@@ -2,10 +2,13 @@ import 'package:aeqarat/src/models/real_estate_response_model.dart';
 import 'package:aeqarat/src/screens/real_estate_description_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_details_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_reviews_screen.dart';
+import 'package:aeqarat/src/screens/request_screen.dart';
 import 'package:aeqarat/src/utils/networking/real_estate_api.dart';
 import 'package:aeqarat/src/widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:aeqarat/src/widgets/login_dialog.dart';
 
 class RealEstateScreen extends StatefulWidget {
   final String realEstateId;
@@ -26,7 +29,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
   TabController _tabController;
   String realEstateId;
   String _realEstateTitle = "";
-
+  String apiToken;
   String _realEstateDescription = "";
   String _realEstateStatus = "";
   String _realEstatePrice = "0";
@@ -34,21 +37,27 @@ class _RealEstateScreenState extends State<RealEstateScreen>
   List<String> _realEstateImages = [];
   int mainImage = 0;
 
+  RealEstateResponseModel realEstate;
+
   _RealEstateScreenState(this.realEstateId);
 
   Future<Null> _realEstate() {
     return RealEstateApi().realEstate(realEstateId).then((result) {
       if (result['status']) {
-        RealEstateResponseModel realEstateResponseModel = result['data'];
-        setState(() {
-          _realEstateTitle = realEstateResponseModel.title;
-          _realEstateDescription = realEstateResponseModel.description;
-          _realEstateStatus = realEstateResponseModel.status;
-          _realEstatePrice = realEstateResponseModel.price;
-          _realEstateAddress = realEstateResponseModel.address;
-          for (var image in realEstateResponseModel.images) {
-            _realEstateImages.add(image.url);
-          }
+        realEstate = result['data'];
+        SharedPreferences.getInstance().then((instance) {
+          setState(() {
+            apiToken = instance.getString('api_token');
+            _realEstateTitle = realEstate.title;
+            _realEstateDescription = realEstate.description;
+            _realEstateStatus = realEstate.status;
+            _realEstatePrice = realEstate.price;
+            _realEstateAddress = realEstate.address;
+            _realEstateImages.clear();
+            for (var image in realEstate.images) {
+              _realEstateImages.add(image.url);
+            }
+          });
         });
       }
     });
@@ -88,8 +97,9 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                         context),
                     sliver: SliverPadding(
                       padding: EdgeInsets.all(0.0),
+                      ///////////////////////////////// App Bar
                       sliver: SliverAppBar(
-                        toolbarHeight: MediaQuery.of(context).size.width /2,
+                        toolbarHeight: MediaQuery.of(context).size.width / 2,
                         leadingWidth: 0,
                         leading: Container(),
                         forceElevated: innerBoxIsScrolled,
@@ -102,7 +112,8 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         GestureDetector(
                                           onTap: () {
@@ -118,21 +129,30 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                           children: [
                                             Container(
                                               padding: EdgeInsets.only(
-                                                  right: 12.0, left: 12.0, top: 4, bottom: 4),
+                                                  right: 12.0,
+                                                  left: 12.0,
+                                                  top: 4,
+                                                  bottom: 4),
                                               decoration: BoxDecoration(
-                                                  color: Colors.black.withOpacity(0.2),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(20.0))),
+                                                  color: Colors.black
+                                                      .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              20.0))),
                                               child: Wrap(
                                                   crossAxisAlignment:
                                                       WrapCrossAlignment.center,
                                                   children: <Widget>[
                                                     Container(
                                                       decoration: BoxDecoration(
-                                                          color: const Color(0xFFFFDB27),
-                                                          shape: BoxShape.circle),
+                                                          color: const Color(
+                                                              0xFFFFDB27),
+                                                          shape:
+                                                              BoxShape.circle),
                                                       child: Padding(
-                                                        padding: EdgeInsets.all(2.0),
+                                                        padding:
+                                                            EdgeInsets.all(2.0),
                                                         child: Icon(
                                                           Icons.check,
                                                           size: 15,
@@ -144,26 +164,33 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                       width: 8.0,
                                                     ),
                                                     Text(
-                                                      AppLocalizations.of(context).byAeqarat,
-                                                      style: TextStyle(color: Colors.white),
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .byAeqarat,
+                                                      style: TextStyle(
+                                                          color: Colors.white),
                                                     ),
                                                   ]),
                                             ),
                                             Container(
-                                                margin:
-                                                EdgeInsets.only(left: 8.0, right: 8.0),
+                                                margin: EdgeInsets.only(
+                                                    left: 8.0, right: 8.0),
                                                 padding: EdgeInsets.only(
                                                     right: 30.0,
                                                     left: 30.0,
                                                     top: 4,
                                                     bottom: 4),
                                                 decoration: BoxDecoration(
-                                                    color: Colors.black.withOpacity(0.2),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20.0))),
+                                                    color: Colors.black
+                                                        .withOpacity(0.2),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20.0))),
                                                 child: Text(
                                                   _realEstateStatus,
-                                                  style: TextStyle(color: Colors.white),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 )),
                                           ],
                                         ),
@@ -177,13 +204,17 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                           height: 40,
                                           width: 40,
                                         ),
-                                        SizedBox(width: 8.0,),
+                                        SizedBox(
+                                          width: 8.0,
+                                        ),
                                         Image.asset(
                                           'assets/images/share.png',
                                           height: 40,
                                           width: 40,
                                         ),
-                                        SizedBox(width: 8.0,),
+                                        SizedBox(
+                                          width: 8.0,
+                                        ),
                                         Image.asset(
                                           'assets/images/bookmark.png',
                                           height: 40,
@@ -286,13 +317,21 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                             _realEstateImages.length > 0
                                 ? Positioned.fill(
                                     child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height,
-                                    child: Image.network(
-                                      _realEstateImages[mainImage],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ))
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        child:
+                                            // Image.network(
+                                            //   _realEstateImages[mainImage],
+                                            //   fit: BoxFit.cover,
+                                            // ),
+                                            FadeInImage.assetNetwork(
+                                          placeholder:
+                                              'assets/images/placeholder.png',
+                                          image: _realEstateImages[mainImage],
+                                          fit: BoxFit.cover,
+                                        )))
                                 : Container(
                                     color: Colors.grey,
                                   ),
@@ -401,31 +440,49 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                           ],
                         ),
                       ),
-                      ////////////////////////////// Request
-                      Container(
-                        height: 50,
-                        margin: EdgeInsets.only(
-                            left: 20, right: 20, bottom: 10, top: 16),
-                        decoration: BoxDecoration(
-                            color: const Color(0xffFFDB27),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0))),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/images/request.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              SizedBox(
-                                width: 2.0,
-                              ),
-                              Text(
-                                'Rent Request',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ]),
+                      ////////////////////////////// Request Button
+                      GestureDetector(
+                        onTap: () {
+                          if (apiToken != null) {
+                            if (_realEstatePrice != "0" && _realEstateStatus != "auction")
+                              Navigator.of(context)
+                                  .push(RequestScreen.route(realEstate));
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder:
+                                    (_) => LoginDialog());
+                          }
+                        },
+                        child: _realEstatePrice != "0" ? Container(
+                          height: 50,
+                          margin: EdgeInsets.only(
+                              left: 20, right: 20, bottom: 10, top: 16),
+                          decoration: BoxDecoration(
+                              color: const Color(0xffFFDB27),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/images/request.png',
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                SizedBox(
+                                  width: 4.0,
+                                ),
+                                Text(
+                                  _realEstateStatus == 'rent'
+                                      ? AppLocalizations.of(context).requestRent
+                                      : _realEstateStatus == 'sale'
+                                          ? AppLocalizations.of(context).requestOwnership
+                                          : AppLocalizations.of(context).joinAuction,
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                              ]),
+                        ) : Container(),
                       )
                     ]),
                   ),

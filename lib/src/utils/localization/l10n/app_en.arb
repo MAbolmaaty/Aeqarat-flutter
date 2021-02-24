@@ -480,5 +480,73 @@
   "saudiCurrency": "SAR",
   "@saudiCurrency": {
     "description": ""
+  },
+  "amount": "Amount",
+  "@amount": {
+    "description": ""
+  },
+  "currencyPerMonth": "SAR/Mth",
+  "@currencyPerMonth": {
+    "description": ""
+  },
+  "insuranceAmount": "Insurance Amount",
+  "@insuranceAmount": {
+    "description": ""
+  },
+  "startDate": "Start Date",
+  "@startDate": {
+    "description": ""
+  },
+  "duration": "Duration",
+  "@duration": {
+    "description": ""
+  },
+  "paymentMethod": "Payment Method",
+  "@paymentMethod": {
+    "description": ""
+  },
+  "threeMonths": "3 months",
+  "@threeMonths": {
+    "description": ""
+  },
+  "sixMonths": "6 months",
+  "@sixMonths": {
+    "description": ""
+  },
+  "twelveMonths": "12 months",
+  "@twelveMonths": {
+    "description": ""
+  },
+  "creditCard": "Credit Card",
+  "@creditCard": {
+    "description": ""
+  },
+  "cash": "Cash",
+  "@cash": {
+    "description": ""
+  },
+  "save": "Save",
+  "@save": {
+    "description": ""
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": ""
+  },
+  "requestRent": "Rent Request",
+  "@requestRent": {
+    "description": ""
+  },
+  "requestOwnership": "Ownership Request",
+  "@requestOwnership": {
+    "description": ""
+  },
+  "joinAuction": "Join Auction",
+  "@joinAuction": {
+    "description": ""
+  },
+  "loginToProceed": "Login to proceed",
+  "@loginToProceed": {
+    "description": ""
   }
 }

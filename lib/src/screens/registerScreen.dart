@@ -367,7 +367,7 @@ class RegisterScreen extends StatelessWidget {
                                                   Navigator.of(context)
                                                       .pushAndRemoveUntil(
                                                           BottomNavScreen
-                                                              .route(),
+                                                              .route(1, true),
                                                           (route) => false)
                                               });
                                     }

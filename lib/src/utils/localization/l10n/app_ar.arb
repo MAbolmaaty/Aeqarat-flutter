@@ -480,5 +480,73 @@
   "saudiCurrency": "ريال سعودي",
   "@saudiCurrency": {
     "description": ""
+  },
+  "amount": "المبلغ",
+  "@amount": {
+    "description": ""
+  },
+  "currencyPerMonth": "ريال/شهر",
+  "@currencyPerMonth": {
+    "description": ""
+  },
+  "insuranceAmount": "مبلغ التأمين",
+  "@insuranceAmount": {
+    "description": ""
+  },
+  "startDate": "تاريخ الدخول",
+  "@startDate": {
+    "description": ""
+  },
+  "duration": "المدة",
+  "@duration": {
+    "description": ""
+  },
+  "paymentMethod": "طريقة الدفع",
+  "@paymentMethod": {
+    "description": ""
+  },
+  "threeMonths": "3 شهور",
+  "@threeMonths": {
+    "description": ""
+  },
+  "sixMonths": "6 شهور",
+  "@sixMonths": {
+    "description": ""
+  },
+  "twelveMonths": "12 شهور",
+  "@twelveMonths": {
+    "description": ""
+  },
+  "creditCard": "بطاقة ائتمانية",
+  "@creditCard": {
+    "description": ""
+  },
+  "cash": "نقدي",
+  "@cash": {
+    "description": ""
+  },
+  "save": "حفظ",
+  "@save": {
+    "description": ""
+  },
+  "cancel": "الغاء",
+  "@cancel": {
+    "description": ""
+  },
+  "requestRent": "طلب إيجار",
+  "@requestRent": {
+    "description": ""
+  },
+  "requestOwnership": "طلب تمليك",
+  "@requestOwnership": {
+    "description": ""
+  },
+  "joinAuction": "الاشتراك في المزاد",
+  "@joinAuction": {
+    "description": ""
+  },
+  "loginToProceed": "لتقديم طلب قم بتسجيل الدخول اولا",
+  "@loginToProceed": {
+    "description": ""
   }
 }

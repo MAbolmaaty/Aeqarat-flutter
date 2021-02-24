@@ -27,20 +27,19 @@ class ScreenAppBar extends StatelessWidget {
               child: GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
+                    margin: EdgeInsets.only(right: 8.0, left: 8.0),
                       height: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: const Color(0xffFEC200),
-                        ),
+                      child: Icon(
+                        Icons.chevron_left,
+                        color: const Color(0xffFEC200),
+                        size: 32,
                       ))))),
       Align(
         alignment: Alignment.center,
         child: Text(
           _screenTitle,
           style: TextStyle(
-              color: Colors.black, fontSize: 18,),
+              color: Colors.black, fontSize: 15,),
         ),
       ),
       Align(alignment: locale.locale == Locale('en') ? Alignment.centerRight : Alignment.centerLeft, child: _thirdAction,)
