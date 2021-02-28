@@ -346,33 +346,35 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                       Container(
                         height: 100,
                         margin: EdgeInsets.only(top: 16.0),
-                        child: ListView.builder(
-                            padding: const EdgeInsets.all(8.0),
-                            itemCount: _realEstateImages.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    mainImage = index;
-                                  });
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  margin:
-                                      EdgeInsets.only(right: 8.0, left: 8.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              _realEstateImages[index]),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(8.0))),
-                                ),
-                              );
-                            }),
+                        child: Center(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(8.0),
+                              itemCount: _realEstateImages.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      mainImage = index;
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    margin:
+                                        EdgeInsets.only(right: 8.0, left: 8.0),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                _realEstateImages[index]),
+                                            fit: BoxFit.cover),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8.0))),
+                                  ),
+                                );
+                              }),
+                        ),
                       ),
                       ///////////////////////// Real Estate Info
                       Container(
@@ -451,7 +453,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                             showDialog(
                                 context: context,
                                 builder:
-                                    (_) => LoginDialog());
+                                    (_) => LoginDialog(realEstateId: realEstateId,));
                           }
                         },
                         child: _realEstatePrice != "0" ? Container(

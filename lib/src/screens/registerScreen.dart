@@ -11,14 +11,19 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static Route<dynamic> route() => MaterialPageRoute(
-        builder: (context) => RegisterScreen(),
+  static Route<dynamic> route({String realEstateId}) => MaterialPageRoute(
+        builder: (context) => RegisterScreen(
+          realEstateId: realEstateId,
+        ),
       );
 
   final formKey = GlobalKey<FormState>();
   final sKey = GlobalKey<ScaffoldState>();
   String _username, _email, _password, _confirmPassword, _phoneNumber;
   File imageFile;
+  final String realEstateId;
+
+  RegisterScreen({this.realEstateId});
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +47,28 @@ class RegisterScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(
                             top: 56.0, right: 16.0, left: 16.0),
-                        child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Icon(
+                                Icons.chevron_left,
+                                color: const Color(0xffFEC200),
+                                size: 32,
+                              ),
+                            ),
+                            Text(
                               AppLocalizations.of(context).createNewAccount,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
-                            )),
+                            ),
+                          ],
+                        ),
                       ),
                       ///////////////////////// Profile Picture
                       Consumer<AuthenticationApi>(
@@ -340,13 +358,12 @@ class RegisterScreen extends StatelessWidget {
                           builder: (context, authenticationApi, child) {
                         return GestureDetector(
                             onTap: () {
+                              //// Hide keyboard
+                              FocusScope.of(context).unfocus();
                               final form = formKey.currentState;
                               if (form.validate()) {
                                 form.save();
                                 if (_password == _confirmPassword) {
-                                  //// Hide keyboard
-                                  FocusScope.of(context)
-                                      .unfocus();
                                   authenticationApi
                                       .register(
                                           _username,
@@ -358,18 +375,20 @@ class RegisterScreen extends StatelessWidget {
                                       .then((result) {
                                     if (result['status']) {
                                       AuthenticationResponseModel
-                                      authenticationResponseModel =
-                                      result['data'];
+                                          authenticationResponseModel =
+                                          result['data'];
                                       saveApiToken(
                                               authenticationResponseModel.jwt)
-                                          .then((value) => {
-                                                if (value)
-                                                  Navigator.of(context)
-                                                      .pushAndRemoveUntil(
-                                                          BottomNavScreen
-                                                              .route(1, true),
-                                                          (route) => false)
-                                              });
+                                          .then((value) {
+                                        if (value)
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  BottomNavScreen.route(
+                                                      currentIndex: 2,
+                                                      realEstateId:
+                                                          realEstateId),
+                                                  (route) => false);
+                                      });
                                     }
                                   });
                                 } else {

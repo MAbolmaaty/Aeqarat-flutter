@@ -122,7 +122,6 @@ class AuthenticationApi with ChangeNotifier {
           AuthenticationResponseModel.fromJson(responseData);
 
       _registeredStatus = Status.Registered;
-      _authenticationStatus = Authentication.Authenticated;
       notifyListeners();
 
       result = {
@@ -171,8 +170,6 @@ class AuthenticationApi with ChangeNotifier {
           AuthenticationResponseModel.fromJson(responseData);
 
       _loggedInStatus = Status.LoggedIn;
-      _authenticationStatus = Authentication.Authenticated;
-      profile(authenticationResponseModel.jwt);
       notifyListeners();
 
       result = {

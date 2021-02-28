@@ -11,24 +11,29 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavScreen extends StatefulWidget {
-  final int index;
-  final bool visible;
+  final int currentIndex;
+  final String realEstateId;
 
-  BottomNavScreen(this.index, this.visible);
+  BottomNavScreen({this.currentIndex, this.realEstateId});
 
-  static Route<dynamic> route(int index, bool visible) => MaterialPageRoute(
-        builder: (context) => BottomNavScreen(index, visible),
+  static Route<dynamic> route({
+          int currentIndex, String realEstateId}) =>
+      MaterialPageRoute(
+        builder: (context) => BottomNavScreen(
+          currentIndex: currentIndex,
+          realEstateId: realEstateId,
+        ),
       );
 
   @override
-  _BottomNavScreenState createState() => _BottomNavScreenState(index, visible);
+  _BottomNavScreenState createState() =>
+      _BottomNavScreenState(currentIndex);
 }
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
-  int index;
-  bool visible;
+  int currentIndex;
 
-  _BottomNavScreenState(this.index, this.visible);
+  _BottomNavScreenState(this.currentIndex);
 
   @override
   Widget build(BuildContext context) {
@@ -36,63 +41,61 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         create: (context) => AuthenticationApi(),
         child: Consumer<AuthenticationApi>(
             builder: (context, authenticationApi, child) {
-              if(authenticationApi.authenticationStatus == Authentication.Unauthenticated){
-                SharedPreferences.getInstance().then((instance) {
-                  String apiToken = instance.getString('api_token');
-                  if(apiToken != null){
-                    authenticationApi.profile(apiToken);
-                  }
-                });
+          if (authenticationApi.authenticationStatus ==
+              Authentication.Unauthenticated) {
+            SharedPreferences.getInstance().then((instance) {
+              String apiToken = instance.getString('api_token');
+              if (apiToken != null) {
+                authenticationApi.profile(apiToken);
               }
+            });
+          }
           return Scaffold(
               body: IndexedStack(
-                index: index,
+                index: currentIndex,
                 children: [
                   NotificationsScreen(),
                   authenticationApi.authenticationStatus ==
                           Authentication.Authenticated
                       ? ProfileScreen()
-                      : LoginScreen(),
-                  HomeScreen(),
+                      : LoginScreen(implyLeading: false),
+                  HomeScreen(lastVisitedRealEstateId: widget.realEstateId,),
                   RealEstatesScreen(),
                   SettingsScreen(),
                 ],
               ),
-              bottomNavigationBar: Visibility(
-                visible: visible,
-                child: BottomNavigationBar(
-                  currentIndex: index,
-                  selectedItemColor: const Color(0xFFFFDB27),
-                  unselectedItemColor: const Color(0xFFCCCCCC),
-                  onTap: (int index) {
-                    setState(() {
-                      index = index;
-                    });
-                  },
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.notifications_none),
-                        label: AppLocalizations.of(context).notifications),
-                    BottomNavigationBarItem(
-                        icon: authenticationApi.authenticationStatus ==
-                                Authentication.Authenticated
-                            ? Icon(Icons.person_outline)
-                            : Icon(Icons.login),
-                        label: authenticationApi.authenticationStatus ==
-                                Authentication.Authenticated
-                            ? AppLocalizations.of(context).profile
-                            : AppLocalizations.of(context).login),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.home_outlined),
-                        label: AppLocalizations.of(context).home),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.home_work_outlined),
-                        label: AppLocalizations.of(context).realStates),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.settings),
-                        label: AppLocalizations.of(context).settings),
-                  ],
-                ),
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: currentIndex,
+                selectedItemColor: const Color(0xFFFFDB27),
+                unselectedItemColor: const Color(0xFFCCCCCC),
+                onTap: (int index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.notifications_none),
+                      label: AppLocalizations.of(context).notifications),
+                  BottomNavigationBarItem(
+                      icon: authenticationApi.authenticationStatus ==
+                              Authentication.Authenticated
+                          ? Icon(Icons.person_outline)
+                          : Icon(Icons.login),
+                      label: authenticationApi.authenticationStatus ==
+                              Authentication.Authenticated
+                          ? AppLocalizations.of(context).profile
+                          : AppLocalizations.of(context).login),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home_outlined),
+                      label: AppLocalizations.of(context).home),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home_work_outlined),
+                      label: AppLocalizations.of(context).realStates),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.settings),
+                      label: AppLocalizations.of(context).settings),
+                ],
               ));
         }));
   }

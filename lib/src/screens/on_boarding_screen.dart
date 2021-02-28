@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class OnBoardingScreen extends StatefulWidget {
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
@@ -43,8 +42,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       });
                       Timer(
                           Duration(seconds: 2),
-                          () => Navigator.of(context)
-                              .pushReplacement(BottomNavScreen.route(2, true)));
+                          () => Navigator.of(context).pushReplacement(
+                              BottomNavScreen.route(
+                                  currentIndex: 2,)));
                     }
                   },
                   child: skip && !getStarted
@@ -103,8 +103,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             });
                             Timer(
                                 Duration(seconds: 2),
-                                () => Navigator.of(context)
-                                    .pushReplacement(BottomNavScreen.route(2, true)));
+                                () => Navigator.of(context).pushReplacement(
+                                    BottomNavScreen.route(
+                                        currentIndex: 2,)));
                           }
                         }
                       },
@@ -235,7 +236,7 @@ class PageViewItem {
   PageViewItem(this.image, this.title, this.subTitle);
 }
 
-void autoSkipping() async{
+void autoSkipping() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   sharedPreferences.setBool('auto_skipping', true);
 }

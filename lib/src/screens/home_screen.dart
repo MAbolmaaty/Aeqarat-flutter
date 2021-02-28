@@ -13,6 +13,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  final String lastVisitedRealEstateId;
+
+  HomeScreen({this.lastVisitedRealEstateId});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -49,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
 
   final RestorableBool isSelectedForRent = RestorableBool(true);
   final RestorableBool isSelectedForSale = RestorableBool(true);
-  final RestorableBool isSelectedAuctions = RestorableBool(true);
+  final RestorableBool isSelectedAuctions = RestorableBool(false);
 
   @override
   String get restorationId => 'filter_chip_demo';
@@ -282,8 +286,11 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
     mapController.setMapStyle(_mapStyle);
-    markerIcon =
-        await getBytesFromAsset('assets/images/marker.png', 100);
+    markerIcon = await getBytesFromAsset('assets/images/marker.png', 100);
+    if (widget.lastVisitedRealEstateId != null) {
+      Navigator.of(context)
+          .push(RealEstateScreen.route(widget.lastVisitedRealEstateId));
+    }
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -308,7 +315,8 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
                 double.parse(realEstate.longitude)),
             icon: BitmapDescriptor.fromBytes(markerIcon),
             onTap: () {
-              Navigator.of(context).push(RealEstateScreen.route(realEstate.sId));
+              Navigator.of(context)
+                  .push(RealEstateScreen.route(realEstate.sId));
             },
           );
           _allMarkers[realEstate.sId] = marker;
@@ -324,7 +332,8 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
               break;
           }
         }
-        _markersOnMap = _allMarkers.values.toSet();
+        _markersOnMap =
+            _rentMarkers.values.toSet().union(_saleMarkers.values.toSet());
       });
     });
   }
