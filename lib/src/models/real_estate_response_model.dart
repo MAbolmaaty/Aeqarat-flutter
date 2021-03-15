@@ -2,35 +2,37 @@ class RealEstateResponseModel {
   List<Images> images;
   String sId;
   String title;
-  String price;
-  String address;
   String description;
   String latitude;
   String longitude;
-  String insuranceAmount;
   String publishedAt;
   String createdAt;
   String updatedAt;
   int iV;
   String status;
+  String address;
+  String price;
+  String insuranceAmount;
+  List<Requests> requests;
   String id;
 
   RealEstateResponseModel(
       {this.images,
-        this.sId,
-        this.title,
-        this.price,
-        this.address,
-        this.description,
-        this.latitude,
-        this.longitude,
-        this.insuranceAmount,
-        this.publishedAt,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.status,
-        this.id});
+      this.sId,
+      this.title,
+      this.description,
+      this.latitude,
+      this.longitude,
+      this.publishedAt,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.status,
+      this.address,
+      this.price,
+      this.insuranceAmount,
+      this.requests,
+      this.id});
 
   RealEstateResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['images'] != null) {
@@ -41,17 +43,23 @@ class RealEstateResponseModel {
     }
     sId = json['_id'];
     title = json['title'];
-    price = json['price'];
-    address = json['address'];
     description = json['description'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    insuranceAmount = json['insuranceAmount'];
     publishedAt = json['published_at'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     status = json['status'];
+    address = json['address'];
+    price = json['price'];
+    insuranceAmount = json['insuranceAmount'];
+    if (json['requests'] != null) {
+      requests = new List<Requests>();
+      json['requests'].forEach((v) {
+        requests.add(new Requests.fromJson(v));
+      });
+    }
     id = json['id'];
   }
 
@@ -62,17 +70,20 @@ class RealEstateResponseModel {
     }
     data['_id'] = this.sId;
     data['title'] = this.title;
-    data['price'] = this.price;
-    data['address'] = this.address;
     data['description'] = this.description;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
-    data['insuranceAmount'] = this.insuranceAmount;
     data['published_at'] = this.publishedAt;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
     data['status'] = this.status;
+    data['address'] = this.address;
+    data['price'] = this.price;
+    data['insuranceAmount'] = this.insuranceAmount;
+    if (this.requests != null) {
+      data['requests'] = this.requests.map((v) => v.toJson()).toList();
+    }
     data['id'] = this.id;
     return data;
   }
@@ -101,24 +112,24 @@ class Images {
 
   Images(
       {this.sId,
-        this.name,
-        this.alternativeText,
-        this.caption,
-        this.hash,
-        this.ext,
-        this.mime,
-        this.size,
-        this.width,
-        this.height,
-        this.url,
-        this.providerMetadata,
-        this.formats,
-        this.provider,
-        this.related,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.id});
+      this.name,
+      this.alternativeText,
+      this.caption,
+      this.hash,
+      this.ext,
+      this.mime,
+      this.size,
+      this.width,
+      this.height,
+      this.url,
+      this.providerMetadata,
+      this.formats,
+      this.provider,
+      this.related,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.id});
 
   Images.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -136,7 +147,7 @@ class Images {
         ? new ProviderMetadata.fromJson(json['provider_metadata'])
         : null;
     formats =
-    json['formats'] != null ? new Formats.fromJson(json['formats']) : null;
+        json['formats'] != null ? new Formats.fromJson(json['formats']) : null;
     provider = json['provider'];
     related = json['related'].cast<String>();
     createdAt = json['createdAt'];
@@ -195,22 +206,22 @@ class ProviderMetadata {
 
 class Formats {
   Thumbnail thumbnail;
+  Thumbnail medium;
   Thumbnail small;
   Thumbnail large;
-  Thumbnail medium;
 
-  Formats({this.thumbnail, this.small, this.large, this.medium});
+  Formats({this.thumbnail, this.medium, this.small, this.large});
 
   Formats.fromJson(Map<String, dynamic> json) {
     thumbnail = json['thumbnail'] != null
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
-    small =
-    json['small'] != null ? new Thumbnail.fromJson(json['small']) : null;
-    large =
-    json['large'] != null ? new Thumbnail.fromJson(json['large']) : null;
     medium =
-    json['medium'] != null ? new Thumbnail.fromJson(json['medium']) : null;
+        json['medium'] != null ? new Thumbnail.fromJson(json['medium']) : null;
+    small =
+        json['small'] != null ? new Thumbnail.fromJson(json['small']) : null;
+    large =
+        json['large'] != null ? new Thumbnail.fromJson(json['large']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -218,14 +229,14 @@ class Formats {
     if (this.thumbnail != null) {
       data['thumbnail'] = this.thumbnail.toJson();
     }
+    if (this.medium != null) {
+      data['medium'] = this.medium.toJson();
+    }
     if (this.small != null) {
       data['small'] = this.small.toJson();
     }
     if (this.large != null) {
       data['large'] = this.large.toJson();
-    }
-    if (this.medium != null) {
-      data['medium'] = this.medium.toJson();
     }
     return data;
   }
@@ -238,22 +249,22 @@ class Thumbnail {
   String mime;
   int width;
   int height;
-  var size;
+  double size;
   Null path;
   String url;
   ProviderMetadata providerMetadata;
 
   Thumbnail(
       {this.name,
-        this.hash,
-        this.ext,
-        this.mime,
-        this.width,
-        this.height,
-        this.size,
-        this.path,
-        this.url,
-        this.providerMetadata});
+      this.hash,
+      this.ext,
+      this.mime,
+      this.width,
+      this.height,
+      this.size,
+      this.path,
+      this.url,
+      this.providerMetadata});
 
   Thumbnail.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -284,6 +295,68 @@ class Thumbnail {
     if (this.providerMetadata != null) {
       data['provider_metadata'] = this.providerMetadata.toJson();
     }
+    return data;
+  }
+}
+
+class Requests {
+  String userId;
+  String username;
+  String email;
+  String phoneNumber;
+  String amount;
+  String insuranceAmount;
+  String startDate;
+  String requestDate;
+  int duration;
+  int paymentMethod;
+  String realEstateStatus;
+  int status;
+
+  Requests({
+    this.userId,
+    this.username,
+    this.email,
+    this.phoneNumber,
+    this.amount,
+    this.insuranceAmount,
+    this.startDate,
+    this.requestDate,
+    this.duration,
+    this.paymentMethod,
+    this.realEstateStatus,
+    this.status,
+  });
+
+  Requests.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    username = json['username'];
+    email = json['email'];
+    phoneNumber = json['phoneNumber'];
+    amount = json['amount'];
+    insuranceAmount = json['insuranceAmount'];
+    startDate = json['startDate'];
+    requestDate = json['requestDate'];
+    duration = json['duration'];
+    paymentMethod = json['paymentMethod'];
+    realEstateStatus = json['realEstateStatus'];
+    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user_id'] = this.userId;
+    data['username'] = this.username;
+    data['email'] = this.email;
+    data['phoneNumber'] = this.phoneNumber;
+    data['amount'] = this.amount;
+    data['insuranceAmount'] = this.insuranceAmount;
+    data['startDate'] = this.startDate;
+    data['requestDate'] = this.requestDate;
+    data['duration'] = this.duration;
+    data['paymentMethod'] = this.paymentMethod;
+    data['realEstateStatus'] = this.realEstateStatus;
+    data['status'] = this.status;
     return data;
   }
 }

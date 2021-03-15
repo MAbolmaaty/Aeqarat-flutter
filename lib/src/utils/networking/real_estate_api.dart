@@ -13,10 +13,12 @@ enum RealEstateLoading {
 
 class RealEstateApi with ChangeNotifier {
   RealEstateLoading _loadingStatus;
+  RealEstateResponseModel _realEstateResponseModel;
 
   RealEstateLoading get loadingStatus => _loadingStatus;
+  RealEstateResponseModel get realEstate => _realEstateResponseModel;
 
-  Future<Map<String, dynamic>> realEstate(String realEstateId) async {
+  Future<Map<String, dynamic>> loadRealEstate(String realEstateId) async {
     var result;
 
     _loadingStatus = RealEstateLoading.Loading;
@@ -28,19 +30,17 @@ class RealEstateApi with ChangeNotifier {
         Uri.parse(AppUrl.real_estates_url + realEstateId),
       );
     } on Exception catch (e) {
-      _loadingStatus = RealEstateLoading.Failed;
-      notifyListeners();
+      e.toString();
     }
 
     final Map<String, dynamic> responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
+      _realEstateResponseModel =
+          RealEstateResponseModel.fromJson(responseData);
       _loadingStatus = RealEstateLoading.Succeed;
       notifyListeners();
-
-      RealEstateResponseModel realEstateResponseModel =
-          RealEstateResponseModel.fromJson(responseData);
-      result = {'status': true, 'data': realEstateResponseModel};
+      result = {'status': true, 'data': _realEstateResponseModel};
     } else {
       _loadingStatus = RealEstateLoading.Failed;
       notifyListeners();

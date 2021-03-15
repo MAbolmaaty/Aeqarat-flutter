@@ -24,8 +24,8 @@ class _RealEstateDetailsScreenState extends State<RealEstateDetailsScreen> {
               children: <Widget>[
                 Image.asset(
                   realEstateDetailsItems[index].assetImage,
-                  height: 25,
-                  width: 25,
+                  height: 24.0,
+                  width: 24.0,
                 ),
                 Expanded(
                     flex: 2,
@@ -64,11 +64,11 @@ class _RealEstateDetailsScreenState extends State<RealEstateDetailsScreen> {
   realEstateDetails(BuildContext context) {
     realEstateDetailsItems = <RealEstateDetailItemModel>[
       RealEstateDetailItemModel(
-          assetImage: 'assets/images/ad_number.png',
+          assetImage: 'assets/images/numbering.png',
           detail: AppLocalizations.of(context).adNumber,
           value: '8754'),
       RealEstateDetailItemModel(
-          assetImage: 'assets/images/age.png',
+          assetImage: 'assets/images/timing.png',
           detail: AppLocalizations.of(context).age,
           value: '15'),
       RealEstateDetailItemModel(

@@ -1,4 +1,4 @@
-class RealEstatesResponseModel {
+class RealEstateUpdateResponseModel {
   List<Images> images;
   String sId;
   String title;
@@ -16,7 +16,7 @@ class RealEstatesResponseModel {
   List<Requests> requests;
   String id;
 
-  RealEstatesResponseModel(
+  RealEstateUpdateResponseModel(
       {this.images,
       this.sId,
       this.title,
@@ -34,7 +34,7 @@ class RealEstatesResponseModel {
       this.requests,
       this.id});
 
-  RealEstatesResponseModel.fromJson(Map<String, dynamic> json) {
+  RealEstateUpdateResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['images'] != null) {
       images = new List<Images>();
       json['images'].forEach((v) {
@@ -249,7 +249,7 @@ class Thumbnail {
   String mime;
   int width;
   int height;
-  var size;
+  double size;
   Null path;
   String url;
   ProviderMetadata providerMetadata;

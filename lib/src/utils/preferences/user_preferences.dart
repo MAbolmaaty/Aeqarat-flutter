@@ -10,6 +10,7 @@ class UserPreferences {
       sharedPreferences.setString(
           'profile_picture', profileResponseModel.profilePicture.url);
     }
+    sharedPreferences.setString('user_id', profileResponseModel.sId);
     sharedPreferences.setString('username', profileResponseModel.username);
     sharedPreferences.setString('email', profileResponseModel.email);
     sharedPreferences.setString(
@@ -26,12 +27,14 @@ class UserPreferences {
     if (sharedPreferences.getString('profile_picture') != null) {
       profilePicture = sharedPreferences.getString('profile_picture');
     }
+    String id = sharedPreferences.get('user_id');
     String username = sharedPreferences.getString('username');
     String email = sharedPreferences.getString('email');
     String phoneNumber = sharedPreferences.getString('phone_number');
 
     return ProfileResponseModel(
         profilePicture: ProfilePicture(url: profilePicture),
+        sId: id,
         username: username,
         email: email,
         phoneNumber: phoneNumber);
@@ -43,6 +46,7 @@ class UserPreferences {
     if (sharedPreferences.getString('profile_picture') != null) {
       sharedPreferences.remove('profile_picture');
     }
+    sharedPreferences.remove('user_id');
     sharedPreferences.remove('api_token');
     sharedPreferences.remove('username');
     sharedPreferences.remove('email');

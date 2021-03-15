@@ -548,5 +548,33 @@
   "loginToProceed": "Login to proceed",
   "@loginToProceed": {
     "description": ""
+  },
+  "showYourRequest": "Show Your Request",
+  "@showYourRequest": {
+    "description": ""
+  },
+  "negotiating": "Negotiating.",
+  "@negotiating": {
+    "description": ""
+  },
+  "requestAccepted": "Request Accepted.",
+  "@requestAccepted": {
+    "description": ""
+  },
+  "requestDate": "Request Date",
+  "@requestDate": {
+    "description": ""
+  },
+  "month": "Month",
+  "@month": {
+    "description": ""
+  },
+  "tenancyAgreement": "Tenancy Agreement",
+  "@tenancyAgreement": {
+    "description": ""
+  },
+  "personal_id": "Personal ID",
+  "@personal_id": {
+    "description": ""
   }
 }

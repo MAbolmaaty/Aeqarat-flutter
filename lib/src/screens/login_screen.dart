@@ -177,6 +177,7 @@ class LoginScreen extends StatelessWidget {
                           );
                         }),
                       ),
+                      ///////////////// Remember Me
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
@@ -184,7 +185,6 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                ///////////////// Remember Me
                                 Checkbox(
                                   value: rememberMe,
                                   //onChanged: _onRememberMeChanged,

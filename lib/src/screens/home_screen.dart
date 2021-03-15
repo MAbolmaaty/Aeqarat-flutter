@@ -32,8 +32,6 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
   String _mapStyle;
   BitmapDescriptor customMarker;
 
-  //bool _loadingRealEstates = false;
-
   final Map<String, Marker> _allMarkers = {};
   final Map<String, Marker> _rentMarkers = {};
   final Map<String, Marker> _saleMarkers = {};
@@ -175,6 +173,11 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
       )
     ];
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        toolbarHeight: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _realEstates,
@@ -197,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
+                margin: EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   color: Colors.white,

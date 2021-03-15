@@ -548,5 +548,33 @@
   "loginToProceed": "لتقديم طلب قم بتسجيل الدخول اولا",
   "@loginToProceed": {
     "description": ""
+  },
+  "showYourRequest": "عرض طلبك",
+  "@showYourRequest": {
+    "description": ""
+  },
+  "negotiating": "جاري التفاوض.",
+  "@negotiating": {
+    "description": ""
+  },
+  "requestAccepted": "تم التفاوض.",
+  "@requestAccepted": {
+    "description": ""
+  },
+  "requestDate": "تاريخ الطلب",
+  "@requestDate": {
+    "description": ""
+  },
+  "month": "شهر",
+  "@month": {
+    "description": ""
+  },
+  "tenancyAgreement": "عقد الايجار",
+  "@tenancyAgreement": {
+    "description": ""
+  },
+  "personal_id": "الهوية الشخصية",
+  "@personal_id": {
+    "description": ""
   }
 }

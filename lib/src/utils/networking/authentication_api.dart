@@ -156,7 +156,7 @@ class AuthenticationApi with ChangeNotifier {
 
     Response response;
     try {
-      response = await post(AppUrl.login_url,
+      response = await post(Uri.parse(AppUrl.login_url),
           headers: headers, body: json.encode(requestBody));
     } on Exception catch (e) {
       e.toString();

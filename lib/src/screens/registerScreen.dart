@@ -500,14 +500,14 @@ class RegisterScreen extends StatelessWidget {
   }
 
   _openGallery(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
-    imageFile = picture;
+    var picture = await ImagePicker().getImage(source: ImageSource.gallery);
+    imageFile = File(picture.path);
     Navigator.of(context).pop();
   }
 
   _openCamera(BuildContext context) async {
-    var camera = await ImagePicker.pickImage(source: ImageSource.camera);
-    imageFile = camera;
+    var camera = await ImagePicker().getImage(source: ImageSource.camera);
+    imageFile = File(camera.path);
     Navigator.of(context).pop();
   }
 
