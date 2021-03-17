@@ -584,5 +584,17 @@
   "accounting": "Accounting",
   "@accounting": {
     "description": ""
+  },
+  "accountingDetails": "Accounting Details",
+  "@accountingDetails": {
+    "description": ""
+  },
+  "from": "From",
+  "@from": {
+    "description": ""
+  },
+  "to": "To",
+  "@to": {
+    "description": ""
   }
 }

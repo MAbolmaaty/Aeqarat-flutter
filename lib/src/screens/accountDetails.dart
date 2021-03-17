@@ -1,7 +1,9 @@
 import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/constant.dart';
+import 'package:aeqarat/src/widgets/screen_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountDetails extends StatefulWidget {
   static Route<dynamic> route() => MaterialPageRoute(
@@ -44,15 +46,15 @@ class _AccountDetailsState extends State<AccountDetails> {
             initialDate: DateTime.now(),
             //which date will display when user open the picker
             firstDate: DateTime(1950),
-            builder: (BuildContext context, Widget child) {
-              return Theme(
-                data: ThemeData.light().copyWith(
-                  colorScheme:
-                      ColorScheme.light(primary: AppTheme.primaryColor),
-                ),
-                child: child,
-              );
-            },
+            // builder: (BuildContext context, Widget child) {
+            //   return Theme(
+            //     data: ThemeData.light().copyWith(
+            //       colorScheme:
+            //           ColorScheme.light(primary: AppTheme.primaryColor),
+            //     ),
+            //     child: child,
+            //   );
+            // },
             //what will be the previous supported year in picker
             lastDate: DateTime
                 .now()) //what will be the up to supported date in picker
@@ -72,57 +74,67 @@ class _AccountDetailsState extends State<AccountDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.whiteColor,
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        // backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
+        actions: [
+          ScreenAppBar(
+            screenTitle: AppLocalizations.of(context).accountingDetails,
+            implyLeading: true,
+          )
+        ],
+        backgroundColor: Colors.transparent,
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  )),
-              height: 50.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                      onTap: _frompickDateDialog,
-                      child: Text(
-                        _selectedFromDate == null
-                            ? "From"
-                            : ' ${DateFormat.yMMMd().format(_selectedFromDate)}',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal),
-                      )),
-                  Icon(
-                    Icons.arrow_back_ios_rounded,
-                    color: Colors.grey,
-                  ),
-                  InkWell(
-                      onTap: _topickDateDialog,
-                      child: Text(
-                        _selectedToDate == null
-                            ? "To"
-                            : ' ${DateFormat.yMMMd().format(_selectedToDate)}',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal),
-                      )),
-                ],
-              ),
+          SizedBox(height: 16.0,),
+          const Divider(
+            color: const Color(0xffE3E3E6),
+            height: 2.0,
+            thickness: 0.7,
+            indent: 16.0,
+            endIndent: 16.0,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                border: Border.all(
+                  color: AppTheme.border,
+                  width: 1.0,
+                )),
+            height: 48.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                    onTap: _frompickDateDialog,
+                    child: Text(
+                      _selectedFromDate == null
+                          ? AppLocalizations.of(context).from
+                          : ' ${DateFormat.yMMMd().format(_selectedFromDate)}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,),
+                    )),
+                Icon(
+                  Icons.chevron_right,
+                  color: Colors.grey,
+                ),
+                InkWell(
+                    onTap: _topickDateDialog,
+                    child: Text(
+                      _selectedToDate == null
+                          ? AppLocalizations.of(context).to
+                          : ' ${DateFormat.yMMMd().format(_selectedToDate)}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,),
+                    )),
+              ],
             ),
           ),
           Row(

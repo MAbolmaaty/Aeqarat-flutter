@@ -584,5 +584,17 @@
   "accounting": "حسابات",
   "@accounting": {
     "description": ""
+  },
+  "accountingDetails": "تفاصيل الحساب",
+  "@accountingDetails": {
+    "description": ""
+  },
+  "from": "من",
+  "@from": {
+    "description": ""
+  },
+  "to": "الى",
+  "@to": {
+    "description": ""
   }
 }

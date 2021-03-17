@@ -1,5 +1,6 @@
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:aeqarat/src/screens/on_boarding_screen.dart';
+import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -35,6 +36,7 @@ class App extends StatelessWidget {
             theme: ThemeData(
               primaryColor: const Color(0xFFF9FBFC),
               accentColor: Colors.black,
+              colorScheme: ColorScheme.light(primary: AppTheme.primaryColor),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Cairo',
             ),
