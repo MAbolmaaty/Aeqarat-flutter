@@ -5,6 +5,7 @@ class ProfileResponseModel {
   String username;
   String email;
   String phoneNumber;
+  int userType;
   String provider;
   String createdAt;
   String updatedAt;
@@ -20,6 +21,7 @@ class ProfileResponseModel {
         this.username,
         this.email,
         this.phoneNumber,
+        this.userType,
         this.provider,
         this.createdAt,
         this.updatedAt,
@@ -35,6 +37,7 @@ class ProfileResponseModel {
     username = json['username'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];
+    userType = json['userType'];
     provider = json['provider'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -54,6 +57,7 @@ class ProfileResponseModel {
     data['username'] = this.username;
     data['email'] = this.email;
     data['phoneNumber'] = this.phoneNumber;
+    data['userType'] = this.userType;
     data['provider'] = this.provider;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

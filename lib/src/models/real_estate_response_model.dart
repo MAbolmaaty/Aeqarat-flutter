@@ -14,6 +14,7 @@ class RealEstateResponseModel {
   String price;
   String insuranceAmount;
   List<Requests> requests;
+  String ownerId;
   String id;
 
   RealEstateResponseModel(
@@ -32,6 +33,7 @@ class RealEstateResponseModel {
       this.price,
       this.insuranceAmount,
       this.requests,
+      this.ownerId,
       this.id});
 
   RealEstateResponseModel.fromJson(Map<String, dynamic> json) {
@@ -60,6 +62,7 @@ class RealEstateResponseModel {
         requests.add(new Requests.fromJson(v));
       });
     }
+    ownerId = json['ownerId'];
     id = json['id'];
   }
 
@@ -85,6 +88,7 @@ class RealEstateResponseModel {
       data['requests'] = this.requests.map((v) => v.toJson()).toList();
     }
     data['id'] = this.id;
+    data['ownerId'] = this.ownerId;
     return data;
   }
 }

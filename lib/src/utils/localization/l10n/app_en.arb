@@ -576,5 +576,13 @@
   "personal_id": "Personal ID",
   "@personal_id": {
     "description": ""
+  },
+  "rentInfo": "Rent Info",
+  "@rentInfo": {
+    "description": ""
+  },
+  "accounting": "Accounting",
+  "@accounting": {
+    "description": ""
   }
 }

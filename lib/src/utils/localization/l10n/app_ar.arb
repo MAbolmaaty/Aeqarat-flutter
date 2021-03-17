@@ -576,5 +576,13 @@
   "personal_id": "الهوية الشخصية",
   "@personal_id": {
     "description": ""
+  },
+  "rentInfo": "بيانات الايجار",
+  "@rentInfo": {
+    "description": ""
+  },
+  "accounting": "حسابات",
+  "@accounting": {
+    "description": ""
   }
 }

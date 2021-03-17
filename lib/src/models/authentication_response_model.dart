@@ -26,6 +26,7 @@ class User {
   String username;
   String email;
   String phoneNumber;
+  int userType;
   String provider;
   String createdAt;
   String updatedAt;
@@ -41,6 +42,7 @@ class User {
         this.username,
         this.email,
         this.phoneNumber,
+        this.userType,
         this.provider,
         this.createdAt,
         this.updatedAt,
@@ -56,6 +58,7 @@ class User {
     username = json['username'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];
+    userType = json['userType'];
     provider = json['provider'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -75,6 +78,7 @@ class User {
     data['username'] = this.username;
     data['email'] = this.email;
     data['phoneNumber'] = this.phoneNumber;
+    data['userType'] = this.userType;
     data['provider'] = this.provider;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

@@ -1,10 +1,12 @@
 import 'package:aeqarat/src/models/profile_response_model.dart';
 import 'package:aeqarat/src/models/real_estate_response_model.dart';
+import 'package:aeqarat/src/screens/accountDetails.dart';
 import 'package:aeqarat/src/screens/real_estate_description_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_details_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_reviews_screen.dart';
 import 'package:aeqarat/src/screens/request_screen.dart';
 import 'package:aeqarat/src/screens/request_submitted_screen.dart';
+import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/networking/real_estate_api.dart';
 import 'package:aeqarat/src/utils/preferences/user_preferences.dart';
 import 'package:aeqarat/src/widgets/login_dialog.dart';
@@ -35,6 +37,7 @@ class _RealEstateScreenState extends State<RealEstateScreen>
   String apiToken;
   int mainImage = 0;
   bool alreadyRequested = false;
+  bool realEstateOwner = false;
   Requests userRequest;
   ProfileResponseModel userProfile;
   final RealEstateApi realEstateApi = RealEstateApi();
@@ -49,10 +52,15 @@ class _RealEstateScreenState extends State<RealEstateScreen>
           if (user.sId != null) {
             userProfile = user;
             await SharedPreferences.getInstance().then((instance) {
-              for (Requests request in realEstateResponseModel.requests) {
-                if (request.userId == instance.getString('user_id')) {
-                  alreadyRequested = true;
-                  userRequest = request;
+              String userId = instance.getString('user_id');
+              if (realEstateResponseModel.ownerId == userId) {
+                realEstateOwner = true;
+              } else {
+                for (Requests request in realEstateResponseModel.requests) {
+                  if (request.userId == userId) {
+                    alreadyRequested = true;
+                    userRequest = request;
+                  }
                 }
               }
               setState(() {
@@ -405,162 +413,245 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                             ),
                           ),
                           ///////////////////////// Real Estate Info
-                          Container(
-                            margin: EdgeInsets.only(right: 16, left: 16),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.baseline,
-                                        textBaseline: TextBaseline.alphabetic,
-                                        children: [
-                                          Text(
-                                            realEstateApi.loadingStatus ==
-                                                    RealEstateLoading.Succeed
-                                                ? realEstateApi.realEstate.price
-                                                : "",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700,),
-                                          ),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)
-                                                .saudiCurrency,
-                                            style: TextStyle(
-                                              color:
-                                                  Colors.black.withOpacity(0.7),
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        realEstateApi.loadingStatus ==
-                                                RealEstateLoading.Succeed
-                                            ? realEstateApi.realEstate.title
-                                            : "",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
+                          realEstateApi.loadingStatus ==
+                                  RealEstateLoading.Succeed
+                              ? Container(
+                                  margin: EdgeInsets.only(right: 16, left: 16),
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.only(top: 2),
-                                          child: Icon(
-                                            Icons.location_on,
-                                            color: Colors.grey,
-                                            size: 16,
-                                          )),
+                                    children: <Widget>[
                                       Expanded(
-                                        child: Text(
-                                          realEstateApi.loadingStatus ==
-                                                  RealEstateLoading.Succeed
-                                              ? realEstateApi.realEstate.address
-                                              : "",
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 13,
-                                          ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.baseline,
+                                              textBaseline:
+                                                  TextBaseline.alphabetic,
+                                              children: [
+                                                Text(
+                                                  realEstateApi
+                                                      .realEstate.price,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 4,
+                                                ),
+                                                Text(
+                                                  AppLocalizations.of(context)
+                                                      .saudiCurrency,
+                                                  style: TextStyle(
+                                                    color: Colors.black
+                                                        .withOpacity(0.7),
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              realEstateApi.realEstate.title,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                margin: EdgeInsets.only(top: 2),
+                                                child: Icon(
+                                                  Icons.location_on,
+                                                  color: Colors.grey,
+                                                  size: 16,
+                                                )),
+                                            Expanded(
+                                              child: Text(
+                                                realEstateApi
+                                                    .realEstate.address,
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                )
+                              : Container(),
                           ////////////////////////////// Request Button
-                          GestureDetector(
-                            onTap: () {
-                              if (apiToken != null) {
-                                if (realEstateApi.realEstate.status !=
-                                    "auction") {
-                                  if (alreadyRequested) {
-                                    Navigator.of(context).push(
-                                        RequestSubmittedScreen.route(
-                                            userRequest));
-                                  } else {
-                                    Navigator.of(context).push(
-                                        RequestScreen.route(
-                                            realEstateApi.realEstate, apiToken, userProfile));
-                                  }
-                                }
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => LoginDialog(
-                                          realEstateId: realEstateId,
-                                        ));
-                              }
-                            },
-                            child: realEstateApi.loadingStatus ==
-                                    RealEstateLoading.Succeed
-                                ? Container(
-                                    height: 50,
-                                    margin: EdgeInsets.only(
-                                        left: 20,
-                                        right: 20,
-                                        bottom: 10,
-                                        top: 16),
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xffFFDB27),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0))),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Image.asset(
-                                            'assets/images/request.png',
-                                            height: 20,
-                                            width: 20,
-                                          ),
-                                          SizedBox(
-                                            width: 4.0,
-                                          ),
-                                          alreadyRequested
-                                              ? Text(
-                                                  AppLocalizations.of(context)
-                                                      .showYourRequest)
-                                              : Text(
-                                                  realEstateApi.realEstate
-                                                              .status ==
-                                                          'rent'
-                                                      ? AppLocalizations.of(
-                                                              context)
-                                                          .requestRent
-                                                      : realEstateApi.realEstate
-                                                                  .status ==
-                                                              'sale'
-                                                          ? AppLocalizations.of(
-                                                                  context)
-                                                              .requestOwnership
-                                                          : AppLocalizations.of(
-                                                                  context)
-                                                              .joinAuction,
-                                                  style:
-                                                      TextStyle(fontSize: 13),
+                          realEstateApi.loadingStatus ==
+                                  RealEstateLoading.Succeed
+                              ? Container(
+                                  height: 48.0,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 16.0),
+                                  child: realEstateOwner
+                                      ? Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: ElevatedButton(
+                                                onPressed: () {},
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: AppTheme.primaryColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0)),
                                                 ),
-                                        ]),
-                                  )
-                                : Container(),
-                          )
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Image.asset(
+                                                        'assets/images/info.png',
+                                                        height: 20,
+                                                        width: 20,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 4.0,
+                                                      ),
+                                                      Text(
+                                                        AppLocalizations.of(context).rentInfo,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.black),
+                                                        maxLines: 1,
+                                                      ),
+                                                    ]),
+                                              ),
+                                          ),
+                                          SizedBox(width: 16.0,),
+                                          Expanded(
+                                            flex: 2,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                    AccountDetails.route());
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: AppTheme.primaryColor,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0)),
+                                              ),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Image.asset(
+                                                      'assets/images/wallet.png',
+                                                      height: 20,
+                                                      width: 20,
+                                                      color: Colors.black,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 4.0,
+                                                    ),
+                                                    Text(
+                                                      AppLocalizations.of(context).accounting,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black),
+                                                      maxLines: 1,
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                      : ElevatedButton(
+                                          onPressed: () {
+                                            if (apiToken != null) {
+                                              if (realEstateApi
+                                                      .realEstate.status !=
+                                                  "auction") {
+                                                if (alreadyRequested) {
+                                                  Navigator.of(context).push(
+                                                      RequestSubmittedScreen
+                                                          .route(userRequest));
+                                                } else {
+                                                  Navigator.of(context).push(
+                                                      RequestScreen.route(
+                                                          realEstateApi
+                                                              .realEstate,
+                                                          apiToken,
+                                                          userProfile));
+                                                }
+                                              }
+                                            } else {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) => LoginDialog(
+                                                        realEstateId:
+                                                            realEstateId,
+                                                      ));
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            primary: AppTheme.primaryColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0)),
+                                          ),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Image.asset(
+                                                  'assets/images/request.png',
+                                                  height: 20,
+                                                  width: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 4.0,
+                                                ),
+                                                alreadyRequested
+                                                    ? Text(AppLocalizations.of(
+                                                            context)
+                                                        .showYourRequest)
+                                                    : Text(
+                                                        realEstateApi.realEstate
+                                                                    .status ==
+                                                                'rent'
+                                                            ? AppLocalizations
+                                                                    .of(context)
+                                                                .requestRent
+                                                            : realEstateApi
+                                                                        .realEstate
+                                                                        .status ==
+                                                                    'sale'
+                                                                ? AppLocalizations.of(
+                                                                        context)
+                                                                    .requestOwnership
+                                                                : AppLocalizations.of(
+                                                                        context)
+                                                                    .joinAuction,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                              ]),
+                                        ),
+                                )
+                              : shimmer(),
                         ]),
                       ),
                       SliverPersistentHeader(
@@ -610,6 +701,76 @@ class _RealEstateScreenState extends State<RealEstateScreen>
           }),
         ),
       ),
+    );
+  }
+
+  Widget shimmer() {
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 12.0,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [
+                0.1,
+                0.4,
+                0.7,
+                0.9,
+              ],
+                  colors: [
+                Color(0x70616161),
+                Color(0x50616161),
+                Color(0x30616161),
+                Color(0x30616161),
+              ])),
+        ),
+        Container(
+          height: 12.0,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [
+                0.1,
+                0.4,
+                0.7,
+                0.9,
+              ],
+                  colors: [
+                Color(0x70616161),
+                Color(0x50616161),
+                Color(0x30616161),
+                Color(0x30616161),
+              ])),
+        ),
+        Container(
+          height: 12.0,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [
+                0.1,
+                0.4,
+                0.7,
+                0.9,
+              ],
+                  colors: [
+                Color(0x70616161),
+                Color(0x50616161),
+                Color(0x30616161),
+                Color(0x30616161),
+              ])),
+        ),
+      ],
     );
   }
 }
