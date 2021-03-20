@@ -5,8 +5,8 @@ import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/networking/real_estate_update_api.dart';
 import 'package:aeqarat/src/widgets/screen_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RequestScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _RequestScreenState extends State<RequestScreen> {
         backgroundColor: AppTheme.backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          elevation: 0.8,
+          elevation: 0.0,
           actions: [
             ScreenAppBar(
               screenTitle: widget.realEstate.status == 'rent'
@@ -101,6 +101,16 @@ class _RequestScreenState extends State<RequestScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        const Divider(
+                          color: const Color(0xffE3E3E6),
+                          height: 2.0,
+                          thickness: 0.7,
+                          indent: 16.0,
+                          endIndent: 16.0,
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
                         ///////////////////////////////// Amount
                         Container(
                           margin:
@@ -224,18 +234,20 @@ class _RequestScreenState extends State<RequestScreen> {
                         ///////////////////////////////// Start Date
                         GestureDetector(
                           onTap: () {
-                            DatePicker.showDatePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime.now(), onConfirm: (date) {
-                              setState(() {
-                                startDate = date.day.toString() +
-                                    "/" +
-                                    date.month.toString() +
-                                    "/" +
-                                    date.year.toString();
-                                _controllerStartDate =
-                                    TextEditingController(text: startDate);
-                              });
+                            showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(DateTime.now().year + 2))
+                                .then((pickedDate) {
+                              if (pickedDate != null) {
+                                setState(() {
+                                  startDate = DateFormat('yyyy/MM/dd')
+                                      .format(pickedDate);
+                                  _controllerStartDate =
+                                      TextEditingController(text: startDate);
+                                });
+                              }
                             });
                           },
                           child: Container(

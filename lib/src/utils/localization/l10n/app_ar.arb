@@ -596,5 +596,45 @@
   "to": "الى",
   "@to": {
     "description": ""
+  },
+  "confirmed": "تم التاكيد",
+  "@confirmed": {
+    "description": ""
+  },
+  "revenues": "الايرادات",
+  "@revenues": {
+    "description": ""
+  },
+  "expenses": "المصروفات",
+  "@expenses": {
+    "description": ""
+  },
+  "profits": "الارباح",
+  "@profits": {
+    "description": ""
+  },
+  "currentRequests": "الطلبات الحالية",
+  "@currentRequests": {
+    "description": ""
+  },
+  "previousRequests": "الطلبات السابقة",
+  "@previousRequests": {
+    "description": ""
+  },
+  "terminateTheContract": "طلب إنهاء تعاقد",
+  "@terminateTheContract": {
+    "description": ""
+  },
+  "maintenanceRequest": "طلب صيانة",
+  "@maintenanceRequest": {
+    "description": ""
+  },
+  "exitDate": "تاريخ الخروج",
+  "@exitDate": {
+    "description": ""
+  },
+  "anotherNotes": "بيانات اخرى",
+  "@anotherNotes": {
+    "description": ""
   }
 }

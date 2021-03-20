@@ -596,5 +596,45 @@
   "to": "To",
   "@to": {
     "description": ""
+  },
+  "confirmed": "Confirmed",
+  "@confirmed": {
+    "description": ""
+  },
+  "revenues": "Revenues",
+  "@revenues": {
+    "description": ""
+  },
+  "expenses": "Expenses",
+  "@expenses": {
+    "description": ""
+  },
+  "profits": "Profits",
+  "@profits": {
+    "description": ""
+  },
+  "currentRequests": "Current Requests",
+  "@currentRequests": {
+    "description": ""
+  },
+  "previousRequests": "Previous Requests",
+  "@previousRequests": {
+    "description": ""
+  },
+  "terminateTheContract": "Terminate The Contract",
+  "@terminateTheContract": {
+    "description": ""
+  },
+  "maintenanceRequest": "Maintenance Request",
+  "@maintenanceRequest": {
+    "description": ""
+  },
+  "exitDate": "Exit Date",
+  "@exitDate": {
+    "description": ""
+  },
+  "anotherNotes": "Another Notes",
+  "@anotherNotes": {
+    "description": ""
   }
 }

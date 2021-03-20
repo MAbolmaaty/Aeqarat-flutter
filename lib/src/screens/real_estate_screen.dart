@@ -1,9 +1,10 @@
 import 'package:aeqarat/src/models/profile_response_model.dart';
 import 'package:aeqarat/src/models/real_estate_response_model.dart';
-import 'package:aeqarat/src/screens/accountDetails.dart';
+import 'package:aeqarat/src/screens/accounting_details.dart';
 import 'package:aeqarat/src/screens/real_estate_description_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_details_screen.dart';
 import 'package:aeqarat/src/screens/real_estate_reviews_screen.dart';
+import 'package:aeqarat/src/screens/rent_info_screen.dart';
 import 'package:aeqarat/src/screens/request_screen.dart';
 import 'package:aeqarat/src/screens/request_submitted_screen.dart';
 import 'package:aeqarat/src/utils/app_theme.dart';
@@ -501,13 +502,31 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                       horizontal: 16.0, vertical: 16.0),
                                   child: realEstateOwner
                                       ? Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: ElevatedButton(
-                                                onPressed: () {},
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  showModalBottomSheet<dynamic>(
+                                                      isScrollControlled: true,
+                                                      context: context,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      builder: (BuildContext
+                                                          buildContext) {
+                                                        return StatefulBuilder(
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              StateSetter
+                                                                  setState) {
+                                                            return RentInfoScreen();
+                                                          },
+                                                        );
+                                                      });
+                                                },
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: AppTheme.primaryColor,
+                                                  primary:
+                                                      AppTheme.primaryColor,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -515,7 +534,8 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                 ),
                                                 child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
                                                       Image.asset(
                                                         'assets/images/info.png',
@@ -526,55 +546,66 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                         width: 4.0,
                                                       ),
                                                       Text(
-                                                        AppLocalizations.of(context).rentInfo,
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .rentInfo,
                                                         style: TextStyle(
                                                             fontSize: 14,
-                                                            color: Colors.black),
+                                                            color:
+                                                                Colors.black),
                                                         maxLines: 1,
                                                       ),
                                                     ]),
                                               ),
-                                          ),
-                                          SizedBox(width: 16.0,),
-                                          Expanded(
-                                            flex: 2,
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    AccountDetails.route());
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                primary: AppTheme.primaryColor,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        16.0)),
-                                              ),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Image.asset(
-                                                      'assets/images/wallet.png',
-                                                      height: 20,
-                                                      width: 20,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 4.0,
-                                                    ),
-                                                    Text(
-                                                      AppLocalizations.of(context).accounting,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black),
-                                                      maxLines: 1,
-                                                    ),
-                                                  ]),
                                             ),
-                                          ),
-                                        ],
-                                      )
+                                            SizedBox(
+                                              width: 16.0,
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                      AccountingDetails
+                                                          .route());
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary:
+                                                      AppTheme.primaryColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0)),
+                                                ),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Image.asset(
+                                                        'assets/images/wallet.png',
+                                                        height: 20,
+                                                        width: 20,
+                                                        color: Colors.black,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 4.0,
+                                                      ),
+                                                      Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .accounting,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color:
+                                                                Colors.black),
+                                                        maxLines: 1,
+                                                      ),
+                                                    ]),
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       : ElevatedButton(
                                           onPressed: () {
                                             if (apiToken != null) {
