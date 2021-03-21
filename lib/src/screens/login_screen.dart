@@ -19,7 +19,6 @@ class LoginScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   bool rememberMe = false;
-  bool _passwordVisible = false;
   final bool implyLeading;
   final String realEstateId;
 
