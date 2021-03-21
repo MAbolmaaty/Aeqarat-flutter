@@ -89,11 +89,11 @@ class _RealEstateDetailsScreenState extends State<RealEstateDetailsScreen> {
           value: '15'),
       RealEstateDetailItemModel(
           assetImage: 'assets/images/electricity.png',
-          detail: AppLocalizations.of(context).electricity,
+          detail: AppLocalizations.of(context).electricityAccount,
           value: '15'),
       RealEstateDetailItemModel(
           assetImage: 'assets/images/water.png',
-          detail: AppLocalizations.of(context).water,
+          detail: AppLocalizations.of(context).waterAccount,
           value: '15'),
       RealEstateDetailItemModel(
           assetImage: 'assets/images/bathtub.png',

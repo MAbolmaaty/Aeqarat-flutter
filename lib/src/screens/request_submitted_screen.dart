@@ -64,7 +64,7 @@ class _RequestSubmittedScreenState extends State<RequestSubmittedScreen> {
             const Divider(
               color: const Color(0xffE3E3E6),
               height: 2.0,
-              thickness: 0.7,
+              thickness: 0.6,
               indent: 16.0,
               endIndent: 16.0,
             ),

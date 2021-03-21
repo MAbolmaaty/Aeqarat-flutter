@@ -401,12 +401,12 @@
   "@apartments": {
     "description": ""
   },
-  "electricity": "Electricity",
-  "@electricity": {
+  "electricityAccount": "Electricity Account",
+  "@electricityAccount": {
     "description": ""
   },
-  "water": "Water",
-  "@water": {
+  "waterAccount": "Water Account",
+  "@waterAccount": {
     "description": ""
   },
   "bathrooms": "Bathrooms",
@@ -635,6 +635,22 @@
   },
   "anotherNotes": "Another Notes",
   "@anotherNotes": {
+    "description": ""
+  },
+  "maintenanceType": "Maintenance Type",
+  "@maintenanceType": {
+    "description": ""
+  },
+  "electricity": "Electricity",
+  "@electricity": {
+    "description": ""
+  },
+  "water": "Water",
+  "@water": {
+    "description": ""
+  },
+  "modifyRequest": "Modify Request",
+  "@modifyRequest": {
     "description": ""
   }
 }

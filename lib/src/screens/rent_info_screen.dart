@@ -1,7 +1,10 @@
+import 'package:aeqarat/src/screens/submitted_terminate_contract_request_screen.dart';
 import 'package:aeqarat/src/screens/terminate_contract_request_screen.dart';
 import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:aeqarat/src/screens/maintenance_request_screen.dart';
+import 'package:aeqarat/src/screens/submitted_maintenance_request_screen.dart';
 
 class RentInfoScreen extends StatefulWidget {
   @override
@@ -191,7 +194,9 @@ class _RentInfoScreenState extends State<RentInfoScreen>
                       child: Container(
                           height: 48.0,
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaintenanceRequestScreen.route());
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: AppTheme.primaryColor,
                                 shape: RoundedRectangleBorder(

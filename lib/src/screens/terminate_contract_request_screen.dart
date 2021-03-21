@@ -356,6 +356,7 @@ class _TerminateContractRequestScreenState
               margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
               child: Row(
                 children: <Widget>[
+                  ////////////////////////////////// Save
                   Expanded(
                       flex: 3,
                       child: Container(
@@ -374,6 +375,7 @@ class _TerminateContractRequestScreenState
                         ),
                       )),
                   SizedBox(width: 16.0,),
+                  //////////////////////////// cancel
                   Expanded(
                       flex: 2,
                       child: Container(

@@ -401,12 +401,12 @@
   "@apartments": {
     "description": ""
   },
-  "electricity": "رقم حساب الكهرباء",
-  "@electricity": {
+  "electricityAccount": "رقم حساب الكهرباء",
+  "@electricityAccount": {
     "description": ""
   },
-  "water": "رقم حساب المياة",
-  "@water": {
+  "waterAccount": "رقم حساب المياة",
+  "@waterAccount": {
     "description": ""
   },
   "bathrooms": "عدد الحمامات",
@@ -635,6 +635,22 @@
   },
   "anotherNotes": "بيانات اخرى",
   "@anotherNotes": {
+    "description": ""
+  },
+  "maintenanceType": "نوع الصيانة",
+  "@maintenanceType": {
+    "description": ""
+  },
+  "electricity": "الكهرباء",
+  "@electricity": {
+    "description": ""
+  },
+  "water": "المياة",
+  "@water": {
+    "description": ""
+  },
+  "modifyRequest": "تعديل الطلب",
+  "@modifyRequest": {
     "description": ""
   }
 }
