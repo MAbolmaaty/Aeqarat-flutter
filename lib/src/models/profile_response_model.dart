@@ -110,7 +110,7 @@ class ProfilePicture {
   String hash;
   String ext;
   String mime;
-  double size;
+  var size;
   int width;
   int height;
   String url;
@@ -256,7 +256,7 @@ class Thumbnail {
   String mime;
   int width;
   int height;
-  double size;
+  var size;
   Null path;
   String url;
   ProviderMetadata providerMetadata;
