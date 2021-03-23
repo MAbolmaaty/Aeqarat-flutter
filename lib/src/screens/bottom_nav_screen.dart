@@ -4,6 +4,7 @@ import 'package:aeqarat/src/screens/notifications_screen.dart';
 import 'package:aeqarat/src/screens/profile_screen.dart';
 import 'package:aeqarat/src/screens/real_estates_screen.dart';
 import 'package:aeqarat/src/screens/settings_screen.dart';
+import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/authentication_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,6 +38,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = Provider.of<AppLocale>(context);
+    if (locale.locale == null) {
+      locale.locale = Locale(AppLocalizations.of(context).localeName);
+      SharedPreferences.getInstance().then((instance) {
+        instance.setString('Locale', AppLocalizations.of(context).localeName);
+      });
+    }
     return ChangeNotifierProvider(
         create: (context) => AuthenticationApi(),
         child: Consumer<AuthenticationApi>(

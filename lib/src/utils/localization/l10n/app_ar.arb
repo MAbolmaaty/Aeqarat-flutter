@@ -652,5 +652,13 @@
   "modifyRequest": "تعديل الطلب",
   "@modifyRequest": {
     "description": ""
+  },
+  "previous": "السابق",
+  "@previous": {
+    "description": ""
+  },
+  "getStarted": "بدء",
+  "@getStarted": {
+    "description": ""
   }
 }

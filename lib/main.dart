@@ -10,22 +10,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((instance) {
-    String lang = instance.getString('Locale') ?? 'en';
+    String lang = instance.getString('Locale');
     bool autoSkipping = instance.getBool('auto_skipping') ?? false;
     runApp(App(lang, autoSkipping));
   });
 }
 
 class App extends StatelessWidget {
-  final String locale;
+  final String lang;
   final bool autoSkipping;
 
-  App(this.locale, this.autoSkipping);
+  App(this.lang, this.autoSkipping);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AppLocale(Locale(locale)),
+      create: (context) => lang == null ? AppLocale() : AppLocale(Locale(lang)),
       child: Consumer<AppLocale>(
         builder: (context, locale, child) {
           return MaterialApp(

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AppLocale extends ChangeNotifier{
-  Locale _locale;
+class AppLocale extends ChangeNotifier {
+  Locale locale;
 
-  AppLocale(this._locale);
+  AppLocale([this.locale]);
 
-  Locale get locale => _locale ?? Locale('en');
-
-  void changeLocale(Locale newLocale){
-    if(newLocale == Locale('ar')){
-      _locale = Locale('ar');
+  void changeLocale(Locale newLocale) {
+    if (newLocale == Locale('ar')) {
+      locale = Locale('ar');
     } else {
-      _locale = Locale('en');
+      locale = Locale('en');
     }
     notifyListeners();
   }

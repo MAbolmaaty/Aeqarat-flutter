@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
+import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -89,7 +91,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 curve: Curves.ease);
                           }
                         },
-                        child: _currentPage > 0 ? Text('Previous') : Text('')),
+                        child: _currentPage > 0 ? Text(AppLocalizations.of(context).previous) : Text('')),
                     GestureDetector(
                       onTap: () {
                         if (_currentPage != pages.length - 1) {
@@ -123,10 +125,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4.0))),
                         child: _currentPage != pages.length - 1
-                            ? Text('Next')
+                            ? Text(AppLocalizations.of(context).next)
                             : getStarted && !skip
                                 ? _loading()
-                                : Text('Get Started'),
+                                : Text(AppLocalizations.of(context).getStarted),
                       ),
                     ),
                   ],

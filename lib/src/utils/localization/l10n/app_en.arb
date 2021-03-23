@@ -652,5 +652,13 @@
   "modifyRequest": "Modify Request",
   "@modifyRequest": {
     "description": ""
+  },
+  "previous": "Previous",
+  "@previous": {
+    "description": ""
+  },
+  "getStarted": "Get Started",
+  "@getStarted": {
+    "description": ""
   }
 }

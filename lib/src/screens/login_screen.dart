@@ -1,6 +1,8 @@
 import 'package:aeqarat/src/models/authentication_response_model.dart';
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
 import 'package:aeqarat/src/screens/registerScreen.dart';
+import 'package:aeqarat/src/utils/app_theme.dart';
+import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/authentication_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,13 +29,19 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _identifier, _password;
+    var locale = Provider.of<AppLocale>(context);
     return ChangeNotifierProvider(
       create: (context) => AuthenticationApi(),
       child: Scaffold(
-        backgroundColor: const Color(0xffF9FBFC),
+        backgroundColor: AppTheme.backgroundColor,
+        appBar: AppBar(
+          elevation: 0.0,
+          toolbarHeight: 0.0,
+          backgroundColor: Colors.transparent,
+        ),
         body: LayoutBuilder(builder:
             (BuildContext context, BoxConstraints viewPortConstraints) {
-          return SingleChildScrollView(
+          return SingleChildScrollView( 
             child: Form(
               key: formKey,
               child: ConstrainedBox(
@@ -43,9 +51,8 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 56.0, right: 16, left: 16),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
