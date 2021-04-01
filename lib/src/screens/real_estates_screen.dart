@@ -78,21 +78,21 @@ class _RealEstatesScreenState extends State<RealEstatesScreen> with SingleTicker
             Container(
               height: 180,
 
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
-                child: Image.network("http://via.placeholder.com/350x150",fit: BoxFit.fill,
-                  loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null ?
-                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
+              // child: ClipRRect(
+              //   borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+              //   child: Image.network("http://via.placeholder.com/350x150",fit: BoxFit.fill,
+              //     loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+              //       if (loadingProgress == null) return child;
+              //       return Center(
+              //         child: CircularProgressIndicator(
+              //           value: loadingProgress.expectedTotalBytes != null ?
+              //           loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+              //               : null,
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -9,7 +9,7 @@ class RealEstateResponseModel {
   String createdAt;
   String updatedAt;
   int iV;
-  String status;
+  int realEstateStatus;
   String address;
   String price;
   String insuranceAmount;
@@ -28,7 +28,7 @@ class RealEstateResponseModel {
       this.createdAt,
       this.updatedAt,
       this.iV,
-      this.status,
+      this.realEstateStatus,
       this.address,
       this.price,
       this.insuranceAmount,
@@ -52,7 +52,7 @@ class RealEstateResponseModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-    status = json['status'];
+    realEstateStatus = json['realEstateStatus'];
     address = json['address'];
     price = json['price'];
     insuranceAmount = json['insuranceAmount'];
@@ -80,7 +80,7 @@ class RealEstateResponseModel {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
-    data['status'] = this.status;
+    data['realEstateStatus'] = this.realEstateStatus;
     data['address'] = this.address;
     data['price'] = this.price;
     data['insuranceAmount'] = this.insuranceAmount;
@@ -314,8 +314,8 @@ class Requests {
   String requestDate;
   int duration;
   int paymentMethod;
-  String realEstateStatus;
-  int status;
+  int realEstateStatus;
+  int requestStatus;
 
   Requests({
     this.userId,
@@ -329,7 +329,7 @@ class Requests {
     this.duration,
     this.paymentMethod,
     this.realEstateStatus,
-    this.status,
+    this.requestStatus,
   });
 
   Requests.fromJson(Map<String, dynamic> json) {
@@ -344,7 +344,7 @@ class Requests {
     duration = json['duration'];
     paymentMethod = json['paymentMethod'];
     realEstateStatus = json['realEstateStatus'];
-    status = json['status'];
+    requestStatus = json['requestStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -360,7 +360,7 @@ class Requests {
     data['duration'] = this.duration;
     data['paymentMethod'] = this.paymentMethod;
     data['realEstateStatus'] = this.realEstateStatus;
-    data['status'] = this.status;
+    data['requestStatus'] = this.requestStatus;
     return data;
   }
 }

@@ -32,6 +32,7 @@ class _RentInfoScreenState extends State<RentInfoScreen>
             color: const Color(0xffF9FBFC)),
         child: Column(
           children: <Widget>[
+            ///////////////////// Title
             Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                 child: Stack(

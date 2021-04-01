@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:aeqarat/src/screens/real_estate_report_screen.dart';
 
 class RealEstateScreen extends StatefulWidget {
   final String realEstateId;
@@ -127,6 +128,11 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
+                                        realEstateApi
+                                            .loadingStatus ==
+                                            RealEstateLoading
+                                                .Succeed
+                                            ?
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -209,27 +215,28 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                                     20.0))),
                                                     child: Text(
                                                       realEstateApi
-                                                                  .loadingStatus ==
-                                                              RealEstateLoading
-                                                                  .Succeed
-                                                          ? realEstateApi
-                                                              .realEstate.status
-                                                          : "",
+                                                              .realEstate.realEstateStatus == 0 ?
+                                                      AppLocalizations.of(context).sale : AppLocalizations.of(context).rent,
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                     )),
                                               ],
                                             ),
                                           ],
-                                        ),
+                                        ) : Container(),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
-                                            Image.asset(
-                                              'assets/images/exclamation.png',
-                                              height: 40,
-                                              width: 40,
+                                            GestureDetector(
+                                              onTap: (){
+                                                report();
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/exclamation.png',
+                                                height: 40,
+                                                width: 40,
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 8.0,
@@ -353,10 +360,6 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                 .size
                                                 .height,
                                             child:
-                                                // Image.network(
-                                                //   _realEstateImages[mainImage],
-                                                //   fit: BoxFit.cover,
-                                                // ),
                                                 FadeInImage.assetNetwork(
                                               placeholder:
                                                   'assets/images/placeholder.png',
@@ -610,8 +613,8 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                           onPressed: () {
                                             if (apiToken != null) {
                                               if (realEstateApi
-                                                      .realEstate.status !=
-                                                  "auction") {
+                                                      .realEstate.realEstateStatus !=
+                                                  2) {
                                                 if (alreadyRequested) {
                                                   Navigator.of(context).push(
                                                       RequestSubmittedScreen
@@ -659,15 +662,15 @@ class _RealEstateScreenState extends State<RealEstateScreen>
                                                         .showYourRequest)
                                                     : Text(
                                                         realEstateApi.realEstate
-                                                                    .status ==
-                                                                'rent'
+                                                                    .realEstateStatus ==
+                                                                1
                                                             ? AppLocalizations
                                                                     .of(context)
                                                                 .requestRent
                                                             : realEstateApi
                                                                         .realEstate
-                                                                        .status ==
-                                                                    'sale'
+                                                                        .realEstateStatus ==
+                                                                    0
                                                                 ? AppLocalizations.of(
                                                                         context)
                                                                     .requestOwnership
@@ -803,5 +806,24 @@ class _RealEstateScreenState extends State<RealEstateScreen>
         ),
       ],
     );
+  }
+
+  void report(){
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        backgroundColor:
+        Colors.transparent,
+        builder: (BuildContext
+        buildContext) {
+          return StatefulBuilder(
+            builder: (BuildContext
+            context,
+                StateSetter
+                setState) {
+              return RealEstateReportScreen();
+            },
+          );
+        });
   }
 }

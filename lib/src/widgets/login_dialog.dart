@@ -1,5 +1,5 @@
 import 'package:aeqarat/src/screens/login_screen.dart';
-import 'package:aeqarat/src/screens/registerScreen.dart';
+import 'package:aeqarat/src/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -142,7 +142,7 @@ class _LoginDialogState extends State<LoginDialog>
               AppLocalizations.of(context).doNotHaveAccount,
               style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.normal),
             ),
             Expanded(
@@ -156,7 +156,7 @@ class _LoginDialogState extends State<LoginDialog>
                   AppLocalizations.of(context).createAccount,
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold),
                 ),
               ),

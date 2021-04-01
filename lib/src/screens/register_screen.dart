@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aeqarat/src/models/authentication_response_model.dart';
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
+import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/networking/authentication_api.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,12 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => AuthenticationApi(),
       child: Scaffold(
         key: sKey,
-        backgroundColor: const Color(0xffF9FBFC),
+        backgroundColor: AppTheme.backgroundColor,
+        appBar: AppBar(
+          elevation: 0.0,
+          toolbarHeight: 0.0,
+          backgroundColor: Colors.transparent,
+        ),
         body: LayoutBuilder(builder:
             (BuildContext context, BoxConstraints viewPortConstraints) {
           return SingleChildScrollView(
@@ -44,11 +50,11 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 56.0, right: 16.0, left: 16.0),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 16.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -60,11 +66,12 @@ class RegisterScreen extends StatelessWidget {
                                 size: 32,
                               ),
                             ),
+                            SizedBox(width: 8.0,),
                             Text(
                               AppLocalizations.of(context).createNewAccount,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 15,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -470,7 +477,7 @@ class RegisterScreen extends StatelessWidget {
                               AppLocalizations.of(context).alreadyHaveAccount,
                               style: TextStyle(
                                   color: Colors.grey,
-                                  fontSize: 15,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.normal),
                             ),
                             GestureDetector(
@@ -481,7 +488,7 @@ class RegisterScreen extends StatelessWidget {
                                 AppLocalizations.of(context).login,
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 17,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),

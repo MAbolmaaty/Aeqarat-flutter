@@ -1,6 +1,6 @@
 import 'package:aeqarat/src/models/authentication_response_model.dart';
 import 'package:aeqarat/src/screens/bottom_nav_screen.dart';
-import 'package:aeqarat/src/screens/registerScreen.dart';
+import 'package:aeqarat/src/screens/register_screen.dart';
 import 'package:aeqarat/src/utils/app_theme.dart';
 import 'package:aeqarat/src/utils/localization/app_locale.dart';
 import 'package:aeqarat/src/utils/networking/authentication_api.dart';
@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Visibility(
                               visible: implyLeading,
@@ -65,14 +65,15 @@ class LoginScreen extends StatelessWidget {
                                 child: Icon(
                                   Icons.chevron_left,
                                   color: const Color(0xffFEC200),
-                                  size: 32,
+                                  size: 36,
                                 ),
                               ),
                             ),
+                            SizedBox(width: 8.0,),
                             Text(
                               AppLocalizations.of(context).login,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                               ),
                             ),
                           ],

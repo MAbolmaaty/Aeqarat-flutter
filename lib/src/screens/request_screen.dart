@@ -79,7 +79,7 @@ class _RequestScreenState extends State<RequestScreen> {
           elevation: 0.0,
           actions: [
             ScreenAppBar(
-              screenTitle: widget.realEstate.status == 'rent'
+              screenTitle: widget.realEstate.realEstateStatus == 1
                   ? AppLocalizations.of(context).requestRent
                   : AppLocalizations.of(context).requestOwnership,
               implyLeading: true,
@@ -170,7 +170,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                         ///////////////////////////////// Insurance Amount
                         Visibility(
-                          visible: widget.realEstate.status == 'rent',
+                          visible: widget.realEstate.realEstateStatus == 1,
                           child: Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 16.0),
@@ -313,7 +313,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                         ///////////////////////////////// Duration
                         Visibility(
-                          visible: widget.realEstate.status == 'rent',
+                          visible: widget.realEstate.realEstateStatus == 1,
                           child: Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 16.0),

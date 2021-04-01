@@ -46,7 +46,7 @@ class _RequestSubmittedScreenState extends State<RequestSubmittedScreen> {
         automaticallyImplyLeading: false,
         actions: [
           ScreenAppBar(
-            screenTitle: widget.userRequest.realEstateStatus == 'rent'
+            screenTitle: widget.userRequest.realEstateStatus == 1
                 ? AppLocalizations.of(context).requestRent
                 : AppLocalizations.of(context).requestOwnership,
             implyLeading: true,
@@ -123,7 +123,7 @@ class _RequestSubmittedScreenState extends State<RequestSubmittedScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        widget.userRequest.status == 0
+                        widget.userRequest.requestStatus == 0
                             ? AppLocalizations.of(context).negotiating
                             : AppLocalizations.of(context).requestAccepted,
                         style: TextStyle(
@@ -220,7 +220,7 @@ class _RequestSubmittedScreenState extends State<RequestSubmittedScreen> {
               ),
             ),
             ///////////////////////////////// Insurance Amount
-            widget.userRequest.realEstateStatus == 'rent' ?
+            widget.userRequest.realEstateStatus == 1 ?
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Row(
@@ -276,7 +276,7 @@ class _RequestSubmittedScreenState extends State<RequestSubmittedScreen> {
               ),
             ) : Container(),
             ///////////////////////////////// Duration
-            widget.userRequest.realEstateStatus == 'rent' ?
+            widget.userRequest.realEstateStatus == 1 ?
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Row(

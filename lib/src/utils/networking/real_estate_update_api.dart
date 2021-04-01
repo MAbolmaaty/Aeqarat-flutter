@@ -59,8 +59,8 @@ class RealEstateUpdateApi with ChangeNotifier {
         requestDate: requestDate,
         duration: duration,
         paymentMethod: paymentMethod,
-        realEstateStatus: realEstate.status,
-        status: 0));
+        realEstateStatus: realEstate.realEstateStatus,
+        requestStatus: 0));
 
     final Map<String, String> requestBody = {
       "data": json.encode({'requests': requests}).toString()

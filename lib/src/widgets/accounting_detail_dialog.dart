@@ -10,11 +10,6 @@ class AccountingDetailDialog extends StatefulWidget {
 
 class _AccountingDetailDialogState extends State<AccountingDetailDialog>
     with SingleTickerProviderStateMixin {
-  String _websiteName;
-  String _websiteURL;
-  String _checkingTime;
-  int _hours = 10;
-  int _minutes = 10;
   final formKey = new GlobalKey<FormState>();
 
   AnimationController controller;

@@ -323,14 +323,14 @@ class _HomeScreenState extends State<HomeScreen> with RestorationMixin {
             },
           );
           _allMarkers[realEstate.sId] = marker;
-          switch (realEstate.status) {
-            case 'rent':
+          switch (realEstate.realEstateStatus) {
+            case 1:
               _rentMarkers[realEstate.sId] = marker;
               break;
-            case 'sale':
+            case 0:
               _saleMarkers[realEstate.sId] = marker;
               break;
-            case 'auction':
+            case 2:
               _auctionMarkers[realEstate.sId] = marker;
               break;
           }
